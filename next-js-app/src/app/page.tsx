@@ -18,20 +18,7 @@ export default function Home() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ apiKey }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to generate content");
-      }
-
-      const data = await response.json();
-      localStorage.setItem("generatedContent", data.generatedContent);
+      localStorage.setItem("geminiApiKey", apiKey);
       router.push("/wormhole/home");
     } catch (err) {
       setError("Failed to generate content. Please check your API key and try again.");
