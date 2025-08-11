@@ -5,7 +5,7 @@ import path from "path";
 
 export async function POST(req: NextRequest) {
   try {
-    const { apiKey, currentPath } = await req.json();
+    const { apiKey, currentPath, additionalInstructions } = await req.json();
 
     if (!apiKey) {
       return NextResponse.json(
@@ -35,6 +35,11 @@ export async function POST(req: NextRequest) {
       ---
       ${infoMdContent}
       ---
+
+      ${additionalInstructions ? `**Additional Instructions:**
+      ${additionalInstructions}
+      ---
+      ` : ''}
 
       **Your Task:**
 

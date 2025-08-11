@@ -14,6 +14,7 @@ export default function WormholePage() {
       setLoading(true);
       setError('');
       const apiKey = localStorage.getItem('geminiApiKey');
+      const additionalInstructions = localStorage.getItem('wormholeInstructions');
 
       if (!apiKey) {
         setError('API key not found. Please return to the home page to enter it.');
@@ -27,7 +28,7 @@ export default function WormholePage() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ apiKey, currentPath: pathname.replace('/wormhole', '') || '/' }),
+          body: JSON.stringify({ apiKey, currentPath: pathname.replace('/wormhole', '') || '/', additionalInstructions }),
         });
 
         if (!response.ok) {
