@@ -34,14 +34,29 @@ export default function Home() {
         >
           Enter the Wormhole
         </button>
-        <div className="flex flex-col sm:flex-row gap-4 mt-8">
-          <button onClick={() => window.open('/resume.pdf', '_blank')} className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background">
+        <div className="flex flex-col sm:flex-row gap-4 mt-[-12px]">
+          <a
+            href="/james_smith_resume.pdf"
+            download="james_smith_resume.pdf"
+            className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
+          >
             Resume
+          </a>
+          <button
+            onClick={() => router.push("/home")}
+            className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
+          >
+            Portfolio
           </button>
-          <button onClick={() => router.push('/home')} className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background">
-            Actual Portfolio
-          </button>
-          <button onClick={() => window.open('https://www.linkedin.com/in/james-m-smith1', '_blank')} className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background">
+          <button
+            onClick={() =>
+              window.open(
+                "https://www.linkedin.com/in/james-m-smith1",
+                "_blank"
+              )
+            }
+            className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
+          >
             LinkedIn
           </button>
         </div>
