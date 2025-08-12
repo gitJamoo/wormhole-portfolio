@@ -19,7 +19,14 @@ export default function Home() {
         <p className="text-lg text-center sm:text-left max-w-xl">
           I am a Computer Science student focusing on Machine Learning with a
           background in Full Stack, ML/AI, and DevOps. I decided to make a
-          portfolio page and create something very unique.
+          portfolio page and create a unique portfolio experience.
+        </p>
+        <p className="text-xs text-center sm:text-left max-w-xl mt-[-28px] text-gray-500">
+          The Wormhole is a unique browsing experience, where AI generates each
+          page being viewed. It has been fed information about me, and makes
+          each vist a one of a kind portfolio viewing experience. Take
+          everything with a grain of salt since it is AI generated. I encourage
+          you to play around wiht it, as this is an experiment. Enjoy, James.
         </p>
         <button
           onClick={handleButtonClick}
@@ -27,6 +34,17 @@ export default function Home() {
         >
           Enter the Wormhole
         </button>
+        <div className="flex flex-col sm:flex-row gap-4 mt-8">
+          <button onClick={() => window.open('/resume.pdf', '_blank')} className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background">
+            Resume
+          </button>
+          <button onClick={() => router.push('/home')} className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background">
+            Actual Portfolio
+          </button>
+          <button onClick={() => window.open('https://www.linkedin.com/in/james-m-smith1', '_blank')} className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background">
+            LinkedIn
+          </button>
+        </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         {/* You can add footer content here if you like */}
