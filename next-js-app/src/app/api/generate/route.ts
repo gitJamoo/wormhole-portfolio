@@ -8,8 +8,13 @@ export async function POST(req: NextRequest) {
   let apiKeyToUse = envApiKey;
 
   try {
-    const { apiKey, currentPath, additionalInstructions, selectedModel, language = "English" } =
-      await req.json();
+    const {
+      apiKey,
+      currentPath,
+      additionalInstructions,
+      selectedModel,
+      language = "English",
+    } = await req.json();
 
     if (apiKey) {
       apiKeyToUse = apiKey;
@@ -76,7 +81,7 @@ export async function POST(req: NextRequest) {
       3.  **Output Format:**
           *   Provide only the HTML for the content of the page.
           *   **DO NOT** include <html>, <head>, or <body> tags.
-          *   Include navigation links to other potential pages!
+          *   Include navigation links to other potential pages! These navigation links should be "/wormhole/<page>", do not just use sections on a page.
 
       Generate the HTML for the '${currentPath}' page now in ${language}. DO NOT WRAP IN MARKDOWN, just HTML.`;
 
