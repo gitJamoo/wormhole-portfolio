@@ -12,31 +12,41 @@ export default function LoadingScreen() {
 
   const [dotIndex, setDotIndex] = useState(0);
   const [factIndex, setFactIndex] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0);
 
-  // Cycle the dots
+  // Animate dots
   useEffect(() => {
     const dotsInterval = setInterval(() => {
       setDotIndex((prev) => (prev + 1) % dotsArray.length);
-    }, 500); // every 0.5s
+    }, 500);
     return () => clearInterval(dotsInterval);
   }, []);
 
-  // Cycle the fun facts
+  // Rotate fun facts
   useEffect(() => {
     const factInterval = setInterval(() => {
       setFactIndex((prev) => (prev + 1) % funFacts.length);
-    }, 4000); // every 4s
+    }, 4000);
     return () => clearInterval(factInterval);
   }, []);
 
+  // Track elapsed time
+  useEffect(() => {
+    const timerInterval = setInterval(() => {
+      setElapsedTime((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(timerInterval);
+  }, []);
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-white">
-      <div className="text-2xl font-bold mb-4">
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="text-2xl font-bold mb-2">
         Generating content{dotsArray[dotIndex]}
       </div>
-      <div className="text-lg text-gray-600 transition-opacity duration-1000 ease-in-out opacity-100">
+      <div className="text-lg text-gray-600 transition-opacity duration-1000 ease-in-out mb-4">
         Fun Fact: {funFacts[factIndex]}
       </div>
+      <div className="text-sm text-gray-500">Time elapsed: {elapsedTime}s</div>
     </div>
   );
 }
