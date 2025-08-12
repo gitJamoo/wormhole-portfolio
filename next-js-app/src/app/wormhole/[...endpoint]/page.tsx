@@ -16,10 +16,19 @@ export default function WormholePage() {
       setLoading(true);
       setError("");
       const apiKey = localStorage.getItem("geminiApiKey");
+      const selectedModel = localStorage.getItem("selectedWormholeModel");
 
-      if (!apiKey) {
+      // if (!apiKey) {
+      //   setError(
+      //     "API key not found. Please return to the home page to enter it."
+      //   );
+      //   setLoading(false);
+      //   return;
+      // }
+
+      if (!selectedModel) {
         setError(
-          "API key not found. Please return to the home page to enter it."
+          "Model not selected. Please return to the configuration page to select a model."
         );
         setLoading(false);
         return;
@@ -34,6 +43,7 @@ export default function WormholePage() {
           body: JSON.stringify({
             apiKey,
             currentPath: pathname.replace("/wormhole", "") || "/",
+            selectedModel,
           }),
         });
 

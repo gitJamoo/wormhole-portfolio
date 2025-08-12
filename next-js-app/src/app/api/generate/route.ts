@@ -4,14 +4,15 @@ import fs from "fs";
 import path from "path";
 
 export async function POST(req: NextRequest) {
-  try {
-    const { apiKey, currentPath, additionalInstructions } = await req.json();
+  const envApiKey = process.env.GEMINI_API_KEY;
+  var apiKeyToUse = envApiKey;
 
-    if (!apiKey) {
-      return NextResponse.json(
-        { error: "API key is required" },
-        { status: 400 }
-      );
+  try {
+    const { apiKey, currentPath, additionalInstructions, selectedModel } =
+      await req.json();
+
+    if (apiKey) {
+      apiKeyToUse = apiKey;
     }
 
     if (!currentPath) {
@@ -21,11 +22,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (!selectedModel) {
+      return NextResponse.json(
+        { error: "Model selection is required" },
+        { status: 400 }
+      );
+    }
+
     const infoMdPath = path.join(process.cwd(), "info.md");
     const infoMdContent = fs.readFileSync(infoMdPath, "utf-8");
 
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const genAI = new GoogleGenerativeAI(apiKeyToUse);
+    const model = genAI.getGenerativeModel({ model: selectedModel });
 
     const prompt = `
       You are an expert web developer and a creative storyteller. Your task is to build a visually stunning website for a portfolio.
@@ -68,6 +76,8 @@ export async function POST(req: NextRequest) {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = await response.text();
+
+    console.log("Using model:", selectedModel);
 
     return NextResponse.json({ generatedContent: text });
   } catch (error) {

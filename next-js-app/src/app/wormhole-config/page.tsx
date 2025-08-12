@@ -5,36 +5,41 @@ import { useRouter } from "next/navigation";
 
 export default function WormholeConfig() {
   const router = useRouter();
-  const [additionalInstructions, setAdditionalInstructions] = useState("");
+
   const [apiKey, setApiKey] = useState("");
-  const [showInput, setShowInput] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [selectedProvider, setSelectedProvider] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+  const [additionalInstructions, setAdditionalInstructions] = useState("");
 
   useEffect(() => {
     const savedInstructions = localStorage.getItem("wormholeInstructions");
     if (savedInstructions) {
       setAdditionalInstructions(savedInstructions);
     }
+    const savedModel = localStorage.getItem("selectedWormholeModel");
+    if (savedModel) {
+      setSelectedModel(savedModel);
+      setSelectedProvider("Gemini");
+    }
+    const savedApiKey = localStorage.getItem("geminiApiKey");
+    if (savedApiKey) {
+      setApiKey(savedApiKey);
+    }
   }, []);
 
-  const handleApiKeySubmit = async () => {
-    setLoading(true);
-    setError("");
-    try {
-      localStorage.setItem("geminiApiKey", apiKey);
-      router.push("/wormhole/home");
-    } catch (err) {
-      setError(
-        "Failed to generate content. Please check your API key and try again."
-      );
-      console.error(err);
+  useEffect(() => {
+    if (selectedModel) {
+      localStorage.setItem("selectedWormholeModel", selectedModel);
     }
-    setLoading(false);
+  }, [selectedModel]);
+
+  const handleSaveApiKey = () => {
+    localStorage.setItem("geminiApiKey", apiKey);
+    alert("API Key saved!");
   };
 
-  const handleButtonClick = () => {
-    setShowInput(true);
+  const handleContinue = () => {
+    router.push("/wormhole/home");
   };
 
   const handleSaveInstructions = () => {
@@ -71,32 +76,75 @@ export default function WormholeConfig() {
             Save Instructions
           </button>
         </div>
-        {!showInput ? (
-          <button
-            onClick={handleButtonClick}
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-          >
-            Enter the Wormhole
-          </button>
-        ) : (
-          <div className="flex flex-col gap-4 items-center sm:flex-row">
-            <input
-              type="password"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              placeholder="Enter your Gemini API Key"
-              className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[300px]"
-            />
-            <button
-              onClick={handleApiKeySubmit}
-              disabled={loading}
-              className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto disabled:opacity-50"
+
+        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-xl">
+          <div className="flex flex-col gap-4 w-full">
+            <label htmlFor="model-provider" className="text-lg font-medium">
+              Model Provider:
+            </label>
+            <select
+              id="model-provider"
+              className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={selectedProvider}
+              onChange={(e) => setSelectedProvider(e.target.value)}
             >
-              {loading ? "Generating..." : "Submit"}
-            </button>
+              <option value="">Select a provider</option>
+              <option value="Gemini">Gemini</option>
+            </select>
           </div>
-        )}
-        {error && <p className="text-red-500">{error}</p>}
+
+          {selectedProvider === "Gemini" && (
+            <>
+              <div className="flex flex-col gap-4 w-full">
+                <label htmlFor="gemini-model" className="text-lg font-medium">
+                  Gemini Model:
+                </label>
+                <select
+                  id="gemini-model"
+                  className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={selectedModel}
+                  onChange={(e) => setSelectedModel(e.target.value)}
+                >
+                  <option value="">Select a model</option>
+                  <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+                  <option value="gemini-2.5-pro">gemini-2.5-pro</option>
+                  <option value="gemini-2.5-flash-lite">
+                    gemini-2.5-flash-lite
+                  </option>
+                  <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                </select>
+              </div>
+              <div className="flex flex-col gap-4 w-full">
+                <label htmlFor="api-key" className="text-lg font-medium">
+                  API Key (Optional):
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    id="api-key"
+                    type="password"
+                    value={apiKey}
+                    onChange={(e) => setApiKey(e.target.value)}
+                    placeholder="Enter your Gemini API Key"
+                    className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                  />
+                  <button
+                    onClick={handleSaveApiKey}
+                    className="rounded-lg border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
+        <button
+          onClick={handleContinue}
+          className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
+        >
+          Enter the Wormhole
+        </button>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         {/* Optional: Add footer content specific to this page or a back button */}
