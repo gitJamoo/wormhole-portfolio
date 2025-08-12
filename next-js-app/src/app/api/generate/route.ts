@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const infoMdContent = fs.readFileSync(infoMdPath, "utf-8");
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `
       You are an expert web developer and a creative storyteller. Your task is to build a visually stunning website for a portfolio.
