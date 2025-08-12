@@ -5,7 +5,7 @@ import path from "path";
 
 export async function POST(req: NextRequest) {
   const envApiKey = process.env.GEMINI_API_KEY;
-  var apiKeyToUse = envApiKey;
+  let apiKeyToUse = envApiKey;
 
   try {
     const { apiKey, currentPath, additionalInstructions, selectedModel } =
@@ -13,6 +13,13 @@ export async function POST(req: NextRequest) {
 
     if (apiKey) {
       apiKeyToUse = apiKey;
+    }
+
+    if (!apiKeyToUse) {
+      return NextResponse.json(
+        { error: "API key not configured" },
+        { status: 400 }
+      );
     }
 
     if (!currentPath) {
