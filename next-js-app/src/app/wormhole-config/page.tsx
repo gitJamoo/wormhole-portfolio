@@ -3,6 +3,16 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+const languages = [
+  "English", "Arabic", "Bengali", "Bulgarian", "Chinese (Simplified & Traditional)",
+  "Croatian", "Czech", "Danish", "Dutch", "Estonian", "Farsi", "Finnish", "French",
+  "German", "Greek", "Gujarati", "Hebrew", "Hindi", "Hungarian", "Indonesian",
+  "Italian", "Japanese", "Kannada", "Korean", "Latvian", "Lithuanian", "Malayalam",
+  "Marathi", "Norwegian", "Polish", "Portuguese", "Romanian", "Russian", "Serbian",
+  "Slovak", "Slovenian", "Spanish", "Swahili", "Swedish", "Tamil", "Telugu", "Thai",
+  "Turkish", "Ukrainian", "Urdu", "Vietnamese"
+];
+
 export default function WormholeConfig() {
   const router = useRouter();
 
@@ -10,6 +20,7 @@ export default function WormholeConfig() {
   const [selectedProvider, setSelectedProvider] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [additionalInstructions, setAdditionalInstructions] = useState("");
+  const [language, setLanguage] = useState("English");
 
   useEffect(() => {
     const savedInstructions = localStorage.getItem("wormholeInstructions");
@@ -25,6 +36,10 @@ export default function WormholeConfig() {
     if (savedApiKey) {
       setApiKey(savedApiKey);
     }
+    const savedLanguage = localStorage.getItem("wormholeLanguage");
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
   }, []);
 
   useEffect(() => {
@@ -32,6 +47,10 @@ export default function WormholeConfig() {
       localStorage.setItem("selectedWormholeModel", selectedModel);
     }
   }, [selectedModel]);
+
+  useEffect(() => {
+    localStorage.setItem("wormholeLanguage", language);
+  }, [language]);
 
   const handleSaveApiKey = () => {
     localStorage.setItem("geminiApiKey", apiKey);
@@ -57,6 +76,24 @@ export default function WormholeConfig() {
           This page allows you to configure the settings for the wormhole. More
           options will be available here soon.
         </p>
+
+        <div className="flex flex-col gap-4 w-full max-w-xl">
+          <label htmlFor="language-select" className="text-lg font-medium">
+            Generation Language:
+          </label>
+          <select
+            id="language-select"
+            className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          >
+            {languages.map((lang) => (
+              <option key={lang} value={lang}>
+                {lang}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div className="flex flex-col gap-4 w-full max-w-xl">
           <label htmlFor="system-instructions" className="text-lg font-medium">

@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   let apiKeyToUse = envApiKey;
 
   try {
-    const { apiKey, currentPath, additionalInstructions, selectedModel } =
+    const { apiKey, currentPath, additionalInstructions, selectedModel, language = "English" } =
       await req.json();
 
     if (apiKey) {
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
           *   **DO NOT** include <html>, <head>, or <body> tags.
           *   Include navigation links to other potential pages!
 
-      Generate the HTML for the '${currentPath}' page now. DO NOT WRAP IN MARKDOWN, just HTML.`;
+      Generate the HTML for the '${currentPath}' page now in ${language}. DO NOT WRAP IN MARKDOWN, just HTML.`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;

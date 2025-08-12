@@ -17,6 +17,7 @@ export default function WormholePage() {
       setError("");
       const apiKey = localStorage.getItem("geminiApiKey");
       const selectedModel = localStorage.getItem("selectedWormholeModel");
+      const language = localStorage.getItem("wormholeLanguage") || "English";
 
       // if (!apiKey) {
       //   setError(
@@ -44,6 +45,7 @@ export default function WormholePage() {
             apiKey,
             currentPath: pathname.replace("/wormhole", "") || "/",
             selectedModel,
+            language,
           }),
         });
 
