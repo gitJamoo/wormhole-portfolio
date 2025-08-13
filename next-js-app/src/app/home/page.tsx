@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import headshot from "./image-assets/beaver-headshot.jpg";
+import headshot from "../image-assets/beaver-headshot.jpg";
 
 interface Experience {
   company: string;
