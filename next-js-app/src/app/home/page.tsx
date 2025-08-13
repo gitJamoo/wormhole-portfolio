@@ -193,7 +193,7 @@ export default function HomePage() {
 
         <section id="experience" className="mb-16">
           <h2 className="text-4xl font-bold mb-8 text-center">
-            Companies I've Worked With
+            Companies I Have Worked With
           </h2>
           <div className="space-y-8">
             {experiences.map((exp, index) => (
