@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import headshot from "../image-assets/beaver-headshot.jpg";
+import esteeLauderLogo from "../image-assets/estee-lauder-logo-black-and-white.png";
+import njTransitLogo from "../image-assets/nj-transit.jpeg";
+import hatsAndLaddersLogo from "../image-assets/hats-and-ladders.avif";
 
 interface Experience {
   company: string;
@@ -10,6 +13,7 @@ interface Experience {
   period: string;
   description: string;
   longDescription: string;
+  logo?: StaticImageData;
 }
 
 interface Project {
@@ -36,6 +40,7 @@ const experiences: Experience[] = [
       "Developed an Agentic AI workflow to create a customer-facing AI chabot for product recommendation.",
     longDescription:
       "As a Machine Learning Intern on the Data Science and Analytics global team, I leveraged cutting-edge AI and data engineering to develop and optimize intelligent systems, significantly enhancing customer experiences and driving substantial operational efficiencies. My work focused on transforming complex data into actionable insights and building scalable solutions that directly contributed to future revenue growth and cost savings.",
+    logo: esteeLauderLogo,
   },
   {
     company: "NJ Transit",
@@ -45,6 +50,7 @@ const experiences: Experience[] = [
       "Created 200+ tests across 18 suites resulting in 85% code coverage using Jest & Gherkin.",
     longDescription:
       "As a member of the engineering and innovations team, I contributed to the modernization and reliability of critical transit systems through comprehensive testing, automation, and infrastructure enhancements. Engineered and executed over 200 comprehensive tests across 18 suites for a critical, statewide digital incident reporting system, achieving an exceptional 85% code coverage with Jest and Gherkin.",
+    logo: njTransitLogo,
   },
   {
     company: "Hats & Ladders",
@@ -54,6 +60,7 @@ const experiences: Experience[] = [
       "Created management panel that was used by 200,000+ unique users across 200+ organizations.",
     longDescription:
       "As a Web Development Intern, I contributed to the development and optimization of critical user management systems, enhancing administrative efficiency and user experience for a large-scale platform. Engineered a comprehensive administration user control panel, empowering administrators with instant, self-service capabilities to manage user roles, permissions, and settings for over 200,000 active unique users.",
+    logo: hatsAndLaddersLogo,
   },
   {
     company: "Envolvly",
@@ -105,7 +112,15 @@ function ExperienceCard({ experience }: { experience: Experience }) {
           <p className="text-sm text-gray-500">{experience.period}</p>
         </div>
         <div className="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center">
-          <span className="text-xs text-gray-400">Logo</span>
+          {experience.logo ? (
+            <Image
+              src={experience.logo}
+              alt={`${experience.company} logo`}
+              className="rounded-lg object-contain"
+            />
+          ) : (
+            <span className="text-xs text-gray-400">Logo</span>
+          )}
         </div>
       </div>
       <p className="mt-4 text-gray-300">{experience.description}</p>
