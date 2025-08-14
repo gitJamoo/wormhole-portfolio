@@ -5,7 +5,7 @@ import Image, { StaticImageData } from "next/image";
 import headshot from "../image-assets/beaver-headshot.jpg";
 import esteeLauderLogo from "../image-assets/estee-lauder-logo-black-and-white.png";
 import njTransitLogo from "../image-assets/nj-transit.jpeg";
-import hatsAndLaddersLogo from "../image-assets/hats-and-ladders.avif";
+import hatsAndLaddersLogo from "../image-assets/hat_ladders_logo.jpg";
 
 interface Experience {
   company: string;
@@ -111,7 +111,7 @@ function ExperienceCard({ experience }: { experience: Experience }) {
           <p className="text-md text-gray-400">{experience.role}</p>
           <p className="text-sm text-gray-500">{experience.period}</p>
         </div>
-        <div className="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center">
+        <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center">
           {experience.logo ? (
             <Image
               src={experience.logo}
