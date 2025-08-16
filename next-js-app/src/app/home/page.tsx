@@ -3,9 +3,11 @@
 import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import headshot from "../image-assets/beaver-headshot.jpg";
-import esteeLauderLogo from "../image-assets/estee-lauder-logo-black-and-white.png";
-import njTransitLogo from "../image-assets/nj-transit.jpeg";
-import hatsAndLaddersLogo from "../image-assets/hat_ladders_logo.jpg";
+import esteeLauderLogo from "../image-assets/estee_lauder_companies_logo.png";
+import njTransitLogo from "../image-assets/nj_transit_logo.jpeg";
+import hatsAndLaddersLogo from "../image-assets/hats_and_ladders_logo.jpg";
+import oregonStateUniversityLogo from "../image-assets/oregon_state_university_logo.png";
+import envolvlyLogo from "../image-assets/envolvly_logo.png";
 
 interface Experience {
   company: string;
@@ -39,6 +41,7 @@ const experiences: Experience[] = [
     description:
       "Created internal tooling for business operations at Oregon State University.",
     longDescription: "New role. More to come soon",
+    logo: oregonStateUniversityLogo,
   },
   {
     company: "Envolvly",
@@ -48,6 +51,7 @@ const experiences: Experience[] = [
       "Laid groundwork for tech infrastructure, resulting in a robust, scalable application reaching 1,000+ unique users.",
     longDescription:
       "Technical lead and Co-founder of Envolvly. Worked on everything under the sun of technology - including; Website (React, AWS, Domains & Hosting), Internal use (Google Suite and Emails), & CRMS. Leading use of Agile Methodologies.",
+    logo: envolvlyLogo,
   },
   {
     company: "The Estée Lauder Companies",
