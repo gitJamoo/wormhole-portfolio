@@ -33,9 +33,26 @@ const education = {
 
 const experiences: Experience[] = [
   {
+    company: "Oregon State University",
+    role: "GENESIS AI Dev Team Advisor",
+    period: "August 2025 – Present",
+    description:
+      "Created internal tooling for business operations at Oregon State University.",
+    longDescription: "New role. More to come soon",
+  },
+  {
+    company: "Envolvly",
+    role: "Co-Founder",
+    period: "February 2023 - Present",
+    description:
+      "Laid groundwork for tech infrastructure, resulting in a robust, scalable application reaching 1,000+ unique users.",
+    longDescription:
+      "Technical lead and Co-founder of Envolvly. Worked on everything under the sun of technology - including; Website (React, AWS, Domains & Hosting), Internal use (Google Suite and Emails), & CRMS. Leading use of Agile Methodologies.",
+  },
+  {
     company: "The Estée Lauder Companies",
     role: "Machine Learning Intern",
-    period: "June 2025 – Current",
+    period: "June 2025 – August 2025",
     description:
       "Developed an Agentic AI workflow to create a customer-facing AI chabot for product recommendation.",
     longDescription:
@@ -61,15 +78,6 @@ const experiences: Experience[] = [
     longDescription:
       "As a Web Development Intern, I contributed to the development and optimization of critical user management systems, enhancing administrative efficiency and user experience for a large-scale platform. Engineered a comprehensive administration user control panel, empowering administrators with instant, self-service capabilities to manage user roles, permissions, and settings for over 200,000 active unique users.",
     logo: hatsAndLaddersLogo,
-  },
-  {
-    company: "Envolvly",
-    role: "Co-Founder",
-    period: "February 2023 - Present",
-    description:
-      "Laid groundwork for tech infrastructure, resulting in a robust, scalable application reaching 1,000+ unique users.",
-    longDescription:
-      "Technical lead and Co-founder of Envolvly. Worked on everything under the sun of technology - including; Website (React, AWS, Domains & Hosting), Internal use (Google Suite and Emails), & CRMS. Leading use of Agile Methodologies.",
   },
 ];
 
