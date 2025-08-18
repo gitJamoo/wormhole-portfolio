@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
+
 import headshot from "../image-assets/beaver-headshot.jpg";
+
 import esteeLauderLogo from "../image-assets/estee_lauder_companies_logo.png";
 import njTransitLogo from "../image-assets/nj_transit_logo.jpeg";
 import hatsAndLaddersLogo from "../image-assets/hats_and_ladders_logo.jpg";
