@@ -47,43 +47,25 @@ export async function POST(req: NextRequest) {
     const genAI = new GoogleGenerativeAI(apiKeyToUse);
     const model = genAI.getGenerativeModel({ model: selectedModel });
 
-    const prompt = `
-      You are an expert web developer and a creative storyteller. Your task is to build a visually stunning website for a portfolio.
+    const systemInstructionsPath = path.join(
+      process.cwd(),
+      "src",
+      "app",
+      "api",
+      "generate",
+      "system-instructions.txt"
+    );
+    const promptTemplate = fs.readFileSync(systemInstructionsPath, "utf-8");
 
-      **Candidate Information:**
-      Here is the raw information about the candidate:
-      ---
-      ${infoMdContent}
-      ---
+    const additionalInstructionsText = additionalInstructions
+      ? `**Additional Instructions:**\n${additionalInstructions}\n---`
+      : "";
 
-      ${
-        additionalInstructions
-          ? `**Additional Instructions:**
-      ${additionalInstructions}
-      ---
-      `
-          : ""
-      }
-
-    **IMPERATIVE PATH:** The user is currently viewing the page at the path: '/wormhole${currentPath}'. The content you generate should be exclusively for this path, unless linking outside like to Github or Linkedin, then refer to the outside link.
-
-      **Your Task:**
-
-      1.  **Content Generation:**
-          *   **DO NOT** just copy the information verbatim.
-          *   **DO** interpret and infer from the candidate's experiences. Tell a story. For example, instead of just listing skills, you could describe how the candidate has applied them in their projects. Instead of just listing a project, describe the challenges and what the candidate learned.
-          *   Be creative, engaging, and professional.
-
-      2.  **Styling:**
-          *   **Go crazy with the styling!** Create a modern, visually appealing, and unique design.
-          *   Use inline CSS within the HTML. Feel free to use advanced CSS like gradients, animations, and modern layout techniques (Flexbox, Grid).
-
-      3.  **Output Format:**
-          *   Provide only the HTML for the content of the page.
-          *   **DO NOT** include <html>, <head>, or <body> tags.
-          *   Include navigation links to other potential pages! These navigation links should be "/wormhole/<page>", do not just use sections on a page.
-
-      Generate the HTML for the '${currentPath}' page now in ${language}. DO NOT WRAP IN MARKDOWN, just HTML.`;
+    const prompt = promptTemplate
+      .replace("{{infoMdContent}}", infoMdContent)
+      .replace("{{additionalInstructions}}", additionalInstructionsText)
+      .replace(/{{currentPath}}/g, currentPath)
+      .replace("{{language}}", language);
 
     const result = await model.generateContent(prompt);
     const response = await result.response;

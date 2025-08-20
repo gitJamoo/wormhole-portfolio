@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 
 export default function LoadingScreen() {
   const dotsArray = ["", ".", "..", "..."];
-  const funFacts = [
-    "Honey never spoils.",
-    "Bananas are berries, but strawberries aren't.",
-    "Sharks existed before trees.",
-    "Octopuses have three hearts.",
-    "Your stomach gets a new lining every 3–4 days.",
-  ];
+  // const funFacts = [
+  //   "Honey never spoils.",
+  //   "Bananas are berries, but strawberries aren't.",
+  //   "Sharks existed before trees.",
+  //   "Octopuses have three hearts.",
+  //   "Your stomach gets a new lining every 3–4 days.",
+  // ];
+
+  const funFacts = ["James "];
 
   const [dotIndex, setDotIndex] = useState(0);
   const [factIndex, setFactIndex] = useState(0);
