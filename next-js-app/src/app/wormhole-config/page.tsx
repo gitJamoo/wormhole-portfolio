@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -60,6 +60,8 @@ export default function WormholeConfig() {
   const [selectedModel, setSelectedModel] = useState("");
   const [additionalInstructions, setAdditionalInstructions] = useState("");
   const [language, setLanguage] = useState("English");
+  const [useImageAssets, setUseImageAssets] = useState(true);
+  const [temperature, setTemperature] = useState(0.5);
 
   useEffect(() => {
     const savedInstructions = localStorage.getItem("wormholeInstructions");
@@ -79,6 +81,14 @@ export default function WormholeConfig() {
     if (savedLanguage) {
       setLanguage(savedLanguage);
     }
+    const savedUseImageAssets = localStorage.getItem("useImageAssets");
+    if (savedUseImageAssets) {
+      setUseImageAssets(JSON.parse(savedUseImageAssets));
+    }
+    const savedTemperature = localStorage.getItem("temperature");
+    if (savedTemperature) {
+      setTemperature(JSON.parse(savedTemperature));
+    }
   }, []);
 
   useEffect(() => {
@@ -90,6 +100,14 @@ export default function WormholeConfig() {
   useEffect(() => {
     localStorage.setItem("wormholeLanguage", language);
   }, [language]);
+
+  useEffect(() => {
+    localStorage.setItem("useImageAssets", JSON.stringify(useImageAssets));
+  }, [useImageAssets]);
+
+  useEffect(() => {
+    localStorage.setItem("temperature", JSON.stringify(temperature));
+  }, [temperature]);
 
   const handleSaveApiKey = () => {
     localStorage.setItem("geminiApiKey", apiKey);
@@ -152,6 +170,35 @@ export default function WormholeConfig() {
           >
             Save Instructions
           </button>
+        </div>
+
+        <div className="flex flex-col gap-4 w-full max-w-xl">
+          <label htmlFor="use-image-assets" className="text-lg font-medium flex items-center gap-2">
+            Use Image Assets:
+            <input
+              id="use-image-assets"
+              type="checkbox"
+              checked={useImageAssets}
+              onChange={(e) => setUseImageAssets(e.target.checked)}
+              className="h-5 w-5"
+            />
+          </label>
+        </div>
+
+        <div className="flex flex-col gap-4 w-full max-w-xl">
+          <label htmlFor="temperature" className="text-lg font-medium">
+            Temperature: {temperature}
+          </label>
+          <input
+            id="temperature"
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value={temperature}
+            onChange={(e) => setTemperature(parseFloat(e.target.value))}
+            className="w-full"
+          />
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 w-full max-w-xl">

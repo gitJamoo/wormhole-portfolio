@@ -14,6 +14,8 @@ export async function POST(req: NextRequest) {
       additionalInstructions,
       selectedModel,
       language = "English",
+      useImageAssets = true,
+      temperature = 0.5,
     } = await req.json();
 
     if (apiKey) {
@@ -45,7 +47,12 @@ export async function POST(req: NextRequest) {
     const infoMdContent = fs.readFileSync(infoMdPath, "utf-8");
 
     const genAI = new GoogleGenerativeAI(apiKeyToUse);
-    const model = genAI.getGenerativeModel({ model: selectedModel });
+    const model = genAI.getGenerativeModel({
+      model: selectedModel,
+      generationConfig: {
+        temperature: temperature,
+      },
+    });
 
     const systemInstructionsPath = path.join(
       process.cwd(),
@@ -57,19 +64,30 @@ export async function POST(req: NextRequest) {
     );
     const promptTemplate = fs.readFileSync(systemInstructionsPath, "utf-8");
 
-    const imageAssetsPath = path.join(process.cwd(), "public", "image-assets"); // routing to the folder
     let imageAssetsText = "";
-    if (fs.existsSync(imageAssetsPath)) {
-      const imageFiles = fs.readdirSync(imageAssetsPath);
-      if (imageFiles.length > 0) {
-        imageAssetsText = `\n**Available Image Assets:**\nYou can use the following images in your design. Assume they are served from the '/image-assets' path. For example, to use 'profile.jpg', the path would STRICTLY be '/image-assets/profile.jpg'. Do not add 'wormhole/' to the\n---\n${imageFiles
-          .map((file) => `- ${file}`)
-          .join("\n")}---\n`;
+    if (useImageAssets) {
+      const imageAssetsPath = path.join(
+        process.cwd(),
+        "public",
+        "image-assets"
+      );
+      if (fs.existsSync(imageAssetsPath)) {
+        const imageFiles = fs.readdirSync(imageAssetsPath);
+        if (imageFiles.length > 0) {
+          imageAssetsText = `
+**Available Image Assets:**
+You can use the following images in your design. Assume they are served from the '/image-assets' path. For example, to use 'profile.jpg', the path would STRICTLY be '/image-assets/profile.jpg'.
+---
+${imageFiles.map((file) => `- ${file}`).join("\n")}---
+`;
+        }
       }
     }
 
     const additionalInstructionsText = additionalInstructions
-      ? `**Additional Instructions:**\n${additionalInstructions}\n---`
+      ? `**Additional Instructions:**
+${additionalInstructions}
+---`
       : "";
 
     const prompt = promptTemplate
@@ -83,7 +101,12 @@ export async function POST(req: NextRequest) {
     const response = await result.response;
     const text = await response.text();
 
-    console.log("Using model:", selectedModel);
+    console.log(
+      "Using model:",
+      selectedModel,
+      "with temperature:",
+      temperature
+    );
 
     return NextResponse.json({ generatedContent: text });
   } catch (error) {

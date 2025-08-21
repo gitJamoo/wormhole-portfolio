@@ -18,7 +18,14 @@ export default function WormholePage() {
       const apiKey = localStorage.getItem("geminiApiKey");
       const selectedModel = localStorage.getItem("selectedWormholeModel");
       const language = localStorage.getItem("wormholeLanguage") || "English";
-      const additionalInstructions = localStorage.getItem("wormholeInstructions");
+      const additionalInstructions =
+        localStorage.getItem("wormholeInstructions");
+      const useImageAssets = localStorage.getItem("useImageAssets")
+        ? JSON.parse(localStorage.getItem("useImageAssets")!)
+        : true;
+      const temperature = localStorage.getItem("temperature")
+        ? JSON.parse(localStorage.getItem("temperature")!)
+        : 0.5;
 
       // if (!apiKey) {
       //   setError(
@@ -48,6 +55,8 @@ export default function WormholePage() {
             selectedModel,
             language,
             additionalInstructions,
+            useImageAssets,
+            temperature,
           }),
         });
 
