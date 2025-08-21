@@ -57,6 +57,17 @@ export async function POST(req: NextRequest) {
     );
     const promptTemplate = fs.readFileSync(systemInstructionsPath, "utf-8");
 
+    const imageAssetsPath = path.join(process.cwd(), "public", "image-assets"); // routing to the folder
+    let imageAssetsText = "";
+    if (fs.existsSync(imageAssetsPath)) {
+      const imageFiles = fs.readdirSync(imageAssetsPath);
+      if (imageFiles.length > 0) {
+        imageAssetsText = `\n**Available Image Assets:**\nYou can use the following images in your design. Assume they are served from the '/image-assets' path. For example, to use 'profile.jpg', the path would STRICTLY be '/image-assets/profile.jpg'. Do not add 'wormhole/' to the\n---\n${imageFiles
+          .map((file) => `- ${file}`)
+          .join("\n")}---\n`;
+      }
+    }
+
     const additionalInstructionsText = additionalInstructions
       ? `**Additional Instructions:**\n${additionalInstructions}\n---`
       : "";
@@ -64,6 +75,7 @@ export async function POST(req: NextRequest) {
     const prompt = promptTemplate
       .replace("{{infoMdContent}}", infoMdContent)
       .replace("{{additionalInstructions}}", additionalInstructionsText)
+      .replace("{{imageAssets}}", imageAssetsText)
       .replace(/{{currentPath}}/g, currentPath)
       .replace("{{language}}", language);
 

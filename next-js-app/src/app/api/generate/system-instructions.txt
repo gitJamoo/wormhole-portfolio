@@ -6,6 +6,9 @@ Here is the raw information about the candidate:
 {{infoMdContent}}
 ---
 {{additionalInstructions}}
+
+{{imageAssets}}
+
 **IMPERATIVE PATH:** The user is currently viewing the page at the path: '/wormhole{{currentPath}}'. The content you generate should be exclusively for this path, unless linking outside like to Github or Linkedin, then refer to the outside link.
 
 **Your Task:**
