@@ -11,54 +11,58 @@ export default function Home() {
   };
 
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <h1 className="text-4xl font-bold text-center sm:text-left">
-          Hello, I am James.
-        </h1>
-        <p className="text-lg text-center sm:text-left max-w-xl">
-          I am a Computer Science student focusing on Machine Learning with a
-          background in Full Stack, ML/AI, and DevOps. I decided to make a
-          portfolio page and create a unique portfolio experience.
-        </p>
-        <p className="text-xs text-center sm:text-left max-w-xl mt-[-28px] text-gray-500">
-          The Wormhole is a unique browsing experience, where AI generates each
-          page being viewed. It has been fed information about me, and makes
-          each vist a one of a kind portfolio viewing experience. Take
-          everything with a grain of salt since it is AI generated. I encourage
-          you to play around wiht it, as this is an experiment. Enjoy, James.
-        </p>
-        <button
-          onClick={handleButtonClick}
-          className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-        >
-          Enter the Wormhole
-        </button>
-        <div className="flex flex-col sm:flex-row gap-4 mt-[-12px]">
-          <a
-            href="/james_smith_resume.pdf"
-            download="james_smith_resume.pdf"
-            className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
-          >
-            Resume
-          </a>
+    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 sm:p-16 gap-12">
+      <main className="flex flex-col gap-y-6 row-start-2 items-center sm:items-start">
+        <div className="flex flex-col gap-y-4 text-center sm:text-left">
+          <h1 className="text-4xl font-bold">
+            Hello, I am James.
+          </h1>
+          <p className="text-lg max-w-xl">
+            I am a Computer Science student focusing on Machine Learning with a
+            background in Full Stack, ML/AI, and DevOps. I decided to make a
+            portfolio page and create a unique portfolio experience.
+          </p>
+          <p className="text-xs max-w-xl text-gray-500">
+            The Wormhole is a unique browsing experience, where AI generates each
+            page being viewed. It has been fed information about me, and makes
+            each vist a one of a kind portfolio viewing experience. Take
+            everything with a grain of salt since it is AI generated. I encourage
+            you to play around wiht it, as this is an experiment. Enjoy, James.
+          </p>
+        </div>
+        <div className="flex flex-col gap-y-4 items-center sm:items-start">
           <button
-            onClick={() => router.push("/home")}
-            className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
+            onClick={handleButtonClick}
+            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
           >
-            Portfolio
+            Enter the Wormhole
           </button>
-          <button
-            onClick={() =>
-              window.open(
-                "https://www.linkedin.com/in/james-m-smith1",
-                "_blank"
-              )
-            }
-            className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
-          >
-            LinkedIn
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href="/james_smith_resume.pdf"
+              download="james_smith_resume.pdf"
+              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
+            >
+              Resume
+            </a>
+            <button
+              onClick={() => router.push("/home")}
+              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
+            >
+              Portfolio
+            </button>
+            <button
+              onClick={() =>
+                window.open(
+                  "https://www.linkedin.com/in/james-m-smith1",
+                  "_blank"
+                )
+              }
+              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
+            >
+              LinkedIn
+            </button>
+          </div>
         </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
