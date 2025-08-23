@@ -3,13 +3,13 @@
 import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
-import headshot from "../image-assets/beaver-headshot.jpg";
+import headshot from "../../../public/image-assets/beaver-headshot.jpg";
 
-import esteeLauderLogo from "../image-assets/estee_lauder_companies_logo.png";
-import njTransitLogo from "../image-assets/nj_transit_logo.jpeg";
-import hatsAndLaddersLogo from "../image-assets/hats_and_ladders_logo.jpg";
-import oregonStateUniversityLogo from "../image-assets/oregon_state_university_logo.png";
-import envolvlyLogo from "../image-assets/envolvly_logo.png";
+import esteeLauderLogo from "../../../public/image-assets/estee_lauder_companies_logo.png";
+import njTransitLogo from "../../../public/image-assets/nj_transit_logo.jpeg";
+import hatsAndLaddersLogo from "../../../public/image-assets/hats_and_ladders_logo.jpg";
+import oregonStateUniversityLogo from "../../../public/image-assets/oregon_state_university_logo.png";
+import envolvlyLogo from "../../../public/image-assets/envolvly_logo.png";
 
 interface Experience {
   company: string;
