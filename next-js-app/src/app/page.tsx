@@ -30,9 +30,7 @@ export default function Home() {
             The Wormhole is a unique browsing experience, where AI generates
             each page being viewed. It has been fed information about me, and
             makes each vist a one of a kind portfolio viewing experience. Take
-            everything with a grain of salt since it is AI generated. I
-            encourage you to play around wiht it, as this is an experiment.
-            Enjoy, James.
+            everything with a grain of salt since it is AI generated.
           </p>
         </div>
         <div className="flex flex-col gap-y-4 items-center sm:items-start">

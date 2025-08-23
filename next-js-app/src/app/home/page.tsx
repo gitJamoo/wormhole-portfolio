@@ -116,13 +116,13 @@ function ExperienceCard({ experience }: { experience: Experience }) {
 
   return (
     <div
-      className="border border-gray-700 rounded-lg p-6 transition-all duration-300 hover:border-gray-500 cursor-pointer"
+      className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 transition-all duration-300 hover:border-gray-400 dark:hover:border-gray-500 cursor-pointer"
       onClick={() => setIsExpanded(!isExpanded)}
     >
       <div className="flex justify-between items-start">
         <div>
           <h3 className="text-xl font-bold">{experience.company}</h3>
-          <p className="text-md text-gray-400">{experience.role}</p>
+          <p className="text-md text-gray-600 dark:text-gray-400">{experience.role}</p>
           <p className="text-sm text-gray-500">{experience.period}</p>
         </div>
         <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center">
@@ -133,16 +133,16 @@ function ExperienceCard({ experience }: { experience: Experience }) {
               className="rounded-lg object-contain"
             />
           ) : (
-            <span className="text-xs text-gray-400">Logo</span>
+            <span className="text-xs text-gray-600 dark:text-gray-400">Logo</span>
           )}
         </div>
       </div>
-      <p className="mt-4 text-gray-300">{experience.description}</p>
+      <p className="mt-4 text-gray-700 dark:text-gray-300">{experience.description}</p>
       {isExpanded && (
-        <div className="mt-4 pt-4 border-t border-gray-800">
-          <p className="text-gray-400">{experience.longDescription}</p>
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
+          <p className="text-gray-600 dark:text-gray-400">{experience.longDescription}</p>
           <div className="flex gap-4 mt-4">
-            <div className="w-full h-48 bg-gray-800 rounded-lg flex items-center justify-center">
+            <div className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
               <span className="text-sm text-gray-500">More Pictures Here</span>
             </div>
           </div>
@@ -154,10 +154,10 @@ function ExperienceCard({ experience }: { experience: Experience }) {
 
 export default function HomePage() {
   return (
-    <div className="bg-black text-white min-h-screen font-sans">
+    <div className="min-h-screen font-sans">
       <div className="container mx-auto p-8 sm:p-12 md:p-16 lg:p-24">
         <header className="text-center mb-16">
-          <div className="w-32 h-32 rounded-full mx-auto mb-4 relative overflow-hidden border-2 border-gray-700">
+          <div className="w-32 h-32 rounded-full mx-auto mb-4 relative overflow-hidden border-2 border-gray-200 dark:border-gray-700">
             <Image
               src={headshot}
               alt="James M. Smith Headshot"
@@ -168,7 +168,7 @@ export default function HomePage() {
           <h1 className="text-5xl font-extrabold tracking-tight">
             James M. Smith
           </h1>
-          <p className="text-xl text-gray-400 mt-2">
+          <p className="text-xl text-gray-600 dark:text-gray-400 mt-2">
             Machine Learning Engineer & Software Developer
           </p>
           <div className="mt-4 flex justify-center gap-4">
@@ -176,7 +176,7 @@ export default function HomePage() {
               href="https://www.linkedin.com/in/james-m-smith1/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
             >
               LinkedIn
             </a>
@@ -184,7 +184,7 @@ export default function HomePage() {
               href="https://github.com/gitJamoo"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
             >
               GitHub
             </a>
@@ -192,7 +192,7 @@ export default function HomePage() {
         </header>
 
         <section className="mb-16">
-          <p className="text-lg text-center max-w-3xl mx-auto text-gray-300">
+          <p className="text-lg text-center max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
             A passionate and driven computer science student with a focus on
             machine learning and artificial intelligence. I thrive on building
             innovative solutions and have a proven track record of delivering
@@ -212,11 +212,11 @@ export default function HomePage() {
 
         <section id="education" className="mb-16">
           <h2 className="text-4xl font-bold mb-8 text-center">Education</h2>
-          <div className="bg-gray-900 border border-gray-800 rounded-lg p-8">
+          <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-8">
             <h3 className="text-2xl font-bold">{education.institution}</h3>
-            <p className="text-lg text-gray-400">{education.degree}</p>
+            <p className="text-lg text-gray-600 dark:text-gray-400">{education.degree}</p>
             <p className="text-md text-gray-500 mb-4">{education.period}</p>
-            <p className="text-gray-300">{education.details}</p>
+            <p className="text-gray-700 dark:text-gray-300">{education.details}</p>
           </div>
         </section>
 
@@ -237,11 +237,11 @@ export default function HomePage() {
             {projects.map((proj, index) => (
               <div
                 key={index}
-                className="bg-gray-900 border border-gray-800 rounded-lg p-6 hover:border-gray-700 transition-all duration-300"
+                className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300"
               >
                 <h3 className="text-xl font-bold">{proj.name}</h3>
                 <p className="text-sm text-gray-500 mb-2">{proj.period}</p>
-                <p className="text-gray-400 mb-4">{proj.description}</p>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">{proj.description}</p>
                 <p className="text-sm text-gray-500 font-mono">
                   {proj.technologies}
                 </p>
