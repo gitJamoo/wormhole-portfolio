@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -61,7 +61,8 @@ export default function WormholeConfig() {
   const [additionalInstructions, setAdditionalInstructions] = useState("");
   const [language, setLanguage] = useState("English");
   const [useImageAssets, setUseImageAssets] = useState(true);
-  const [temperature, setTemperature] = useState(0.5);
+  const [temperature, setTemperature] = useState(1.0);
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
     const savedInstructions = localStorage.getItem("wormholeInstructions");
@@ -124,8 +125,55 @@ export default function WormholeConfig() {
     alert("Instructions saved!");
   };
 
+  const handleContinueWithDefaults = () => {
+    localStorage.setItem("selectedWormholeModel", "gemini-2.5-flash-lite");
+    localStorage.setItem("temperature", "1.0");
+    localStorage.setItem("wormholeLanguage", "English");
+    localStorage.removeItem("wormholeInstructions");
+    localStorage.setItem("useImageAssets", JSON.stringify(true));
+    router.push("/wormhole/home");
+  };
+
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-background p-8 rounded-lg shadow-2xl max-w-md w-full">
+            <h2 className="text-2xl font-bold mb-4 text-center">
+              Welcome to the Wormhole
+            </h2>
+            <p className="mb-6 text-center text-gray-600 dark:text-gray-300">
+              The Wormhole is a unique browsing experience where AI generates
+              each page you view. It has been fed information about myself to
+              create a one-of-a-kind portfolio viewing experience.
+            </p>
+            <div className="flex flex-col gap-4">
+              <button
+                onClick={() => setShowModal(false)}
+                className="p-4 border rounded-lg text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <span className="font-semibold block">Configure settings</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">
+                  Custom prompts, 50+ languages, model selection, temperature +
+                  more
+                </span>
+              </button>
+              <button
+                onClick={handleContinueWithDefaults}
+                className="p-4 border rounded-lg text-left hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <span className="font-semibold block">
+                  Continue with defaults
+                </span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">
+                  Default system prompts on gemini-2.5-flash-lite, temperature
+                  1.0, in English
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <h1 className="text-4xl font-bold text-center sm:text-left">
           Wormhole Configuration
@@ -173,7 +221,10 @@ export default function WormholeConfig() {
         </div>
 
         <div className="flex flex-col gap-4 w-full max-w-xl">
-          <label htmlFor="use-image-assets" className="text-lg font-medium flex items-center gap-2">
+          <label
+            htmlFor="use-image-assets"
+            className="text-lg font-medium flex items-center gap-2"
+          >
             Use Image Assets:
             <input
               id="use-image-assets"
@@ -193,8 +244,8 @@ export default function WormholeConfig() {
             id="temperature"
             type="range"
             min="0"
-            max="1"
-            step="0.1"
+            max="2"
+            step="0.05"
             value={temperature}
             onChange={(e) => setTemperature(parseFloat(e.target.value))}
             className="w-full"
