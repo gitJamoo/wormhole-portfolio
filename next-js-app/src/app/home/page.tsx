@@ -11,6 +11,16 @@ import hatsAndLaddersLogo from "../../../public/image-assets/hats_and_ladders_lo
 import oregonStateUniversityLogo from "../../../public/image-assets/oregon_state_university_logo.png";
 import envolvlyLogo from "../../../public/image-assets/envolvly_logo.png";
 
+import osuCheerBoysTeamPhoto from "../../../public/image-assets/Oregon_State_University/OSU_Cheer_Boys_Team_Photo.jpg";
+import osuCheerJamesAtWbbMarchMadness from "../../../public/image-assets/Oregon_State_University/OSU_Cheer_James_at_WBB_March_Madness.jpg";
+import osuCheerJamesCheeringOnBeavs from "../../../public/image-assets/Oregon_State_University/OSU_Cheer_James_Cheering_On_Beavs.jpg";
+import osuCheerJamesDoingCupie from "../../../public/image-assets/Oregon_State_University/OSU_Cheer_James_Doing_Cupie.jpg";
+import osuCheerJamesOnTheNews from "../../../public/image-assets/Oregon_State_University/OSU_Cheer_James_On_The_News.jpg";
+import osuCheerJamesRepresentingBeavsAtPac12MbbTournament from "../../../public/image-assets/Oregon_State_University/OSU_Cheer_James_Representing_Beavs_At_Pac12_MBB_Tournament.jpg";
+import osuCheerJamesRunningFlag from "../../../public/image-assets/Oregon_State_University/OSU_Cheer_James_Running_Flag.jpeg";
+import osuEnvolvlyWinningPitch from "../../../public/image-assets/Oregon_State_University/OSU_Envolvly_Winning_Pitch.jpg";
+import osuJamesWithBennyOnField from "../../../public/image-assets/Oregon_State_University/OSU_James_With_Benny_On_Field.jpg";
+
 interface Experience {
   company: string;
   role: string;
@@ -18,6 +28,7 @@ interface Experience {
   description: string;
   longDescription: string;
   logo?: StaticImageData;
+  images?: StaticImageData[];
 }
 
 interface Project {
@@ -27,12 +38,25 @@ interface Project {
   description: string;
 }
 
-const education = {
+const education: Education = {
   institution: "Oregon State University",
   degree: "Bachelor of Engineering in Computer Science & ML/AI",
   period: "September 2022 – June 2026",
   details:
     "Minor in Cybersecurity. Relevant Coursework: Operating Systems I&II, Discrete Math, Analysis of Algorithms, Software Eng. I&II, Data Structures, Web Development, Computer Assembly, Technical Writing.",
+  longDescription: "Attended Oregon State University and was a part of the cheer team, and won an award for my work with Envolvly.",
+  logo: oregonStateUniversityLogo,
+  images: [
+    osuCheerBoysTeamPhoto,
+    osuCheerJamesAtWbbMarchMadness,
+    osuCheerJamesCheeringOnBeavs,
+    osuCheerJamesDoingCupie,
+    osuCheerJamesOnTheNews,
+    osuCheerJamesRepresentingBeavsAtPac12MbbTournament,
+    osuCheerJamesRunningFlag,
+    osuEnvolvlyWinningPitch,
+    osuJamesWithBennyOnField,
+  ],
 };
 
 const experiences: Experience[] = [
@@ -111,6 +135,65 @@ const projects: Project[] = [
   },
 ];
 
+interface Education {
+  institution: string;
+  degree: string;
+  period: string;
+  details: string;
+  longDescription: string;
+  logo?: StaticImageData;
+  images?: StaticImageData[];
+}
+
+function EducationCard({ education }: { education: Education }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <div
+      className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 transition-all duration-300 hover:border-gray-400 dark:hover:border-gray-500 cursor-pointer"
+      onClick={() => setIsExpanded(!isExpanded)}
+    >
+      <div className="flex justify-between items-start">
+        <div>
+          <h3 className="text-xl font-bold">{education.institution}</h3>
+          <p className="text-md text-gray-600 dark:text-gray-400">{education.degree}</p>
+          <p className="text-sm text-gray-500">{education.period}</p>
+        </div>
+        <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center">
+          {education.logo ? (
+            <Image
+              src={education.logo}
+              alt={`${education.institution} logo`}
+              className="rounded-lg object-contain"
+            />
+          ) : (
+            <span className="text-xs text-gray-600 dark:text-gray-400">Logo</span>
+          )}
+        </div>
+      </div>
+      <p className="mt-4 text-gray-700 dark:text-gray-300">{education.details}</p>
+      {isExpanded && (
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
+          <p className="text-gray-600 dark:text-gray-400">{education.longDescription}</p>
+          {education.images && (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+              {education.images.map((image, index) => (
+                <div key={index} className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
+                  <Image
+                    src={image}
+                    alt={`Education image ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ExperienceCard({ experience }: { experience: Experience }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -141,11 +224,19 @@ function ExperienceCard({ experience }: { experience: Experience }) {
       {isExpanded && (
         <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
           <p className="text-gray-600 dark:text-gray-400">{experience.longDescription}</p>
-          <div className="flex gap-4 mt-4">
-            <div className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-              <span className="text-sm text-gray-500">More Pictures Here</span>
+          {experience.images && (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+              {experience.images.map((image, index) => (
+                <div key={index} className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
+                  <Image
+                    src={image}
+                    alt={`Experience image ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>
@@ -212,11 +303,8 @@ export default function HomePage() {
 
         <section id="education" className="mb-16">
           <h2 className="text-4xl font-bold mb-8 text-center">Education</h2>
-          <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-8">
-            <h3 className="text-2xl font-bold">{education.institution}</h3>
-            <p className="text-lg text-gray-600 dark:text-gray-400">{education.degree}</p>
-            <p className="text-md text-gray-500 mb-4">{education.period}</p>
-            <p className="text-gray-700 dark:text-gray-300">{education.details}</p>
+          <div className="space-y-8">
+            <EducationCard education={education} />
           </div>
         </section>
 
