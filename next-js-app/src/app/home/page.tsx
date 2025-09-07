@@ -21,6 +21,18 @@ import osuCheerJamesRunningFlag from "../../../public/image-assets/Oregon_State_
 import osuEnvolvlyWinningPitch from "../../../public/image-assets/Oregon_State_University/OSU_Envolvly_Winning_Pitch.jpg";
 import osuJamesWithBennyOnField from "../../../public/image-assets/Oregon_State_University/OSU_James_With_Benny_On_Field.jpg";
 
+import elcEsteeLauderCompaniesOnlineCandid from "../../../public/image-assets/Estee_Lauder_Images/ELC_Estee_Lauder_Companies_Online_Candid.jpg";
+// import elcFirstDayHeadshot from "../../../public/image-assets/Estee_Lauder_Images/ELC_First_Day_Headshot.jpg";
+import elcJamesSmithNametagCollection from "../../../public/image-assets/Estee_Lauder_Images/ELC_James_Smith_Nametag_Collection.jpg";
+import elcLaunchIqPicture from "../../../public/image-assets/Estee_Lauder_Images/ELC_LaunchIQ_Picture.jpg";
+import elcStandingWithCoInternsOnRooftop from "../../../public/image-assets/Estee_Lauder_Images/ELC_Standing_With_CoInterns_On_Rooftop.jpg";
+import elcJamesGivingFinalPresentation from "../../../public/image-assets/Estee_Lauder_Images/ELC_James_Given_Final_Presentation.png";
+import elcJamesStandingFrontOfBackdrop from "../../../public/image-assets/Estee_Lauder_Images/ELC_James_Standing_In_Front_Of_Backdrop.png";
+
+import njtJamesGroupInternNjtOfficialPicture from "../../../public/image-assets/New_Jersey_Transit/NJT_James_Group_Intern_NJT_Official_Picture.jpg";
+import njtJamesGroupInternPicture1 from "../../../public/image-assets/New_Jersey_Transit/NJT_James_Group_Intern_Picture_1.jpg";
+import njtJamesWearingHardhatConsoleRoom from "../../../public/image-assets/New_Jersey_Transit/NJT_James_Wearing_Hardhat_Console_Room.jpg";
+
 interface Experience {
   company: string;
   role: string;
@@ -44,7 +56,8 @@ const education: Education = {
   period: "September 2022 – June 2026",
   details:
     "Minor in Cybersecurity. Relevant Coursework: Operating Systems I&II, Discrete Math, Analysis of Algorithms, Software Eng. I&II, Data Structures, Web Development, Computer Assembly, Technical Writing.",
-  longDescription: "Attended Oregon State University and was a part of the cheer team, and won an award for my work with Envolvly.",
+  longDescription:
+    "Attended Oregon State University and was a part of the cheer team, and won an award for my work with Envolvly.",
   logo: oregonStateUniversityLogo,
   images: [
     osuCheerBoysTeamPhoto,
@@ -88,6 +101,14 @@ const experiences: Experience[] = [
     longDescription:
       "As a Machine Learning Intern on the Data Science and Analytics global team, I leveraged cutting-edge AI and data engineering to develop and optimize intelligent systems, significantly enhancing customer experiences and driving substantial operational efficiencies. My work focused on transforming complex data into actionable insights and building scalable solutions that directly contributed to future revenue growth and cost savings.",
     logo: esteeLauderLogo,
+    images: [
+      elcEsteeLauderCompaniesOnlineCandid,
+      elcJamesSmithNametagCollection,
+      elcLaunchIqPicture,
+      elcStandingWithCoInternsOnRooftop,
+      elcJamesGivingFinalPresentation,
+      elcJamesStandingFrontOfBackdrop,
+    ],
   },
   {
     company: "NJ Transit",
@@ -98,6 +119,11 @@ const experiences: Experience[] = [
     longDescription:
       "As a member of the engineering and innovations team, I contributed to the modernization and reliability of critical transit systems through comprehensive testing, automation, and infrastructure enhancements. Engineered and executed over 200 comprehensive tests across 18 suites for a critical, statewide digital incident reporting system, achieving an exceptional 85% code coverage with Jest and Gherkin.",
     logo: njTransitLogo,
+    images: [
+      njtJamesGroupInternNjtOfficialPicture,
+      njtJamesGroupInternPicture1,
+      njtJamesWearingHardhatConsoleRoom,
+    ],
   },
   {
     company: "Hats & Ladders",
@@ -156,7 +182,9 @@ function EducationCard({ education }: { education: Education }) {
       <div className="flex justify-between items-start">
         <div>
           <h3 className="text-xl font-bold">{education.institution}</h3>
-          <p className="text-md text-gray-600 dark:text-gray-400">{education.degree}</p>
+          <p className="text-md text-gray-600 dark:text-gray-400">
+            {education.degree}
+          </p>
           <p className="text-sm text-gray-500">{education.period}</p>
         </div>
         <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center">
@@ -167,18 +195,27 @@ function EducationCard({ education }: { education: Education }) {
               className="rounded-lg object-contain"
             />
           ) : (
-            <span className="text-xs text-gray-600 dark:text-gray-400">Logo</span>
+            <span className="text-xs text-gray-600 dark:text-gray-400">
+              Logo
+            </span>
           )}
         </div>
       </div>
-      <p className="mt-4 text-gray-700 dark:text-gray-300">{education.details}</p>
+      <p className="mt-4 text-gray-700 dark:text-gray-300">
+        {education.details}
+      </p>
       {isExpanded && (
         <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
-          <p className="text-gray-600 dark:text-gray-400">{education.longDescription}</p>
+          <p className="text-gray-600 dark:text-gray-400">
+            {education.longDescription}
+          </p>
           {education.images && (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
               {education.images.map((image, index) => (
-                <div key={index} className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
+                <div
+                  key={index}
+                  className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center overflow-hidden"
+                >
                   <Image
                     src={image}
                     alt={`Education image ${index + 1}`}
@@ -205,7 +242,9 @@ function ExperienceCard({ experience }: { experience: Experience }) {
       <div className="flex justify-between items-start">
         <div>
           <h3 className="text-xl font-bold">{experience.company}</h3>
-          <p className="text-md text-gray-600 dark:text-gray-400">{experience.role}</p>
+          <p className="text-md text-gray-600 dark:text-gray-400">
+            {experience.role}
+          </p>
           <p className="text-sm text-gray-500">{experience.period}</p>
         </div>
         <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center">
@@ -216,18 +255,27 @@ function ExperienceCard({ experience }: { experience: Experience }) {
               className="rounded-lg object-contain"
             />
           ) : (
-            <span className="text-xs text-gray-600 dark:text-gray-400">Logo</span>
+            <span className="text-xs text-gray-600 dark:text-gray-400">
+              Logo
+            </span>
           )}
         </div>
       </div>
-      <p className="mt-4 text-gray-700 dark:text-gray-300">{experience.description}</p>
+      <p className="mt-4 text-gray-700 dark:text-gray-300">
+        {experience.description}
+      </p>
       {isExpanded && (
         <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
-          <p className="text-gray-600 dark:text-gray-400">{experience.longDescription}</p>
+          <p className="text-gray-600 dark:text-gray-400">
+            {experience.longDescription}
+          </p>
           {experience.images && (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
               {experience.images.map((image, index) => (
-                <div key={index} className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
+                <div
+                  key={index}
+                  className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center overflow-hidden"
+                >
                   <Image
                     src={image}
                     alt={`Experience image ${index + 1}`}
@@ -329,7 +377,9 @@ export default function HomePage() {
               >
                 <h3 className="text-xl font-bold">{proj.name}</h3>
                 <p className="text-sm text-gray-500 mb-2">{proj.period}</p>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">{proj.description}</p>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  {proj.description}
+                </p>
                 <p className="text-sm text-gray-500 font-mono">
                   {proj.technologies}
                 </p>
