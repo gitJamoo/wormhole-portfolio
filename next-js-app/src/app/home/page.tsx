@@ -181,7 +181,23 @@ function EducationCard({ education }: { education: Education }) {
     >
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="text-xl font-bold">{education.institution}</h3>
+          <div className="flex items-center gap-4">
+            <h3 className="text-xl font-bold">{education.institution}</h3>
+            <svg
+              className={`w-6 h-6 transition-transform duration-300 ${isExpanded ? "transform rotate-180" : ""}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
           <p className="text-md text-gray-600 dark:text-gray-400">
             {education.degree}
           </p>
@@ -241,7 +257,23 @@ function ExperienceCard({ experience }: { experience: Experience }) {
     >
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="text-xl font-bold">{experience.company}</h3>
+          <div className="flex items-center gap-4">
+            <h3 className="text-xl font-bold">{experience.company}</h3>
+            <svg
+              className={`w-6 h-6 transition-transform duration-300 ${isExpanded ? "transform rotate-180" : ""}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
           <p className="text-md text-gray-600 dark:text-gray-400">
             {experience.role}
           </p>
