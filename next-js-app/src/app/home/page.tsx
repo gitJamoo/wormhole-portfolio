@@ -35,6 +35,14 @@ import njtJamesGroupInternNjtOfficialPicture from "../../../public/image-assets/
 import njtJamesGroupInternPicture1 from "../../../public/image-assets/New_Jersey_Transit/NJT_James_Group_Intern_Picture_1.jpg";
 import njtJamesWearingHardhatConsoleRoom from "../../../public/image-assets/New_Jersey_Transit/NJT_James_Wearing_Hardhat_Console_Room.jpg";
 
+import envolvlyProjectThumbnail from "../../../public/image-assets/projects/Envolvly/thumbnail.png";
+import MITJOSProjectThumbnail from "../../../public/image-assets/projects/MIT-JOS/thumbnail.png";
+import WormholeProjectThumbnail from "../../../public/image-assets/projects/Wormhole/thumbnail.png";
+
+import fileIcon from "../../../public/file.svg";
+import globeIcon from "../../../public/globe.svg";
+import windowIcon from "../../../public/window.svg";
+
 interface Experience {
   company: string;
   role: string;
@@ -50,6 +58,8 @@ interface Project {
   technologies: string;
   period: string;
   description: string;
+  longDescription: string;
+  image?: StaticImageData;
 }
 
 const education: Education = {
@@ -145,21 +155,48 @@ const projects: Project[] = [
     technologies: "GitHub, Docker, AWS, React, Typescript, MongoDB",
     period: "September 2023 - Current",
     description:
+      "Laid groundwork for tech infrastructure, resulting in a robust, scalable application reaching 1,000+ unique users.",
+    longDescription:
       "Laid groundwork for tech infrastructure, resulting in a robust, scalable application reaching 1,000+ unique users. Directly implemented cloud technologies such as AWS Lambda, Elastic Beanstalk, EC2, Git, and Firebase, creating a full stack web application with full mobile & desktop support.",
+    image: envolvlyProjectThumbnail,
   },
   {
     name: "MIT JOS",
     technologies: "C, C++, Assembly, OS concepts, Computer Architecture",
     period: "March 2024 - June 2024",
     description:
+      "Completed labs, assignments, & built an Operating system based off of MIT’s JOS curriculum.",
+    longDescription:
       "Completed labs, assignments, & built an Operating system based off of MIT’s JOS curriculum. Worked directly on memory management, process management, file systems, concurrency, & kernel operations.",
+    image: MITJOSProjectThumbnail,
   },
   {
     name: "StuntCV",
     technologies: "Python, OpenCV, MediaPipe, Tkinter, NumPy",
     period: "July 2025 - Present",
     description:
+      "A desktop application designed for detailed analysis of acrobatic performances.",
+    longDescription:
       "A desktop application designed for detailed analysis of acrobatic performances, such as cheer stunts and partner acrobatics, using advanced computer vision.",
+    image: windowIcon,
+  },
+  {
+    name: "Wormhole",
+    technologies: "Next.js, TypeScript, Tailwind CSS, Vercel",
+    period: "August 2025",
+    description: "A secure file transfer application.",
+    longDescription:
+      "A secure file transfer application that allows users to send files of any size with end-to-end encryption.",
+    image: WormholeProjectThumbnail,
+  },
+  {
+    name: "ResumAI",
+    technologies: "Python, OpenAI API, Streamlit",
+    period: "August 2025",
+    description: "An AI-powered resume builder and analyzer.",
+    longDescription:
+      "An AI-powered resume builder and analyzer that helps users create and optimize their resumes for job applications.",
+    image: globeIcon,
   },
 ];
 
@@ -285,7 +322,7 @@ function ExperienceCard({ experience }: { experience: Experience }) {
           </p>
           <p className="text-sm text-gray-500">{experience.period}</p>
         </div>
-        <div className="w-16 h-16 bg-.white rounded-lg flex items-center justify-center">
+        <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center">
           {experience.logo ? (
             <Image
               src={experience.logo}
@@ -329,6 +366,75 @@ function ExperienceCard({ experience }: { experience: Experience }) {
   );
 }
 
+function ProjectCard({ project }: { project: Project }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <>
+      <div
+        className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 cursor-pointer"
+        onClick={() => setIsModalOpen(true)}
+      >
+        {project.image && (
+          <div className="w-full h-40 relative mb-4 rounded-lg overflow-hidden">
+            <Image
+              src={project.image}
+              alt={`${project.name} image`}
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+        )}
+        <h3 className="text-xl font-bold">{project.name}</h3>
+        <p className="text-sm text-gray-500 mb-2">{project.period}</p>
+        <p className="text-gray-600 dark:text-gray-400 mb-4">
+          {project.description}
+        </p>
+        <p className="text-sm text-gray-500 font-mono">
+          {project.technologies}
+        </p>
+      </div>
+
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div
+            className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {project.image && (
+              <div className="w-full h-64 relative mb-4 rounded-lg overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={`${project.name} image`}
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+            )}
+            <h2 className="text-3xl font-bold mb-2">{project.name}</h2>
+            <p className="text-sm text-gray-500 mb-4">{project.period}</p>
+            <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+              {project.longDescription}
+            </p>
+            <p className="text-md text-gray-500 font-mono">
+              {project.technologies}
+            </p>
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="mt-6 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 font-bold py-2 px-4 rounded"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 export default function HomePage() {
   return (
     <div className="min-h-screen font-sans">
@@ -359,6 +465,7 @@ export default function HomePage() {
             </a>
             <a
               href="mailto:james.smith.tig@gmail.com"
+              target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
             >
@@ -414,20 +521,13 @@ export default function HomePage() {
 
         <section id="projects">
           <h2 className="text-4xl font-bold mb-8 text-center">Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex overflow-x-auto gap-8 pb-8">
             {projects.map((proj, index) => (
               <div
                 key={index}
-                className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300"
+                className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3"
               >
-                <h3 className="text-xl font-bold">{proj.name}</h3>
-                <p className="text-sm text-gray-500 mb-2">{proj.period}</p>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  {proj.description}
-                </p>
-                <p className="text-sm text-gray-500 font-mono">
-                  {proj.technologies}
-                </p>
+                <ProjectCard project={proj} />
               </div>
             ))}
           </div>
