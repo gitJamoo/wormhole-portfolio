@@ -1,29 +1,36 @@
-import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
+import { NextRequest, NextResponse } from "next/server";
+import fs from "fs/promises";
+import path from "path";
 
-const submissionsDir = path.resolve(process.cwd(), 'contact-submissions');
-const submissionsFile = path.resolve(submissionsDir, 'submissions.json');
+const submissionsDir = path.resolve(process.cwd(), "contact-submissions");
+const submissionsFile = path.resolve(submissionsDir, "submissions.json");
 
 async function ensureSubmissionsDirExists() {
   try {
     await fs.mkdir(submissionsDir, { recursive: true });
   } catch (error) {
-    console.error('Error creating submissions directory:', error);
+    console.error("Error creating submissions directory:", error);
   }
 }
 
-async function getSubmissions() {
+interface Submission {
+  name: string;
+  email: string;
+  message: string;
+  date: string;
+}
+
+async function getSubmissions(): Promise<Submission[]> {
   try {
     await ensureSubmissionsDirExists();
-    const data = await fs.readFile(submissionsFile, 'utf8');
+    const data = await fs.readFile(submissionsFile, "utf8");
     return JSON.parse(data);
-  } catch (error) {
+  } catch {
     return [];
   }
 }
 
-async function saveSubmission(data: any) {
+async function saveSubmission(data: Submission) {
   const submissions = await getSubmissions();
   submissions.push(data);
   await fs.writeFile(submissionsFile, JSON.stringify(submissions, null, 2));
@@ -34,7 +41,10 @@ export async function POST(req: NextRequest) {
     const { name, email, message } = await req.json();
 
     if (!name || !email || !message) {
-      return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
+      return NextResponse.json(
+        { message: "Missing required fields" },
+        { status: 400 }
+      );
     }
 
     const newSubmission = {
@@ -46,9 +56,12 @@ export async function POST(req: NextRequest) {
 
     await saveSubmission(newSubmission);
 
-    return NextResponse.json({ message: 'Submission saved' }, { status: 200 });
+    return NextResponse.json({ message: "Submission saved" }, { status: 200 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

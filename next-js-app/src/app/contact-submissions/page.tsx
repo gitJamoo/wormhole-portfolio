@@ -1,21 +1,28 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-const PASSWORD = 'password'; // Replace with a strong password
+const PASSWORD = process.env.SUBMISSIONS_PASSWORD; // Replace with a strong password
+
+interface Submission {
+  name: string;
+  email: string;
+  message: string;
+  date: string;
+}
 
 export default function ContactSubmissions() {
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
-  const [submissions, setSubmissions] = useState([]);
-  const [error, setError] = useState('');
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [error, setError] = useState("");
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (password === PASSWORD) {
       setAuthenticated(true);
     } else {
-      setError('Incorrect password');
+      setError("Incorrect password");
     }
   };
 
@@ -23,15 +30,15 @@ export default function ContactSubmissions() {
     if (authenticated) {
       const fetchSubmissions = async () => {
         try {
-          const response = await fetch('/api/contact-submissions');
+          const response = await fetch("/api/contact-submissions");
           if (response.ok) {
             const data = await response.json();
             setSubmissions(data);
           } else {
-            setError('Failed to fetch submissions.');
+            setError("Failed to fetch submissions.");
           }
         } catch (error) {
-          setError('Failed to fetch submissions.');
+          setError("Failed to fetch submissions.");
         }
       };
       fetchSubmissions();
@@ -41,10 +48,16 @@ export default function ContactSubmissions() {
   if (!authenticated) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <form onSubmit={handlePasswordSubmit} className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+        <form
+          onSubmit={handlePasswordSubmit}
+          className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg"
+        >
           <h2 className="text-2xl font-bold mb-4">Enter Password</h2>
           <div className="mb-4">
-            <label htmlFor="password" a className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               Password
             </label>
             <input
@@ -74,12 +87,24 @@ export default function ContactSubmissions() {
         <p>No submissions yet.</p>
       ) : (
         <div className="space-y-4">
-          {submissions.map((submission: any, index: number) => (
-            <div key={index} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
-              <p><strong>Name:</strong> {submission.name}</p>
-              <p><strong>Email:</strong> {submission.email}</p>
-              <p><strong>Message:</strong> {submission.message}</p>
-              <p><strong>Date:</strong> {new Date(submission.date).toLocaleString()}</p>
+          {submissions.map((submission, index) => (
+            <div
+              key={index}
+              className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow"
+            >
+              <p>
+                <strong>Name:</strong> {submission.name}
+              </p>
+              <p>
+                <strong>Email:</strong> {submission.email}
+              </p>
+              <p>
+                <strong>Message:</strong> {submission.message}
+              </p>
+              <p>
+                <strong>Date:</strong>{" "}
+                {new Date(submission.date).toLocaleString()}
+              </p>
             </div>
           ))}
         </div>
