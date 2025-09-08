@@ -186,7 +186,9 @@ function EducationCard({ education }: { education: Education }) {
           <div className="flex items-center gap-4">
             <h3 className="text-xl font-bold">{education.institution}</h3>
             <svg
-              className={`w-6 h-6 transition-transform duration-300 ${isExpanded ? "transform rotate-180" : ""}`}
+              className={`w-6 h-6 transition-transform duration-300 ${
+                isExpanded ? "transform rotate-180" : ""
+              }`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -262,7 +264,9 @@ function ExperienceCard({ experience }: { experience: Experience }) {
           <div className="flex items-center gap-4">
             <h3 className="text-xl font-bold">{experience.company}</h3>
             <svg
-              className={`w-6 h-6 transition-transform duration-300 ${isExpanded ? "transform rotate-180" : ""}`}
+              className={`w-6 h-6 transition-transform duration-300 ${
+                isExpanded ? "transform rotate-180" : ""
+              }`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -352,6 +356,13 @@ export default function HomePage() {
               className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
             >
               LinkedIn
+            </a>
+            <a
+              href="mailto:james.smith.tig@gmail.com"
+              rel="noopener noreferrer"
+              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+            >
+              Email
             </a>
             <a
               href="https://github.com/gitJamoo"
