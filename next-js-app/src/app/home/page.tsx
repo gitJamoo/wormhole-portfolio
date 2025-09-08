@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
+import ContactFormEmbedded from "../components/contact/ContactFormEmbedded";
+
 import headshot from "../../../public/image-assets/beaver-headshot.jpg";
 
 import esteeLauderLogo from "../../../public/image-assets/estee_lauder_companies_logo.png";
@@ -279,7 +281,7 @@ function ExperienceCard({ experience }: { experience: Experience }) {
           </p>
           <p className="text-sm text-gray-500">{experience.period}</p>
         </div>
-        <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center">
+        <div className="w-16 h-16 bg-.white rounded-lg flex items-center justify-center">
           {experience.logo ? (
             <Image
               src={experience.logo}
@@ -418,6 +420,10 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </section>
+
+        <section id="contact" className="text-center mt-16">
+          <ContactFormEmbedded />
         </section>
       </div>
     </div>

@@ -10,7 +10,7 @@ export default function ContactButton() {
   return (
     <>
       <button
-        className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg"
+        className="fixed bottom-4 right-4 bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded-full shadow-lg border border-gray-300"
         onClick={() => setShowForm(true)}
       >
         Contact Me
