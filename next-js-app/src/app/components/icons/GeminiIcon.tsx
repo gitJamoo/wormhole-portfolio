@@ -1,16 +1,25 @@
-import React from 'react';
+import React from "react";
 
 const GeminiIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className={className}>
     <path
-      d="M12 2L9.44 8.34L2 9.71L7.2 14.47L5.82 21.02L12 17.77L18.18 21.02L16.8 14.47L22 9.71L14.56 8.34L12 2Z"
-      fill="currentColor"
+      d="M16 8.016A8.522 8.522 0 008.016 16h-.032A8.521 8.521 0 000 8.016v-.032A8.521 8.521 0 007.984 0h.032A8.522 8.522 0 0016 7.984v.032z"
+      fill="url(#prefix__paint0_radial_980_20147)"
     />
+    <defs>
+      <radialGradient
+        id="prefix__paint0_radial_980_20147"
+        cx="0"
+        cy="0"
+        r="1"
+        gradientUnits="userSpaceOnUse"
+        gradientTransform="matrix(16.1326 5.4553 -43.70045 129.2322 1.588 6.503)"
+      >
+        <stop offset=".067" stop-color="#9168C0" />
+        <stop offset=".343" stop-color="#5684D1" />
+        <stop offset=".672" stop-color="#1BA1E3" />
+      </radialGradient>
+    </defs>
   </svg>
 );
 
