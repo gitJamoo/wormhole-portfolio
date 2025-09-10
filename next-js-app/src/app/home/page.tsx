@@ -193,9 +193,10 @@ const projects: Project[] = [
   },
   {
     name: "ResumAI",
-    technologies: "Python, OpenAI API, Streamlit",
+    technologies: "Python, OpenAI API, CSV, ATS",
     period: "August 2025",
-    description: "An AI-powered resume builder and analyzer.",
+    description:
+      "An AI-powered job search application. Creates curated Cover letter, anticipated Interview questions, and more",
     longDescription:
       "An AI-powered resume builder and analyzer that helps users create and optimize their resumes for job applications.",
     image: globeIcon,
