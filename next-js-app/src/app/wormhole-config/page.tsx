@@ -1,7 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import GeminiIcon from "../components/icons/GeminiIcon";
+import OpenAIIcon from "../components/icons/OpenAIIcon";
+import AnthropicIcon from "../components/icons/AnthropicIcon";
 
 const languages = [
   "English",
@@ -52,6 +55,26 @@ const languages = [
   "Vietnamese",
 ];
 
+const modelToProvider: { [key: string]: string } = {
+  "gemini-2.5-flash": "Gemini",
+  "gemini-2.5-pro": "Gemini",
+  "gemini-2.5-flash-lite": "Gemini",
+  "gemini-1.5-flash": "Gemini",
+  "claude-3-7-sonnet-latest": "Claude",
+  "claude-opus-4-1-20250805": "Claude",
+  "claude-sonnet-4-20250514": "Claude",
+  "claude-3-haiku-20240307": "Claude",
+  "gpt-4o": "OpenAI",
+  "gpt-4-turbo": "OpenAI",
+  "gpt-3.5-turbo": "OpenAI",
+};
+
+const providers = [
+  { value: "Gemini", label: "Gemini", icon: GeminiIcon },
+  { value: "OpenAI", label: "OpenAI", icon: OpenAIIcon },
+  { value: "Claude", label: "Claude", icon: AnthropicIcon },
+];
+
 export default function WormholeConfig() {
   const router = useRouter();
 
@@ -62,6 +85,8 @@ export default function WormholeConfig() {
   const [useImageAssets, setUseImageAssets] = useState(true);
   const [temperature, setTemperature] = useState(1.0);
   const [showModal, setShowModal] = useState(true);
+  const [isProviderDropdownOpen, setIsProviderDropdownOpen] = useState(false);
+  const providerDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const savedInstructions = localStorage.getItem("wormholeInstructions");
@@ -70,8 +95,11 @@ export default function WormholeConfig() {
     }
     const savedModel = localStorage.getItem("selectedWormholeModel");
     if (savedModel) {
-      setSelectedModel(savedModel);
-      setSelectedProvider("Gemini");
+      const provider = modelToProvider[savedModel];
+      if (provider) {
+        setSelectedModel(savedModel);
+        setSelectedProvider(provider);
+      }
     }
     const savedLanguage = localStorage.getItem("wormholeLanguage");
     if (savedLanguage) {
@@ -105,6 +133,21 @@ export default function WormholeConfig() {
     localStorage.setItem("temperature", JSON.stringify(temperature));
   }, [temperature]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        providerDropdownRef.current &&
+        !providerDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsProviderDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [providerDropdownRef]);
+
   const handleContinue = () => {
     router.push("/wormhole/home");
   };
@@ -123,6 +166,15 @@ export default function WormholeConfig() {
     localStorage.setItem("useImageAssets", JSON.stringify(true));
     router.push("/wormhole/home");
   };
+
+  const handleProviderChange = (provider: string) => {
+    setSelectedProvider(provider);
+    setSelectedModel("");
+  };
+
+  const selectedProviderObject = providers.find(
+    (p) => p.value === selectedProvider
+  );
 
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -247,15 +299,54 @@ export default function WormholeConfig() {
             <label htmlFor="model-provider" className="text-lg font-medium">
               Model Provider:
             </label>
-            <select
-              id="model-provider"
-              className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={selectedProvider}
-              onChange={(e) => setSelectedProvider(e.target.value)}
-            >
-              <option value="">Select a provider</option>
-              <option value="Gemini">Gemini</option>
-            </select>
+            <div className="relative" ref={providerDropdownRef}>
+              <button
+                type="button"
+                className="w-full rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-between"
+                onClick={() =>
+                  setIsProviderDropdownOpen(!isProviderDropdownOpen)
+                }
+              >
+                <span className="flex items-center gap-2">
+                  {selectedProviderObject ? (
+                    <>
+                      <selectedProviderObject.icon className="h-5 w-5" />
+                      {selectedProviderObject.label}
+                    </>
+                  ) : (
+                    "Select a provider"
+                  )}
+                </span>
+                <svg
+                  className="h-5 w-5 text-gray-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+              {isProviderDropdownOpen && (
+                <ul className="absolute z-10 mt-1 w-full bg-background border border-solid border-black/[.08] dark:border-white/[.145] rounded-lg shadow-lg">
+                  {providers.map((provider) => (
+                    <li
+                      key={provider.value}
+                      className="flex items-center gap-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                      onClick={() => {
+                        handleProviderChange(provider.value);
+                        setIsProviderDropdownOpen(false);
+                      }}
+                    >
+                      <provider.icon className="h-5 w-5" />
+                      {provider.label}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
 
           {selectedProvider === "Gemini" && (
@@ -277,6 +368,57 @@ export default function WormholeConfig() {
                     gemini-2.5-flash-lite
                   </option>
                   <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                </select>
+              </div>
+            </>
+          )}
+
+          {selectedProvider === "OpenAI" && (
+            <>
+              <div className="flex flex-col gap-4 w-full">
+                <label htmlFor="openai-model" className="text-lg font-medium">
+                  OpenAI Model:
+                </label>
+                <select
+                  id="openai-model"
+                  className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={selectedModel}
+                  onChange={(e) => setSelectedModel(e.target.value)}
+                >
+                  <option value="">Select a model</option>
+                  <option value="gpt-4o">gpt-4o</option>
+                  <option value="gpt-4-turbo">gpt-4-turbo</option>
+                  <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+                </select>
+              </div>
+            </>
+          )}
+
+          {selectedProvider === "Claude" && (
+            <>
+              <div className="flex flex-col gap-4 w-full">
+                <label htmlFor="claude-model" className="text-lg font-medium">
+                  Claude Model:
+                </label>
+                <select
+                  id="claude-model"
+                  className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={selectedModel}
+                  onChange={(e) => setSelectedModel(e.target.value)}
+                >
+                  <option value="">Select a model</option>
+                  <option value="claude-3-7-sonnet-latest">
+                    claude-3-7-sonnet-latest
+                  </option>
+                  <option value="claude-opus-4-1-202508059">
+                    claude-opus-4-1-20250805
+                  </option>
+                  <option value="claude-sonnet-4-20250514">
+                    claude-sonnet-4-20250514
+                  </option>
+                  <option value="claude-3-haiku-20240307">
+                    claude-3-haiku-20240307
+                  </option>
                 </select>
               </div>
             </>
