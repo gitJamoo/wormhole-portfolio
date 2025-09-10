@@ -1,15 +1,24 @@
 import { NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
-
-const submissionsDir = path.resolve(process.cwd(), "contact-submissions");
-const submissionsFile = path.resolve(submissionsDir, "submissions.json");
+import { list } from "@vercel/blob";
 
 async function getSubmissions() {
   try {
-    const data = await fs.readFile(submissionsFile, "utf8");
-    return JSON.parse(data);
+    const { blobs } = await list({ prefix: "submissions.json" });
+    if (blobs.length === 0) {
+      return [];
+    }
+    const submissionsBlob = blobs[0];
+    const response = await fetch(submissionsBlob.url);
+    if (!response.ok) {
+      if (response.status === 404) {
+        return [];
+      }
+      throw new Error(`Failed to fetch submissions: ${response.statusText}`);
+    }
+    const submissions = await response.json();
+    return submissions;
   } catch (error) {
+    console.error("Error fetching submissions from blob:", error);
     return [];
   }
 }

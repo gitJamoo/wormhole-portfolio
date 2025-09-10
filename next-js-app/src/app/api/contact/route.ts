@@ -1,17 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
-
-const submissionsDir = path.resolve(process.cwd(), "contact-submissions");
-const submissionsFile = path.resolve(submissionsDir, "submissions.json");
-
-async function ensureSubmissionsDirExists() {
-  try {
-    await fs.mkdir(submissionsDir, { recursive: true });
-  } catch (error) {
-    console.error("Error creating submissions directory:", error);
-  }
-}
+import { put, list } from "@vercel/blob";
 
 interface Submission {
   name: string;
@@ -22,18 +10,34 @@ interface Submission {
 
 async function getSubmissions(): Promise<Submission[]> {
   try {
-    await ensureSubmissionsDirExists();
-    const data = await fs.readFile(submissionsFile, "utf8");
-    return JSON.parse(data);
-  } catch {
+    const { blobs } = await list({ prefix: "submissions.json" });
+    if (blobs.length === 0) {
+      return [];
+    }
+    const submissionsBlob = blobs[0];
+    const response = await fetch(submissionsBlob.url);
+    if (!response.ok) {
+      // If the blob is not found or there's an error, start fresh.
+      if (response.status === 404) {
+        return [];
+      }
+      throw new Error(`Failed to fetch submissions: ${response.statusText}`);
+    }
+    const submissions = await response.json();
+    return submissions;
+  } catch (error) {
+    console.error("Error fetching submissions from blob:", error);
+    // In case of any error, assume no submissions exist to avoid data loss.
     return [];
   }
 }
 
-async function saveSubmission(data: Submission) {
-  const submissions = await getSubmissions();
-  submissions.push(data);
-  await fs.writeFile(submissionsFile, JSON.stringify(submissions, null, 2));
+async function saveSubmissions(data: Submission[]) {
+  await put("submissions.json", JSON.stringify(data, null, 2), {
+    access: "private",
+    addRandomSuffix: false, // Overwrite the existing blob
+    cacheControlMaxAge: 0, // Ensure fresh data is always read
+  });
 }
 
 export async function POST(req: NextRequest) {
@@ -47,14 +51,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const newSubmission = {
+    const newSubmission: Submission = {
       name,
       email,
       message,
       date: new Date().toISOString(),
     };
 
-    await saveSubmission(newSubmission);
+    const submissions = await getSubmissions();
+    submissions.push(newSubmission);
+    await saveSubmissions(submissions);
 
     return NextResponse.json({ message: "Submission saved" }, { status: 200 });
   } catch (error) {
