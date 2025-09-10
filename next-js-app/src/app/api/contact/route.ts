@@ -34,7 +34,7 @@ async function getSubmissions(): Promise<Submission[]> {
 
 async function saveSubmissions(data: Submission[]) {
   await put("submissions.json", JSON.stringify(data, null, 2), {
-    access: "private",
+    access: "public",
     addRandomSuffix: false, // Overwrite the existing blob
     cacheControlMaxAge: 0, // Ensure fresh data is always read
   });
