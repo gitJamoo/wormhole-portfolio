@@ -55,7 +55,6 @@ const languages = [
 export default function WormholeConfig() {
   const router = useRouter();
 
-  const [apiKey, setApiKey] = useState("");
   const [selectedProvider, setSelectedProvider] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [additionalInstructions, setAdditionalInstructions] = useState("");
@@ -73,10 +72,6 @@ export default function WormholeConfig() {
     if (savedModel) {
       setSelectedModel(savedModel);
       setSelectedProvider("Gemini");
-    }
-    const savedApiKey = localStorage.getItem("geminiApiKey");
-    if (savedApiKey) {
-      setApiKey(savedApiKey);
     }
     const savedLanguage = localStorage.getItem("wormholeLanguage");
     if (savedLanguage) {
@@ -109,11 +104,6 @@ export default function WormholeConfig() {
   useEffect(() => {
     localStorage.setItem("temperature", JSON.stringify(temperature));
   }, [temperature]);
-
-  const handleSaveApiKey = () => {
-    localStorage.setItem("geminiApiKey", apiKey);
-    alert("API Key saved!");
-  };
 
   const handleContinue = () => {
     router.push("/wormhole/home");
@@ -288,27 +278,6 @@ export default function WormholeConfig() {
                   </option>
                   <option value="gemini-1.5-flash">gemini-1.5-flash</option>
                 </select>
-              </div>
-              <div className="flex flex-col gap-4 w-full">
-                <label htmlFor="api-key" className="text-lg font-medium">
-                  API Key (Optional):
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    id="api-key"
-                    type="password"
-                    value={apiKey}
-                    onChange={(e) => setApiKey(e.target.value)}
-                    placeholder="Enter your Gemini API Key"
-                    className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-                  />
-                  <button
-                    onClick={handleSaveApiKey}
-                    className="rounded-lg border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-                  >
-                    Save
-                  </button>
-                </div>
               </div>
             </>
           )}
