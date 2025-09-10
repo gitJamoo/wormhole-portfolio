@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const PASSWORD = process.env.SUBMISSIONS_PASSWORD; // Replace with a strong password
+const PASSWORD = "SUPER_SECURE_PASSWORD"; // Replace with a strong password
 
 interface Submission {
   name: string;

@@ -38,6 +38,7 @@ import njtJamesWearingHardhatConsoleRoom from "../../../public/image-assets/New_
 import envolvlyProjectThumbnail from "../../../public/image-assets/projects/Envolvly/thumbnail.png";
 import MITJOSProjectThumbnail from "../../../public/image-assets/projects/MIT-JOS/thumbnail.png";
 import WormholeProjectThumbnail from "../../../public/image-assets/projects/Wormhole/thumbnail.png";
+import StuntCVProjectThumbnail from "../../../public/image-assets/projects/StuntCV/thumbnail.png";
 
 import fileIcon from "../../../public/file.svg";
 import globeIcon from "../../../public/globe.svg";
@@ -175,18 +176,19 @@ const projects: Project[] = [
     technologies: "Python, OpenCV, MediaPipe, Tkinter, NumPy",
     period: "July 2025 - Present",
     description:
-      "A desktop application designed for detailed analysis of acrobatic performances.",
+      "A desktop application designed for analysis of stunt performances. Tracks 70 points of accuracy per frame and performs data analysis on stunts performed.",
     longDescription:
       "A desktop application designed for detailed analysis of acrobatic performances, such as cheer stunts and partner acrobatics, using advanced computer vision.",
-    image: windowIcon,
+    image: StuntCVProjectThumbnail,
   },
   {
     name: "Wormhole",
-    technologies: "Next.js, TypeScript, Tailwind CSS, Vercel",
+    technologies: "Next.js, TypeScript, Tailwind CSS, Vercel, Generative AI",
     period: "August 2025",
-    description: "A secure file transfer application.",
+    description:
+      "An AI-powered portfolio experience that dynamically generates pages for a unique visit every time.",
     longDescription:
-      "A secure file transfer application that allows users to send files of any size with end-to-end encryption.",
+      "The Wormhole is an AI-powered portfolio experience that dynamically generates pages using a Large Language Model (LLM). The LLM is provided with information about my professional background and generates unique content for each visitor. This project showcases my skills in full-stack development, API design, and generative AI.",
     image: WormholeProjectThumbnail,
   },
   {
