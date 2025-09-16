@@ -34,12 +34,20 @@ export default function Home() {
           </p>
         </div>
         <div className="flex flex-col gap-y-4 items-center sm:items-start">
-          <button
-            onClick={handleButtonClick}
-            className="rounded-full border border-solid border-transparent flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto shadow-lg transition-all duration-200 ease-in-out hover:scale-105 transform"
-          >
-            Enter the Wormhole
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button
+              onClick={handleButtonClick}
+              className="rounded-full border border-solid border-transparent flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto shadow-lg transition-all duration-200 ease-in-out hover:scale-105 transform"
+            >
+              Enter the Wormhole
+            </button>
+            <button
+              onClick={() => router.push("/home")}
+              className="rounded-full border border-solid border-transparent flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto shadow-lg transition-all duration-200 ease-in-out hover:scale-105 transform"
+            >
+              Portfolio
+            </button>
+          </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
               href="/james_smith_resume.pdf"
@@ -48,12 +56,6 @@ export default function Home() {
             >
               Resume
             </a>
-            <button
-              onClick={() => router.push("/home")}
-              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
-            >
-              Portfolio
-            </button>
             <button
               onClick={() =>
                 window.open(
