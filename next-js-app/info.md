@@ -206,3 +206,29 @@ Associated with Tigard High School
 Show project
 OGPC '22 Project from Studio ANSTAAFL. Representing Tigard Senior High School.OGPC '22 Project from Studio ANSTAAFL. Representing Tigard Senior High School.
 .NET Framework, Web Design and +2 skills
+
+# ResumAI
+
+## Overview
+
+ResumAI is an AI-powered command-line application designed to assist with job applications. It streamlines the process of tailoring a resume to a specific job description, generating a targeted cover letter, and preparing for interviews.
+
+By analyzing a user's resume against a provided job posting, ResumAI offers valuable feedback and generates a suite of documents to support the application process.
+
+## Features
+
+- **Resume Analysis:** Compares your resume with a job description to identify areas for improvement and highlight matching qualifications. The analysis is provided in a clear Markdown format.
+- **Cover Letter Generation:** Automatically creates a professional LaTeX cover letter, customized based on the job posting and your resume.
+- **Interview Preparation:** Generates a document with potential interview questions and talking points based on the role and your qualifications.
+- **Customizable Templates:** Allows for easy customization of the cover letter and resume templates.
+- **Command-Line Interface:** Provides a simple and efficient command-line interface for running the analysis and generation process.
+
+## How it Works
+
+The application takes a resume file (in LaTeX format) and a job description as input. It then uses an AI model to perform the analysis and generate the output files. The results are saved in a dedicated output directory for each job application.
+
+## Languages and Technologies
+
+- **Python:** The core application logic is written in Python.
+- **LaTeX:** Used for generating professional-looking resumes and cover letters.
+- **Markdown:** Used for documentation and output files like resume analysis and interview preparation.

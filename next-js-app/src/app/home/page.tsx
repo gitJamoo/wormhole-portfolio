@@ -87,30 +87,31 @@ const education: Education = {
 
 const experiences: Experience[] = [
   {
-    company: "Oregon State University",
-    role: "GENESIS AI Dev Team Advisor",
-    period: "August 2025 – Present",
-    description:
-      "Created internal tooling for business operations at Oregon State University.",
-    longDescription: "New role. More to come soon",
-    logo: oregonStateUniversityLogo,
-  },
-  {
     company: "Envolvly",
     role: "Co-Founder",
     period: "February 2023 - Present",
     description:
-      "Laid groundwork for tech infrastructure, resulting in a robust, scalable application reaching 1,000+ unique users.",
+      "Co-founded and scaled a tech startup by building a robust, secure, and scalable full-stack application from the ground up.",
     longDescription:
-      "Technical lead and Co-founder of Envolvly. Worked on everything under the sun of technology - including; Website (React, AWS, Domains & Hosting), Internal use (Google Suite and Emails), & CRMS. Leading use of Agile Methodologies.",
+      "As technical co-founder, I led Envolvly's development from concept to a scalable app with active users. I architected the full-stack infrastructure using React, AWS, and MongoDB, and established all technical operations, including the CI/CD pipeline. My leadership in applying Agile methodologies was key to our rapid growth and winning the OSU Business Pitch Competition, demonstrating strong technical and business acumen.",
     logo: envolvlyLogo,
+  },
+  {
+    company: "Oregon State University",
+    role: "GENESIS AI Dev Team Advisor",
+    period: "August 2025 – Present",
+    description:
+      "Advising the GENESIS AI development team on creating internal agentic AI tools to streamline university business operations.",
+    longDescription:
+      "Advising the GENESIS AI Dev team on building interal agentic AI tools. This includes but is not limited to creating documentation, training videos, and example codebases. Also worked with vendors (Google, Amazon, Microsoft) in order to ensure best practices in implementation. Created applicaitons across Google Gemini, Amazon Bedrock, and Microsoft Copilot environments.",
+    logo: oregonStateUniversityLogo,
   },
   {
     company: "The Estée Lauder Companies",
     role: "Machine Learning Intern",
     period: "June 2025 – August 2025",
     description:
-      "Developed an Agentic AI workflow to create a customer-facing AI chabot for product recommendation.",
+      "Engineered an agentic AI workflow to power a customer-facing chatbot, enhancing product recommendations for a global brand.",
     longDescription:
       "As a Machine Learning Intern on the Data Science and Analytics global team, I leveraged cutting-edge AI and data engineering to develop and optimize intelligent systems, significantly enhancing customer experiences and driving substantial operational efficiencies. My work focused on transforming complex data into actionable insights and building scalable solutions that directly contributed to future revenue growth and cost savings.",
     logo: esteeLauderLogo,
@@ -128,7 +129,7 @@ const experiences: Experience[] = [
     role: "Programmer & Technical Analyst Intern",
     period: "June 2024 – August 2024",
     description:
-      "Created 200+ tests across 18 suites resulting in 85% code coverage using Jest & Gherkin.",
+      "Fortified a critical statewide incident reporting system by creatign tests, directly contributing to system reliability and modernization.",
     longDescription:
       "As a member of the engineering and innovations team, I contributed to the modernization and reliability of critical transit systems through comprehensive testing, automation, and infrastructure enhancements. Engineered and executed over 200 comprehensive tests across 18 suites for a critical, statewide digital incident reporting system, achieving an exceptional 85% code coverage with Jest and Gherkin.",
     logo: njTransitLogo,
@@ -143,7 +144,7 @@ const experiences: Experience[] = [
     role: "Software Engineering Intern",
     period: "June 2022 – August 2022",
     description:
-      "Created management panel that was used by 200,000+ unique users across 200+ organizations.",
+      "Built a user management panel serving over 200,000 users, simplifying administration for hundreds of organizations.",
     longDescription:
       "As a Web Development Intern, I contributed to the development and optimization of critical user management systems, enhancing administrative efficiency and user experience for a large-scale platform. Engineered a comprehensive administration user control panel, empowering administrators with instant, self-service capabilities to manage user roles, permissions, and settings for over 200,000 active unique users.",
     logo: hatsAndLaddersLogo,
@@ -158,7 +159,7 @@ const projects: Project[] = [
     description:
       "Laid groundwork for tech infrastructure, resulting in a robust, scalable application reaching 1,000+ unique users.",
     longDescription:
-      "Laid groundwork for tech infrastructure, resulting in a robust, scalable application reaching 1,000+ unique users. Directly implemented cloud technologies such as AWS Lambda, Elastic Beanstalk, EC2, Git, and Firebase, creating a full stack web application with full mobile & desktop support.",
+      "As technical co-founder, I led Envolvly's development from concept to a scalable app with live users. I architected the full-stack infrastructure using React, AWS, and MongoDB, and established all technical operations, including the CI/CD pipeline. My leadership in applying Agile methodologies was key to our rapid growth and winning the OSU Business Pitch Competition, demonstrating strong technical and business acumen.",
     image: envolvlyProjectThumbnail,
   },
   {
