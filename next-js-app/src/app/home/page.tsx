@@ -62,6 +62,7 @@ interface Project {
   description: string;
   longDescription: string;
   image?: StaticImageData;
+  links?: { text: string; url: string }[];
 }
 
 const education: Education = {
@@ -162,6 +163,7 @@ const projects: Project[] = [
     longDescription:
       "As technical co-founder, I led Envolvly's development from concept to a scalable app with live users. I architected the full-stack infrastructure using React, AWS, and MongoDB, and established all technical operations, including the CI/CD pipeline. My leadership in applying Agile methodologies was key to our rapid growth and winning the OSU Business Pitch Competition, demonstrating strong technical and business acumen.",
     image: envolvlyProjectThumbnail,
+    links: [{ text: "Website", url: "https://www.envolvly.com" }],
   },
   {
     name: "MIT JOS",
@@ -192,6 +194,13 @@ const projects: Project[] = [
     longDescription:
       "The Wormhole is an AI-powered portfolio experience that dynamically generates pages using a Large Language Model (LLM). The LLM is provided with information about my professional background and generates unique content for each visitor. This project showcases my skills in full-stack development, API design, and generative AI.",
     image: WormholeProjectThumbnail,
+    links: [
+      {
+        text: "Github",
+        url: "https://github.com/gitJamoo/wormhole-portfolio",
+      },
+      { text: "Website", url: "https://j-m-s.dev" },
+    ],
   },
   {
     name: "ResumAI",
@@ -214,6 +223,7 @@ const projects: Project[] = [
     image: globeIcon,
   },
 ];
+
 
 interface Education {
   institution: string;
@@ -436,15 +446,29 @@ function ProjectCard({ project }: { project: Project }) {
             <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
               {project.longDescription}
             </p>
-            <p className="text-md text-gray-500 font-mono">
+            <p className="text-md text-gray-500 font-mono mb-6">
               {project.technologies}
             </p>
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="mt-6 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            >
-              Close
-            </button>
+            <div className="flex flex-wrap gap-4 items-center">
+              {project.links &&
+                project.links.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors"
+                  >
+                    {link.text}
+                  </a>
+                ))}
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors ml-auto"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
