@@ -39,6 +39,7 @@ import envolvlyProjectThumbnail from "../../../public/image-assets/projects/Envo
 import MITJOSProjectThumbnail from "../../../public/image-assets/projects/MIT-JOS/thumbnail.png";
 import WormholeProjectThumbnail from "../../../public/image-assets/projects/Wormhole/thumbnail.png";
 import StuntCVProjectThumbnail from "../../../public/image-assets/projects/StuntCV/thumbnail.png";
+import ResumAIProjectThumbnail from "../../../public/image-assets/projects/ResumAI/thumbnail.png";
 
 import fileIcon from "../../../public/file.svg";
 import globeIcon from "../../../public/globe.svg";
@@ -155,7 +156,7 @@ const projects: Project[] = [
   {
     name: "Envolvly",
     technologies: "GitHub, Docker, AWS, React, Typescript, MongoDB",
-    period: "September 2023 - Current",
+    period: "September 2023 - Present",
     description:
       "Laid groundwork for tech infrastructure, resulting in a robust, scalable application reaching 1,000+ unique users.",
     longDescription:
@@ -165,7 +166,7 @@ const projects: Project[] = [
   {
     name: "MIT JOS",
     technologies: "C, C++, Assembly, OS concepts, Computer Architecture",
-    period: "March 2024 - June 2024",
+    period: "March 2024",
     description:
       "Completed labs, assignments, & built an Operating system based off of MIT’s JOS curriculum.",
     longDescription:
@@ -200,6 +201,16 @@ const projects: Project[] = [
       "An AI-powered job search application. Creates curated Cover letter, anticipated Interview questions, and more",
     longDescription:
       "An AI-powered resume builder and analyzer that helps users create and optimize their resumes for job applications.",
+    image: ResumAIProjectThumbnail,
+  },
+  {
+    name: "My next big thing.",
+    technologies: "???",
+    period: "???",
+    description:
+      "My next big thing could be built with your team. Contact me to make it happen.",
+    longDescription:
+      "My next big thing could be built with your team. Contact me to make it happen.",
     image: globeIcon,
   },
 ];
@@ -376,7 +387,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <>
       <div
-        className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 cursor-pointer"
+        className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 cursor-pointer h-full flex flex-col"
         onClick={() => setIsModalOpen(true)}
       >
         {project.image && (
@@ -389,23 +400,25 @@ function ProjectCard({ project }: { project: Project }) {
             />
           </div>
         )}
-        <h3 className="text-xl font-bold">{project.name}</h3>
-        <p className="text-sm text-gray-500 mb-2">{project.period}</p>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">
-          {project.description}
-        </p>
-        <p className="text-sm text-gray-500 font-mono">
-          {project.technologies}
-        </p>
+        <div className="flex flex-col flex-grow">
+          <h3 className="text-xl font-bold">{project.name}</h3>
+          <p className="text-sm text-gray-500 mb-2">{project.period}</p>
+          <p className="text-gray-600 dark:text-gray-400 mb-4 flex-grow">
+            {project.description}
+          </p>
+          <p className="text-sm text-gray-500 font-mono">
+            {project.technologies}
+          </p>
+        </div>
       </div>
 
       {isModalOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50"
+          className="fixed inset-0 backdrop-blur-lg flex items-center justify-center z-50 p-4"
           onClick={() => setIsModalOpen(false)}
         >
           <div
-            className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-2xl"
+            className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-2xl w-full max-w-2xl border border-gray-200 dark:border-gray-800"
             onClick={(e) => e.stopPropagation()}
           >
             {project.image && (
@@ -428,7 +441,7 @@ function ProjectCard({ project }: { project: Project }) {
             </p>
             <button
               onClick={() => setIsModalOpen(false)}
-              className="mt-6 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 font-bold py-2 px-4 rounded"
+              className="mt-6 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
             >
               Close
             </button>
@@ -525,14 +538,9 @@ export default function HomePage() {
 
         <section id="projects">
           <h2 className="text-4xl font-bold mb-8 text-center">Projects</h2>
-          <div className="flex overflow-x-auto gap-8 pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((proj, index) => (
-              <div
-                key={index}
-                className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3"
-              >
-                <ProjectCard project={proj} />
-              </div>
+              <ProjectCard key={index} project={proj} />
             ))}
           </div>
         </section>
