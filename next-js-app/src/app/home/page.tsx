@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 
 import ContactFormEmbedded from "../components/contact/ContactFormEmbedded";
+import CreativeWorksCarousel from "../components/CreativeWorksCarousel";
+
 
 import headshot from "../../../public/image-assets/beaver-headshot.jpg";
 
@@ -224,6 +226,37 @@ const projects: Project[] = [
   },
 ];
 
+const creativeWorks = [
+  {
+    title: "Cinematic Video 1",
+    youtubeUrl: "https://youtube.com/shorts/ybqFLenkeWE", // Placeholder
+  },
+  {
+    title: "Cinematic Video 1",
+    youtubeUrl: "https://youtu.be/wxSr9o4Vqsc", // Placeholder
+  },
+  {
+    title: "Cinematic Video 2",
+    youtubeUrl: "https://youtu.be/pbhPOA26mrI", // Placeholder
+  },
+  {
+    title: "Cinematic Video 3",
+    youtubeUrl: "https://youtube.com/shorts/xGahzFqC6dk", // Placeholder
+  },
+  {
+    title: "Cinematic Video 4",
+    youtubeUrl: "https://youtube.com/shorts/7nCGFNZC5Pw", // Placeholder
+  },
+  {
+    title: "Cinematic Video 5",
+    youtubeUrl: "https://youtube.com/shorts/qnMAit1Upro", // Placeholder
+  },
+  {
+    title: "Cinematic Video 7",
+    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Placeholder
+  },
+];
+
 
 interface Education {
   institution: string;
@@ -248,9 +281,8 @@ function EducationCard({ education }: { education: Education }) {
           <div className="flex items-center gap-4">
             <h3 className="text-xl font-bold">{education.institution}</h3>
             <svg
-              className={`w-6 h-6 transition-transform duration-300 ${
-                isExpanded ? "transform rotate-180" : ""
-              }`}
+              className={`w-6 h-6 transition-transform duration-300 ${isExpanded ? "transform rotate-180" : ""
+                }`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -326,9 +358,8 @@ function ExperienceCard({ experience }: { experience: Experience }) {
           <div className="flex items-center gap-4">
             <h3 className="text-xl font-bold">{experience.company}</h3>
             <svg
-              className={`w-6 h-6 transition-transform duration-300 ${
-                isExpanded ? "transform rotate-180" : ""
-              }`}
+              className={`w-6 h-6 transition-transform duration-300 ${isExpanded ? "transform rotate-180" : ""
+                }`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -569,10 +600,20 @@ export default function HomePage() {
           </div>
         </section>
 
+
+
+        <section id="creative-works" className="mb-16 mt-24">
+          <h2 className="text-4xl font-bold mb-4 text-center">Creative Works</h2>
+          <p className="text-lg text-center max-w-2xl mx-auto mb-8 text-gray-700 dark:text-gray-300">
+            I have a passion for making small videos recapping chapters of my life and saving memories. Here are a few:
+          </p>
+          <CreativeWorksCarousel works={creativeWorks} />
+        </section>
+
         <section id="contact" className="text-center mt-16">
           <ContactFormEmbedded />
         </section>
       </div>
-    </div>
+    </div >
   );
 }
