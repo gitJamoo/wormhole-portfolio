@@ -14,6 +14,7 @@ import njTransitLogo from "../../../public/image-assets/nj_transit_logo.jpeg";
 import hatsAndLaddersLogo from "../../../public/image-assets/hats_and_ladders_logo.jpg";
 import oregonStateUniversityLogo from "../../../public/image-assets/oregon_state_university_logo.png";
 import envolvlyLogo from "../../../public/image-assets/envolvly_logo.png";
+import bvrstcoLogo from "../../../public/image-assets/bvr_st_co_logo.jpg";
 
 import osuCheerBoysTeamPhoto from "../../../public/image-assets/Oregon_State_University/OSU_Cheer_Boys_Team_Photo.jpg";
 import osuCheerJamesAtWbbMarchMadness from "../../../public/image-assets/Oregon_State_University/OSU_Cheer_James_at_WBB_March_Madness.jpg";
@@ -109,6 +110,16 @@ const experiences: Experience[] = [
     longDescription:
       "As technical co-founder, I led Envolvly's development from concept to a scalable app with active users. I architected the full-stack infrastructure using React, AWS, and MongoDB, and established all technical operations, including the CI/CD pipeline. My leadership in applying Agile methodologies was key to our rapid growth and winning the OSU Business Pitch Competition, demonstrating strong technical and business acumen.",
     logo: envolvlyLogo,
+  },
+  {
+    company: "BVR ST CO",
+    role: "Machine Learning Intern",
+    period: "October 2025 - Present",
+    description:
+      "Working as a Machine Learning Intern to create cutting-edge Machine Learning solutions for Collegiate Sports.",
+    longDescription:
+      "More will come soon. See COORDINATOR.",
+    logo: bvrstcoLogo,
   },
   {
     company: "Oregon State University",
