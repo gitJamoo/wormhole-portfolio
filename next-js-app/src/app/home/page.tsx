@@ -42,6 +42,8 @@ import MITJOSProjectThumbnail from "../../../public/image-assets/projects/MIT-JO
 import WormholeProjectThumbnail from "../../../public/image-assets/projects/Wormhole/thumbnail.png";
 import StuntCVProjectThumbnail from "../../../public/image-assets/projects/StuntCV/thumbnail.png";
 import ResumAIProjectThumbnail from "../../../public/image-assets/projects/ResumAI/thumbnail.png";
+import CoordinatorProjectThumbnail from "../../../public/image-assets/projects/Coordinator/thumbnail.png";
+import GenesisAIHubProjectThumbnail from "../../../public/image-assets/projects/GenesisAIHub/thumbnail.png";
 
 import fileIcon from "../../../public/file.svg";
 import globeIcon from "../../../public/globe.svg";
@@ -213,60 +215,6 @@ Envolvly is a comprehensive platform designed to connect students with volunteer
 Followed Agile methodology with 2-week sprints, daily standups, and continuous integration. Utilized Git for version control with feature branching and pull request reviews.`
   },
   {
-    name: "MIT JOS",
-    technologies: "C, C++, Assembly, OS concepts, Computer Architecture",
-    period: "March 2024",
-    description:
-      "Completed labs, assignments, & built an Operating system based off of MIT's JOS curriculum.",
-    longDescription:
-      "Completed labs, assignments, & built an Operating system based off of MIT's JOS curriculum. Worked directly on memory management, process management, file systems, concurrency, & kernel operations.",
-    image: MITJOSProjectThumbnail,
-    features: [
-      "Custom memory management with paging",
-      "Process scheduling and context switching",
-      "File system implementation",
-      "System call interface",
-      "Multi-threading support",
-      "Kernel-level debugging tools"
-    ],
-    techStack: [
-      { category: "Languages", technologies: ["C", "C++", "x86 Assembly"] },
-      { category: "Concepts", technologies: ["Operating Systems", "Computer Architecture", "Low-level Programming"] },
-      { category: "Tools", technologies: ["GDB", "QEMU", "Make"] }
-    ],
-    documentation: `## Operating System Implementation
-
-This project involved building a Unix-like operating system from scratch following MIT's JOS (6.828) curriculum.
-
-## Core Components Implemented
-
-### Memory Management
-- Virtual memory with paging
-- Page table management
-- Memory allocation and deallocation
-- Copy-on-write fork implementation
-
-### Process Management
-- Process creation and termination
-- Context switching
-- Process scheduling (round-robin)
-- Inter-process communication
-
-### File System
-- Basic file system structure
-- File operations (create, read, write, delete)
-- Directory management
-- Disk I/O operations
-
-### System Calls
-- Implemented 20+ system calls
-- User-kernel mode switching
-- Trap handling and interrupts
-
-## Learning Outcomes
-Deep understanding of how operating systems work at the lowest level, including memory management, process scheduling, and hardware interaction.`
-  },
-  {
     name: "StuntCV",
     technologies: "Python, OpenCV, MediaPipe, Tkinter, NumPy",
     period: "July 2025 - Present",
@@ -327,137 +275,6 @@ Export tracking data to CSV format for use in spreadsheets or other analysis too
 
 ## Technical Implementation
 Built with Python using OpenCV for video processing and MediaPipe for pose estimation. The UI is created with Tkinter for cross-platform compatibility.`
-  },
-  {
-    name: "Wormhole",
-    technologies: "Next.js, TypeScript, Tailwind CSS, Vercel, Generative AI",
-    period: "August 2025",
-    description:
-      "An AI-powered portfolio experience that dynamically generates pages for a unique visit every time.",
-    longDescription:
-      "The Wormhole is an AI-powered portfolio experience that dynamically generates pages using a Large Language Model (LLM). The LLM is provided with information about my professional background and generates unique content for each visitor. This project showcases my skills in full-stack development, API design, and generative AI.",
-    image: WormholeProjectThumbnail,
-    githubUrl: "https://github.com/gitJamoo/wormhole-portfolio",
-    liveUrl: "https://j-m-s.dev",
-    features: [
-      "AI-generated content for unique experiences",
-      "Dynamic page generation with LLM",
-      "Responsive design with Tailwind CSS",
-      "Server-side rendering with Next.js",
-      "Contact form with email integration",
-      "Dark mode support"
-    ],
-    techStack: [
-      { category: "Frontend", technologies: ["Next.js", "React", "TypeScript"] },
-      { category: "Styling", technologies: ["Tailwind CSS", "CSS3"] },
-      { category: "AI/ML", technologies: ["OpenAI API", "Generative AI"] },
-      { category: "Deployment", technologies: ["Vercel", "GitHub"] }
-    ],
-    metrics: [
-      { label: "Build Time", value: "<30s" },
-      { label: "Lighthouse Score", value: "95+" },
-      { label: "Page Load", value: "<1s" }
-    ],
-    documentation: `## Wormhole Portfolio
-
-An experimental portfolio website that uses AI to generate unique content for each visitor.
-
-## Concept
-Instead of a static portfolio, Wormhole uses a Large Language Model to dynamically generate page content based on my professional background. Each visit creates a slightly different narrative while maintaining factual accuracy.
-
-## Technical Architecture
-
-### Frontend
-- Next.js 14 with App Router
-- TypeScript for type safety
-- Tailwind CSS for styling
-- Server-side rendering for performance
-
-### AI Integration
-- OpenAI GPT-4 API for content generation
-- Custom prompts for consistent branding
-- Caching layer to reduce API calls
-- Fallback to static content if API fails
-
-### Deployment
-- Hosted on Vercel for optimal Next.js performance
-- Automatic deployments from GitHub
-- Edge functions for low latency
-
-## Features
-- Dynamic "About Me" section
-- AI-generated project descriptions
-- Personalized greetings
-- Contact form with email notifications
-- Responsive design for all devices
-
-## Performance
-Optimized for speed with server-side rendering, image optimization, and efficient caching strategies.`
-  },
-  {
-    name: "ResumAI",
-    technologies: "Python, OpenAI API, CSV, ATS",
-    period: "August 2025",
-    description:
-      "An AI-powered job search application. Creates curated Cover letter, anticipated Interview questions, and more",
-    longDescription:
-      "An AI-powered resume builder and analyzer that helps users create and optimize their resumes for job applications. The application uses natural language processing to analyze job descriptions and tailor resumes to match specific positions, improving ATS (Applicant Tracking System) compatibility.",
-    image: ResumAIProjectThumbnail,
-    features: [
-      "AI-powered resume analysis and optimization",
-      "Custom cover letter generation",
-      "Interview question prediction",
-      "ATS compatibility scoring",
-      "Keyword optimization",
-      "Multiple resume format support"
-    ],
-    techStack: [
-      { category: "Languages", technologies: ["Python"] },
-      { category: "AI/ML", technologies: ["OpenAI API", "NLP"] },
-      { category: "Data", technologies: ["CSV", "JSON"] },
-      { category: "Libraries", technologies: ["Pandas", "NLTK"] }
-    ],
-    metrics: [
-      { label: "ATS Score Improvement", value: "40%+" },
-      { label: "Processing Time", value: "<5s" },
-      { label: "Accuracy", value: "90%+" }
-    ],
-    documentation: `## ResumAI - Intelligent Resume Optimization
-
-ResumAI helps job seekers optimize their resumes for specific positions using AI-powered analysis.
-
-## Core Features
-
-### Resume Analysis
-- Scans resume for ATS compatibility
-- Identifies missing keywords
-- Suggests improvements for formatting
-- Scores resume against job description
-
-### Cover Letter Generation
-- Creates personalized cover letters
-- Matches tone to company culture
-- Highlights relevant experience
-- Customizable templates
-
-### Interview Preparation
-- Predicts likely interview questions
-- Generates sample answers
-- Provides tips based on job description
-
-## How It Works
-
-1. **Upload Resume**: User uploads their current resume (PDF, DOCX, or TXT)
-2. **Job Description**: User pastes the job description they're applying for
-3. **AI Analysis**: OpenAI API analyzes both documents
-4. **Recommendations**: System provides specific suggestions for improvement
-5. **Generate Materials**: Creates optimized resume, cover letter, and interview prep
-
-## Technical Details
-Built with Python, using OpenAI's GPT-4 for natural language understanding. Processes documents using Pandas for data manipulation and NLTK for text analysis.
-
-## Results
-Users report 40%+ improvement in ATS scores and higher callback rates after using ResumAI to optimize their applications.`
   },
   {
     name: "OVERSEER",
@@ -525,41 +342,213 @@ Instead of a static portfolio, Wormhole uses a Large Language Model to dynamical
 Optimized for speed with server-side rendering, image optimization, and efficient caching strategies.`
   },
   {
-    name: "Observer",
-    technologies: "NA",
-    period: "December 2025",
+    name: "COORDINATOR",
+    technologies: "NVIDIA, AutoGen, Next.js",
+    period: "October 2025",
     description:
-      "An AI-powered portfolio experience that dynamically generates pages for a unique visit every time.",
+      "A first-of-its-kind agentic framework designed to optimize real-time strategy and decision-making in sports.",
     longDescription:
-      "The Wormhole is an AI-powered portfolio experience that dynamically generates pages using a Large Language Model (LLM). The LLM is provided with information about my professional background and generates unique content for each visitor. This project showcases my skills in full-stack development, API design, and generative AI.",
-    image: WormholeProjectThumbnail,
-    githubUrl: "https://github.com/gitJamoo/wormhole-portfolio",
-    liveUrl: "https://j-m-s.dev",
+      "COORDINATOR is a continuous cognitive AI system that transforms sports strategy into adaptive, real-time intelligence. Inspired by the human brain's cognitive cycle, it observes, thinks, acts, and verifies to spot patterns and anticipate game changes. Built on NVIDIA technologies and running on local hardware (DGX Spark), it ensures strategic data remains secure and offline while providing coaches with a significant competitive edge.",
+    image: CoordinatorProjectThumbnail,
+    liveUrl: "https://getcoordinator.ai/",
     features: [
-      "AI-generated content for unique experiences",
-      "Dynamic page generation with LLM",
-      "Responsive design with Tailwind CSS",
-      "Server-side rendering with Next.js",
-      "Contact form with email integration",
-      "Dark mode support"
+      "Real-time strategic analysis and adaptive learning",
+      "Dual-mode reasoning (Fast-mode tactics vs. Slow-mode strategy)",
+      "Secure local infrastructure with offline training",
+      "Agentic framework for multi-source data processing",
+      "Low-Rank Adaptation (LoRA) for efficient model fine-tuning",
+      "End-to-end encryption for sensitive team data"
     ],
     techStack: [
-      { category: "Frontend", technologies: ["Next.js", "React", "TypeScript"] },
-      { category: "Styling", technologies: ["Tailwind CSS", "CSS3"] },
-      { category: "AI/ML", technologies: ["OpenAI API", "Generative AI"] },
-      { category: "Deployment", technologies: ["Vercel", "GitHub"] }
+      { category: "AI/ML", technologies: ["NVIDIA Nemotron", "AutoGen", "LoRA", "Reinforcement Learning"] },
+      { category: "Hardware", technologies: ["NVIDIA DGX Spark", "Local GPUs"] },
+      { category: "Frontend", technologies: ["Next.js", "TypeScript", "Tailwind CSS"] },
+      { category: "Data", technologies: ["Live Play-by-Play Feeds", "Video Analysis", "Schematic Data"] }
     ],
     metrics: [
-      { label: "Build Time", value: "<30s" },
-      { label: "Lighthouse Score", value: "95+" },
-      { label: "Page Load", value: "<1s" }
+      { label: "Processing Mode", value: "Real-time" },
+      { label: "Security", value: "100% Local" },
+      { label: "Analysis Speed", value: "<100ms" }
     ],
-    documentation: ``
+    documentation: `https://bvrstco.com/blog/introducing-coordinator`
   },
   {
-    name: "GENESIS AI Hub",
-    technologies: "NA",
+    name: "OSU Genesis AI Hub",
+    technologies: "React.js, Node.js, Python, GCP",
     period: "September 2025 - Present",
+    description:
+      "A central AI service portal designed to serve as the secure, branded front-end for Oregon State University's faculty-facing agentic applications.",
+    longDescription:
+      "The OSU Genesis Hub is a modular web-based interface that acts as a unified entry point for specialized agents like FAIE and GOA. It provides a secure environment through Microsoft SSO and Duo authentication, featuring a registry-based architecture that routes user queries and file attachments to specific agentic services. This project focuses on creating a seamless, persistent chat experience while establishing a standard interface for future OSU-developed AI tools.",
+    image: GenesisAIHubProjectThumbnail,
+    githubUrl: "https://github.com/GENESIS-AI-Hub/GENESIS-AI-Hub-App",
+    liveUrl: "https://genesis.dev.oregonstate.edu/",
+    features: [
+      "Modular Agentic Services Registry",
+      "Secure Microsoft SSO & Duo Authentication",
+      "Persistent chat history tied to user accounts",
+      "Context-aware backend routing for specialized agents",
+      "File upload and document attachment support",
+      "Responsive, OSU-branded chat interface"
+    ],
+    techStack: [
+      { category: "Frontend", technologies: ["React.js", "TypeScript"] },
+      { category: "Backend", technologies: ["Node.js", "Python (FastAPI/Flask)", "Java (Spring Boot)"] },
+      { category: "Authentication", technologies: ["Microsoft SSO", "Duo"] },
+      { category: "Cloud/Data", technologies: ["Google Cloud Platform (GCP)", "PostgreSQL", "Firebase"] }
+    ],
+    metrics: [
+      { label: "Response Latency", value: "<5s" },
+      { label: "Target Users", value: "10,000+" },
+      { label: "Compliance", value: "FERPA/SSO" }
+    ],
+    documentation: `## OSU Genesis Hub
+
+A secure, web-based portal for registering and interacting with agentic AI applications for Oregon State Faculty.
+
+## Concept
+The Hub provides a unified front-end for multiple independent AI agents. Instead of disparate tools, faculty access a single, branded interface where developers can register new agentic services using a standardized protocol.
+
+## Technical Architecture
+
+### Frontend & Security
+- Built with React.js for a responsive, professional chat experience.
+- Strict access control via OSU Microsoft SSO and Duo authentication.
+
+### Registry & Routing
+- Centralized registry system to manage agent metadata and endpoints.
+- Backend routing that passes conversation context and attachments to the selected agent (e.g., FAIE or GOA).
+
+### Infrastructure
+- Preferred deployment on Google Cloud Platform (GCP).
+- Persistent storage for user sessions and chat histories.
+
+## Success Criteria
+Success is measured by the ability to register a simple backend agentic system with the Hub and successfully invoke it through the frontend chat interface to perform specific tasks.`
+  },
+  {
+    name: "ResumAI",
+    technologies: "Python, OpenAI API, CSV, ATS",
+    period: "August 2025",
+    description:
+      "An AI-powered job search application. Creates curated Cover letter, anticipated Interview questions, and more",
+    longDescription:
+      "An AI-powered resume builder and analyzer that helps users create and optimize their resumes for job applications. The application uses natural language processing to analyze job descriptions and tailor resumes to match specific positions, improving ATS (Applicant Tracking System) compatibility.",
+    image: ResumAIProjectThumbnail,
+    features: [
+      "AI-powered resume analysis and optimization",
+      "Custom cover letter generation",
+      "Interview question prediction",
+      "ATS compatibility scoring",
+      "Keyword optimization",
+      "Multiple resume format support"
+    ],
+    techStack: [
+      { category: "Languages", technologies: ["Python"] },
+      { category: "AI/ML", technologies: ["OpenAI API", "NLP"] },
+      { category: "Data", technologies: ["CSV", "JSON"] },
+      { category: "Libraries", technologies: ["Pandas", "NLTK"] }
+    ],
+    metrics: [
+      { label: "ATS Score Improvement", value: "40%+" },
+      { label: "Processing Time", value: "<5s" },
+      { label: "Accuracy", value: "90%+" }
+    ],
+    documentation: `## ResumAI - Intelligent Resume Optimization
+
+ResumAI helps job seekers optimize their resumes for specific positions using AI-powered analysis.
+
+## Core Features
+
+### Resume Analysis
+- Scans resume for ATS compatibility
+- Identifies missing keywords
+- Suggests improvements for formatting
+- Scores resume against job description
+
+### Cover Letter Generation
+- Creates personalized cover letters
+- Matches tone to company culture
+- Highlights relevant experience
+- Customizable templates
+
+### Interview Preparation
+- Predicts likely interview questions
+- Generates sample answers
+- Provides tips based on job description
+
+## How It Works
+
+1. **Upload Resume**: User uploads their current resume (PDF, DOCX, or TXT)
+2. **Job Description**: User pastes the job description they're applying for
+3. **AI Analysis**: OpenAI API analyzes both documents
+4. **Recommendations**: System provides specific suggestions for improvement
+5. **Generate Materials**: Creates optimized resume, cover letter, and interview prep
+
+## Technical Details
+Built with Python, using OpenAI's GPT-4 for natural language understanding. Processes documents using Pandas for data manipulation and NLTK for text analysis.
+
+## Results
+Users report 40%+ improvement in ATS scores and higher callback rates after using ResumAI to optimize their applications.`
+  },
+  {
+    name: "MIT JOS",
+    technologies: "C, C++, Assembly, OS concepts, Computer Architecture",
+    period: "March 2024",
+    description:
+      "Completed labs, assignments, & built an Operating system based off of MIT's JOS curriculum.",
+    longDescription:
+      "Completed labs, assignments, & built an Operating system based off of MIT's JOS curriculum. Worked directly on memory management, process management, file systems, concurrency, & kernel operations.",
+    image: MITJOSProjectThumbnail,
+    features: [
+      "Custom memory management with paging",
+      "Process scheduling and context switching",
+      "File system implementation",
+      "System call interface",
+      "Multi-threading support",
+      "Kernel-level debugging tools"
+    ],
+    techStack: [
+      { category: "Languages", technologies: ["C", "C++", "x86 Assembly"] },
+      { category: "Concepts", technologies: ["Operating Systems", "Computer Architecture", "Low-level Programming"] },
+      { category: "Tools", technologies: ["GDB", "QEMU", "Make"] }
+    ],
+    documentation: `## Operating System Implementation
+
+This project involved building a Unix-like operating system from scratch following MIT's JOS (6.828) curriculum.
+
+## Core Components Implemented
+
+### Memory Management
+- Virtual memory with paging
+- Page table management
+- Memory allocation and deallocation
+- Copy-on-write fork implementation
+
+### Process Management
+- Process creation and termination
+- Context switching
+- Process scheduling (round-robin)
+- Inter-process communication
+
+### File System
+- Basic file system structure
+- File operations (create, read, write, delete)
+- Directory management
+- Disk I/O operations
+
+### System Calls
+- Implemented 20+ system calls
+- User-kernel mode switching
+- Trap handling and interrupts
+
+## Learning Outcomes
+Deep understanding of how operating systems work at the lowest level, including memory management, process scheduling, and hardware interaction.`
+  },
+  {
+    name: "Wormhole",
+    technologies: "Next.js, TypeScript, Tailwind CSS, Vercel, Generative AI",
+    period: "August 2025",
     description:
       "An AI-powered portfolio experience that dynamically generates pages for a unique visit every time.",
     longDescription:
