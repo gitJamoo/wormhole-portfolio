@@ -67,6 +67,12 @@ export default function Home() {
             >
               LinkedIn
             </button>
+            <button
+              onClick={() => router.push("/book")}
+              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
+            >
+              Book a Meeting
+            </button>
           </div>
         </div>
       </main>

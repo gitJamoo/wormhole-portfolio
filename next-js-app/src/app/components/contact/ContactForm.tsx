@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function ContactForm({ onClose }: { onClose: () => void }) {
   const [name, setName] = useState('');
@@ -46,6 +47,14 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4">Contact Me</h2>
+        <div className="flex justify-center mb-6">
+          <Link
+            href="/book"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
+          >
+            Book a meeting
+          </Link>
+        </div>
         {success ? (
           <div className="text-green-500">Your message has been sent successfully!</div>
         ) : (

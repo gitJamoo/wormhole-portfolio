@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 
 import ContactFormEmbedded from "../components/contact/ContactFormEmbedded";
 import CreativeWorksCarousel from "../components/CreativeWorksCarousel";
@@ -1252,6 +1253,12 @@ export default function HomePage() {
             >
               Email
             </a>
+            <Link
+              href="/book"
+              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+            >
+              Bookings
+            </Link>
             <a
               href="https://github.com/gitJamoo"
               target="_blank"

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function ContactFormEmbedded() {
   const [name, setName] = useState('');
@@ -44,6 +45,14 @@ export default function ContactFormEmbedded() {
   return (
     <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-8 w-full max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4 text-center">Contact Me</h2>
+      <div className="flex justify-center mb-6">
+        <Link
+          href="/book"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
+        >
+          Book a meeting
+        </Link>
+      </div>
       {success ? (
         <div className="text-green-500">Your message has been sent successfully!</div>
       ) : (
