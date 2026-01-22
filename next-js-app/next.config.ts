@@ -26,6 +26,11 @@ const nextConfig: NextConfig = {
         destination: "https://www.linkedin.com/in/james-m-smith1",
         permanent: false,
       },
+      {
+        source: "/resume",
+        destination: "/james_smith_resume.pdf",
+        permanent: false,
+      }
     ];
   },
 };
