@@ -47,14 +47,6 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4">Contact Me</h2>
-        <div className="flex justify-center mb-6">
-          <Link
-            href="/book"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
-          >
-            Book a meeting
-          </Link>
-        </div>
         {success ? (
           <div className="text-green-500">Your message has been sent successfully!</div>
         ) : (
@@ -99,22 +91,33 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
               ></textarea>
             </div>
             {error && <div className="text-red-500 mb-4">{error}</div>}
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={onClose}
-                className="mr-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 font-bold py-2 px-4 rounded"
-                disabled={submitting}
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded border border-gray-300"
-                disabled={submitting}
-              >
-                {submitting ? 'Submitting...' : 'Submit'}
-              </button>
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <span className="text-gray-600 dark:text-gray-400 font-medium">Or</span>
+                <Link
+                  href="/book"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors text-sm"
+                >
+                  Book a meeting
+                </Link>
+              </div>
+              <div className="flex">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="mr-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 font-bold py-2 px-4 rounded"
+                  disabled={submitting}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded border border-gray-300"
+                  disabled={submitting}
+                >
+                  {submitting ? 'Submitting...' : 'Submit'}
+                </button>
+              </div>
             </div>
           </form>
         )}
