@@ -124,7 +124,7 @@ const experiences: Experience[] = [
   },
   {
     company: "Oregon State University",
-    role: "best role ever",
+    role: "AI Advisor",
     period: "August 2025 – Present",
     description:
       "Advising the GENESIS AI development team on creating internal agentic AI tools to streamline university business operations.",
