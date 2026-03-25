@@ -1,22 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import OpenAI from "openai";
-import Anthropic from "@anthropic-ai/sdk";
+import { generateText } from "ai";
+import { createAnthropic } from "@ai-sdk/anthropic";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { createOpenAI } from "@ai-sdk/openai";
 import fs from "fs";
 import path from "path";
 
 const modelToProvider: { [key: string]: string } = {
-  "gemini-2.5-flash": "Gemini",
-  "gemini-2.5-pro": "Gemini",
-  "gemini-2.5-flash-lite": "Gemini",
-  "gemini-1.5-flash": "Gemini",
-  "claude-3-7-sonnet-latest": "Claude",
-  "claude-opus-4-1-20250805": "Claude",
-  "claude-sonnet-4-20250514": "Claude",
-  "claude-3-haiku-20240307": "Claude",
-  "gpt-4o": "OpenAI",
-  "gpt-4-turbo": "OpenAI",
-  "gpt-3.5-turbo": "OpenAI",
+  "gemini-2.5-flash": "google",
+  "gemini-2.5-pro": "google",
+  "gemini-2.5-flash-lite": "google",
+  "gemini-1.5-flash": "google",
+  "claude-3-7-sonnet-latest": "anthropic",
+  "claude-opus-4-1-20250805": "anthropic",
+  "claude-sonnet-4-20250514": "anthropic",
+  "claude-3-haiku-20240307": "anthropic",
+  "gpt-4o": "openai",
+  "gpt-4-turbo": "openai",
+  "gpt-3.5-turbo": "openai",
 };
 
 export async function POST(req: NextRequest) {
@@ -58,13 +59,12 @@ export async function POST(req: NextRequest) {
     if (apiKey) {
       apiKeyToUse = apiKey;
     } else {
-      if (provider === "Gemini") {
-        apiKeyToUse = process.env.GEMINI_API_KEY;
-      } else if (provider === "OpenAI") {
-        apiKeyToUse = process.env.OPENAI_API_KEY;
-      } else if (provider === "Claude") {
-        apiKeyToUse = process.env.ANTHROPIC_API_KEY;
-      }
+      const envMap: Record<string, string | undefined> = {
+        google: process.env.GEMINI_API_KEY,
+        openai: process.env.OPENAI_API_KEY,
+        anthropic: process.env.ANTHROPIC_API_KEY,
+      };
+      apiKeyToUse = envMap[provider];
     }
 
     if (!apiKeyToUse) {
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
 **Available Image Assets:**
 You can use the following images in your design. Assume they are served from the '/image-assets' path. For example, to use 'profile.jpg', the path would STRICTLY be '/image-assets/profile.jpg'.
 ---
-${imageFiles.map((file) => `- ${file}`).join("\n")}--- 
+${imageFiles.map((file) => `- ${file}`).join("\n")}---
 `;
         }
       }
@@ -113,7 +113,14 @@ ${additionalInstructions}
 ---`
       : "";
 
-    let generatedContent: string = "";
+    const systemPrompt = promptTemplate
+      .replace("{{infoMdContent}}", "")
+      .replace("{{additionalInstructions}}", "")
+      .replace("{{imageAssets}}", "")
+      .replace(/{{currentPath}}/g, currentPath)
+      .replace("{{language}}", language);
+
+    const userPrompt = `Here is the raw information about the candidate:\n---\n${infoMdContent}\n---\n${additionalInstructionsText}\n${imageAssetsText}`;
 
     console.log(
       "Using model:",
@@ -124,63 +131,27 @@ ${additionalInstructions}
       temperature
     );
 
-    if (provider === "Gemini") {
-      const genAI = new GoogleGenerativeAI(apiKeyToUse);
-      const model = genAI.getGenerativeModel({
-        model: selectedModel,
-        generationConfig: {
-          temperature: temperature,
-        },
-      });
-      const prompt = promptTemplate
-        .replace("{{infoMdContent}}", infoMdContent)
-        .replace("{{additionalInstructions}}", additionalInstructionsText)
-        .replace("{{imageAssets}}", imageAssetsText)
-        .replace(/{{currentPath}}/g, currentPath)
-        .replace("{{language}}", language);
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      generatedContent = await response.text();
-    } else if (provider === "OpenAI") {
-      const openai = new OpenAI({ apiKey: apiKeyToUse });
-      const systemPrompt = promptTemplate
-        .replace("{{infoMdContent}}", "")
-        .replace("{{additionalInstructions}}", "")
-        .replace("{{imageAssets}}", "")
-        .replace(/{{currentPath}}/g, currentPath)
-        .replace("{{language}}", language);
-      const userPrompt = `Here is the raw information about the candidate:\n---\n${infoMdContent}\n---\n${additionalInstructionsText}\n${imageAssetsText}`;
-      const completion = await openai.chat.completions.create({
-        model: selectedModel,
-        temperature: temperature,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
-        ],
-      });
-      generatedContent = completion.choices[0].message.content ?? "";
-    } else if (provider === "Claude") {
-      const anthropic = new Anthropic({ apiKey: apiKeyToUse });
-      const systemPrompt = promptTemplate
-        .replace("{{infoMdContent}}", "")
-        .replace("{{additionalInstructions}}", "")
-        .replace("{{imageAssets}}", "")
-        .replace(/{{currentPath}}/g, currentPath)
-        .replace("{{language}}", language);
-      const userPrompt = `Here is the raw information about the candidate:\n---\n${infoMdContent}\n---\n${additionalInstructionsText}\n${imageAssetsText}`;
-      const message = await anthropic.messages.create({
-        model: selectedModel,
-        max_tokens: 4096,
-        temperature: temperature,
-        system: systemPrompt,
-        messages: [{ role: "user", content: userPrompt }],
-      });
-      if (message.content[0].type === "text") {
-        generatedContent = message.content[0].text;
-      }
+    let model;
+    if (provider === "google") {
+      const google = createGoogleGenerativeAI({ apiKey: apiKeyToUse });
+      model = google(selectedModel);
+    } else if (provider === "openai") {
+      const openai = createOpenAI({ apiKey: apiKeyToUse });
+      model = openai(selectedModel);
+    } else {
+      const anthropic = createAnthropic({ apiKey: apiKeyToUse });
+      model = anthropic(selectedModel);
     }
 
-    return NextResponse.json({ generatedContent });
+    const { text } = await generateText({
+      model,
+      system: systemPrompt,
+      prompt: userPrompt,
+      temperature,
+      maxTokens: 4096,
+    });
+
+    return NextResponse.json({ generatedContent: text });
   } catch (error) {
     console.error("Error generating content:", error);
     return NextResponse.json(

@@ -81,7 +81,23 @@ export default function WormholePage() {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <div className="text-center max-w-md px-6">
+          <p className="text-4xl mb-4">⚠️</p>
+          <h2 className="text-white text-xl font-semibold mb-2">
+            Generation Failed
+          </h2>
+          <p className="text-gray-400 text-sm mb-6">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-white text-black text-sm font-medium rounded-md hover:bg-gray-200 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return <div dangerouslySetInnerHTML={{ __html: content }} />;

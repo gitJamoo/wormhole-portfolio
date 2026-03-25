@@ -757,6 +757,7 @@ function EducationCard({ education }: { education: Education }) {
 
 function ExperienceCard({ experience }: { experience: Experience }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const isCurrent = experience.period.toLowerCase().includes("present");
 
   return (
     <div
@@ -767,20 +768,20 @@ function ExperienceCard({ experience }: { experience: Experience }) {
         <div>
           <div className="flex items-center gap-4">
             <h3 className="text-xl font-bold">{experience.company}</h3>
+            {isCurrent && (
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                Current
+              </span>
+            )}
             <svg
-              className={`w-6 h-6 transition-transform duration-300 ${isExpanded ? "transform rotate-180" : ""
-                }`}
+              className={`w-6 h-6 transition-transform duration-300 ${isExpanded ? "transform rotate-180" : ""}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </div>
           <p className="text-md text-gray-600 dark:text-gray-400">
@@ -881,6 +882,12 @@ function ProjectCard({ project }: { project: Project }) {
               className="group-hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            {project.liveUrl && (
+              <div className="absolute top-2 right-2 flex items-center gap-1.5 bg-green-500/90 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow">
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                Live
+              </div>
+            )}
           </div>
         )}
         <div className="flex flex-col flex-grow">
@@ -889,9 +896,16 @@ function ProjectCard({ project }: { project: Project }) {
           <p className="text-gray-600 dark:text-gray-400 mb-4 flex-grow line-clamp-3">
             {project.description}
           </p>
-          <p className="text-xs text-gray-500 font-mono mb-4 line-clamp-2">
-            {project.technologies}
-          </p>
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {project.technologies.split(",").map((tech, i) => (
+              <span
+                key={i}
+                className="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium"
+              >
+                {tech.trim()}
+              </span>
+            ))}
+          </div>
 
           {/* Quick Action Buttons */}
           <div className="flex gap-2 mt-auto" onClick={(e) => e.stopPropagation()}>
