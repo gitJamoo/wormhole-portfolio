@@ -77,6 +77,7 @@ interface Project {
   techStack?: { category: string; technologies: string[] }[];
   metrics?: { label: string; value: string; icon?: string }[];
   gallery?: StaticImageData[];
+  category?: string;
 }
 
 const education: Education = {
@@ -180,6 +181,7 @@ const experiences: Experience[] = [
 const projects: Project[] = [
   {
     name: "Envolvly",
+    category: "Products",
     technologies: "GitHub, Docker, AWS, React, Typescript, MongoDB",
     period: "September 2023 - Present",
     description:
@@ -228,6 +230,7 @@ Followed Agile methodology with 2-week sprints, daily standups, and continuous i
   },
   {
     name: "StuntCV",
+    category: "AI & ML",
     technologies: "Python, OpenCV, MediaPipe, Tkinter, NumPy",
     period: "July 2025 - Present",
     description:
@@ -290,71 +293,64 @@ Built with Python using OpenCV for video processing and MediaPipe for pose estim
   },
   {
     name: "OVERSEER",
+    category: "Products",
     technologies: "Rust, Tauri, OpenCV",
     period: "December 2025",
     description:
       "An accountability app that tracks users eyes and posture to ensure that good habits are followed and work is done.",
     longDescription:
-      "OVERSEER is an accountability app that tracks users eyes and posture to ensure that good habits are followed and work is done. The app uses Rust and Tauri to create a desktop application that uses OpenCV to track the user's eyes and posture. The app has been deployed and has paying users.",
+      "OVERSEER is an accountability app that tracks users eyes and posture to ensure that good habits are followed and work is done. The app uses Rust and Tauri to create a native desktop application that uses OpenCV to track the user's eyes and posture in real-time. The app has been deployed and has paying users.",
     image: WormholeProjectThumbnail,
     liveUrl: "https://overseer-website.vercel.app",
     features: [
-      "AI-generated content for unique experiences",
-      "Dynamic page generation with LLM",
-      "Responsive design with Tailwind CSS",
-      "Server-side rendering with Next.js",
-      "Contact form with email integration",
-      "Dark mode support"
+      "Real-time eye tracking for focus monitoring",
+      "Posture detection and corrective alerts",
+      "Work session tracking and productivity analytics",
+      "Accountability reports and daily summaries",
+      "Native desktop performance via Tauri + Rust",
+      "Offline-first — no data leaves your machine"
     ],
     techStack: [
-      { category: "Frontend", technologies: ["Next.js", "React", "TypeScript"] },
-      { category: "Styling", technologies: ["Tailwind CSS", "CSS3"] },
-      { category: "AI/ML", technologies: ["OpenAI API", "Generative AI"] },
-      { category: "Deployment", technologies: ["Vercel", "GitHub"] }
+      { category: "Core", technologies: ["Rust", "Tauri"] },
+      { category: "Computer Vision", technologies: ["OpenCV"] },
+      { category: "Platform", technologies: ["Desktop (Windows, macOS, Linux)"] }
     ],
     metrics: [
-      { label: "Build Time", value: "<30s" },
-      { label: "Lighthouse Score", value: "95+" },
-      { label: "Page Load", value: "<1s" }
+      { label: "Paying Users", value: "Active" },
+      { label: "Detection", value: "Real-time" },
+      { label: "Data Privacy", value: "100% Local" }
     ],
-    documentation: `## Wormhole Portfolio
+    documentation: `## OVERSEER
 
-An experimental portfolio website that uses AI to generate unique content for each visitor.
+A native desktop accountability app that uses computer vision to monitor focus and posture in real-time.
 
 ## Concept
-Instead of a static portfolio, Wormhole uses a Large Language Model to dynamically generate page content based on my professional background. Each visit creates a slightly different narrative while maintaining factual accuracy.
+OVERSEER runs silently in the background, using your webcam to track eye gaze and body posture. When it detects distraction or poor posture, it sends alerts to keep you on track. All processing happens locally — no data is ever sent to the cloud.
 
 ## Technical Architecture
 
-### Frontend
-- Next.js 14 with App Router
-- TypeScript for type safety
-- Tailwind CSS for styling
-- Server-side rendering for performance
+### Desktop Runtime
+- Built with Tauri for a lightweight, native binary
+- Rust backend for performance-critical CV processing
+- Minimal memory footprint compared to Electron alternatives
 
-### AI Integration
-- OpenAI GPT-4 API for content generation
-- Custom prompts for consistent branding
-- Caching layer to reduce API calls
-- Fallback to static content if API fails
-
-### Deployment
-- Hosted on Vercel for optimal Next.js performance
-- Automatic deployments from GitHub
-- Edge functions for low latency
+### Computer Vision
+- OpenCV for frame capture and image processing
+- Eye tracking using facial landmark detection
+- Posture analysis via pose estimation algorithms
 
 ## Features
-- Dynamic "About Me" section
-- AI-generated project descriptions
-- Personalized greetings
-- Contact form with email notifications
-- Responsive design for all devices
+- Session-based work tracking
+- Configurable alert thresholds
+- Daily/weekly productivity reports
+- System tray integration for unobtrusive monitoring
 
-## Performance
-Optimized for speed with server-side rendering, image optimization, and efficient caching strategies.`
+## Distribution
+Shipped as a signed installer for Windows, macOS, and Linux. Available for purchase with active paying users.`
   },
   {
     name: "COORDINATOR",
+    category: "AI & ML",
     technologies: "NVIDIA, AutoGen, Next.js",
     period: "October 2025",
     description:
@@ -386,6 +382,7 @@ Optimized for speed with server-side rendering, image optimization, and efficien
   },
   {
     name: "OSU Genesis AI Hub",
+    category: "AI & ML",
     technologies: "React.js, Node.js, Python, GCP",
     period: "September 2025 - Present",
     description:
@@ -440,6 +437,7 @@ Success is measured by the ability to register a simple backend agentic system w
   },
   {
     name: "ResumAI",
+    category: "AI & ML",
     technologies: "Python, OpenAI API, CSV, ATS",
     period: "August 2025",
     description:
@@ -505,6 +503,7 @@ Users report 40%+ improvement in ATS scores and higher callback rates after usin
   },
   {
     name: "MIT JOS",
+    category: "Systems",
     technologies: "C, C++, Assembly, OS concepts, Computer Architecture",
     period: "March 2024",
     description:
@@ -559,6 +558,7 @@ Deep understanding of how operating systems work at the lowest level, including 
   },
   {
     name: "Wormhole",
+    category: "Web",
     technologies: "Next.js, TypeScript, Tailwind CSS, Vercel, Generative AI",
     period: "August 2025",
     description:
@@ -622,6 +622,169 @@ Instead of a static portfolio, Wormhole uses a Large Language Model to dynamical
 
 ## Performance
 Optimized for speed with server-side rendering, image optimization, and efficient caching strategies.`
+  },
+  {
+    name: "jcord",
+    category: "Products",
+    technologies: "Next.js 16, TypeScript, Supabase, PostgreSQL, LiveKit, Tailwind CSS, shadcn/ui",
+    period: "March 26, 2026",
+    description:
+      "A full-stack Discord clone with real-time messaging, voice & video calls, typing indicators, presence tracking, and persistent message history.",
+    longDescription:
+      "jcord is a fully-featured real-time chat application built as a Discord clone using modern web technologies. It supports dynamic room creation, real-time messaging via Supabase Realtime (Postgres WebSockets), WebRTC-powered voice and video calls through LiveKit, and a Discord-inspired dark UI built with Tailwind CSS v4 and shadcn/ui. Users have full accounts with authentication, and every message is persisted to PostgreSQL for searchable history.",
+    githubUrl: "https://github.com/gitJamoo/jcord",
+    features: [
+      "Real-time messaging via Supabase Realtime (Postgres WebSockets)",
+      "Voice & video calls with WebRTC through LiveKit (Discord-style grid layout)",
+      "Active user presence tracking per room",
+      "Typing indicators ('X is typing...' in real-time)",
+      "Unread message badges and read receipts",
+      "Full-text message search (Ctrl+F)",
+      "Persistent message history in PostgreSQL",
+      "Full authentication with separate user accounts"
+    ],
+    techStack: [
+      { category: "Frontend", technologies: ["Next.js 16", "TypeScript", "Tailwind CSS v4", "shadcn/ui"] },
+      { category: "Backend & Realtime", technologies: ["Supabase Realtime", "Supabase Auth", "PostgreSQL"] },
+      { category: "Voice & Video", technologies: ["LiveKit", "WebRTC"] },
+      { category: "Deployment", technologies: ["Vercel", "Supabase Cloud"] }
+    ],
+    metrics: [
+      { label: "Realtime Transport", value: "WebSockets" },
+      { label: "A/V Protocol", value: "WebRTC" },
+      { label: "Message Storage", value: "PostgreSQL" }
+    ],
+    documentation: `## jcord
+
+A full-stack Discord clone built with Next.js 16, Supabase, and LiveKit.
+
+## Concept
+jcord replicates Discord's core experience from scratch — real-time group chat, voice/video calling, presence, and notifications — as a deep-dive into building production-grade real-time web applications.
+
+## Technical Architecture
+
+### Real-Time Messaging
+Supabase Realtime (backed by Postgres logical replication) powers all live messaging. WebSocket connections are maintained per channel, with optimistic UI updates and server-reconciled delivery.
+
+### Voice & Video
+LiveKit provides the WebRTC infrastructure for voice and video rooms. The UI renders a Discord-style grid layout that adapts to the number of active participants.
+
+### Presence & Typing
+Supabase Realtime Presence tracks which users are online in a given room. Typing indicators are broadcast as ephemeral presence events and expire automatically.
+
+### Authentication & Storage
+Supabase Auth handles user accounts (email/password + OAuth). All messages, rooms, and user data are stored in PostgreSQL with row-level security policies.
+
+### Search
+Full-text message search is implemented using PostgreSQL's tsvector/tsquery with an indexed messages table, accessible via Ctrl+F in the UI.
+
+## UI
+Discord-inspired dark theme built with Tailwind CSS v4 and shadcn/ui component primitives.`
+  },
+  {
+    name: "n8n Automation Suite",
+    category: "Infrastructure",
+    technologies: "n8n, Node.js, REST APIs, Webhooks, AI Integrations",
+    period: "2024 - Present",
+    description:
+      "A self-hosted collection of automation workflows spanning AI agents, sentiment analysis, social listening, lead generation, and self-healing infrastructure.",
+    longDescription:
+      "A personal suite of automation workflows built and self-hosted on n8n. The workflows range broadly — from AI-powered sentiment analysis newsletters and social listening pipelines to lead generation flows, self-healing infrastructure monitors, and custom agentic AI integrations. Runs 24/7 on personal homelab hardware with full data ownership.",
+    features: [
+      "AI-powered sentiment analysis & automated newsletters",
+      "Social listening pipelines across multiple platforms",
+      "Lead generation and enrichment workflows",
+      "Self-healing infrastructure and alert resolution",
+      "Custom AI agent integrations",
+      "Self-hosted — no vendor lock-in, full data ownership"
+    ],
+    techStack: [
+      { category: "Platform", technologies: ["n8n"] },
+      { category: "Languages", technologies: ["JavaScript", "Node.js"] },
+      { category: "Integrations", technologies: ["REST APIs", "Webhooks", "AI APIs"] },
+      { category: "Infrastructure", technologies: ["Docker", "Self-hosted"] }
+    ],
+    metrics: [
+      { label: "Workflow Types", value: "5+" },
+      { label: "Hosting", value: "Self-hosted" },
+      { label: "Uptime", value: "24/7" }
+    ],
+    documentation: `## n8n Automation Suite
+
+A self-hosted collection of automation workflows running on personal infrastructure.
+
+## What is n8n?
+n8n is an open-source, self-hostable workflow automation tool — think Zapier, but code-first and fully self-hosted. Workflows are built visually with support for custom JavaScript nodes and direct API calls.
+
+## Workflow Categories
+
+### AI & Intelligence
+Sentiment analysis pipelines that aggregate and summarize content into automated newsletters. Custom AI agent workflows that orchestrate multi-step reasoning tasks.
+
+### Data & Monitoring
+Social listening flows that track signals across platforms. Self-healing infrastructure workflows that detect anomalies and trigger automated remediation.
+
+### Business Automation
+Lead generation and enrichment pipelines that reduce manual research overhead.
+
+## Infrastructure
+Runs as a Docker container on personal homelab hardware behind Nginx and Cloudflare Tunnels. Persistent volume storage ensures workflow state survives restarts.`
+  },
+  {
+    name: "Personal Homelab",
+    category: "Infrastructure",
+    technologies: "Raspberry Pi, Docker, Tailscale, Pi-hole, Caddy, Linux",
+    period: "2024 - Present",
+    description:
+      "A Raspberry Pi-based home server running self-hosted services over a private Tailscale mesh network with Pi-hole DNS and Caddy reverse proxy.",
+    longDescription:
+      "A personal homelab built around a Raspberry Pi as the primary server. Services are containerized with Docker and exposed internally via Caddy reverse proxy using custom .home subdomains, resolved by Pi-hole over a Tailscale mesh VPN. The setup connects multiple personal devices into a private network with SSH access, DNS-level ad blocking, and always-on service hosting.",
+    features: [
+      "Tailscale mesh VPN connecting all personal devices",
+      "Pi-hole for network-wide DNS ad-blocking",
+      "Caddy reverse proxy with .home subdomain routing",
+      "Dockerized services (n8n, Plane, and more)",
+      "SSH access to all nodes over Tailscale",
+      "Always-on hosting for personal automation and tools"
+    ],
+    techStack: [
+      { category: "Hardware", technologies: ["Raspberry Pi"] },
+      { category: "Networking", technologies: ["Tailscale", "Pi-hole", "Caddy"] },
+      { category: "Containers", technologies: ["Docker", "Docker Compose"] },
+      { category: "OS", technologies: ["Linux (Raspberry Pi OS)"] }
+    ],
+    metrics: [
+      { label: "Network", value: "Tailscale VPN" },
+      { label: "DNS", value: "Pi-hole" },
+      { label: "Uptime", value: "24/7" }
+    ],
+    documentation: `## Personal Homelab
+
+A Raspberry Pi-based home server running self-hosted services on a private Tailscale mesh network.
+
+## Hardware
+- Primary server: Raspberry Pi
+- Personal devices connected via Tailscale (laptop, phone, desktop)
+
+## Networking
+
+### Tailscale
+All devices are connected via a Tailscale mesh VPN, enabling secure private access from anywhere without port forwarding or exposing services to the public internet.
+
+### Pi-hole
+Handles DNS resolution and network-wide ad blocking. Custom split-DNS entries resolve .home subdomains to internal services when on the Tailscale network.
+
+### Caddy
+Acts as a reverse proxy, routing .home hostnames to the appropriate Docker containers by port. Simple config — add a new service block, reload, and it's live.
+
+## Services Hosted
+- **n8n** — workflow automation (see n8n Automation Suite)
+- **Plane** — self-hosted project management
+- **Pi-hole** — DNS and ad-blocking dashboard
+- **Minecraft Server** — personal/friends game server
+
+## Access
+SSH is configured over Tailscale for all nodes. Services are accessed via Magic DNS (.home hostnames) from any device on the tailnet — no VPN client setup required beyond Tailscale.`
   },
   {
     name: "My next big thing.",
@@ -833,117 +996,145 @@ function ExperienceCard({ experience }: { experience: Experience }) {
   );
 }
 
+const CATEGORY_COLORS: Record<string, { accent: string; badge: string; badgeText: string; button: string }> = {
+  "Products":       { accent: "bg-blue-500",    badge: "bg-blue-500/10",    badgeText: "text-blue-600 dark:text-blue-400",     button: "bg-blue-600 hover:bg-blue-700" },
+  "AI & ML":        { accent: "bg-violet-500",  badge: "bg-violet-500/10",  badgeText: "text-violet-600 dark:text-violet-400", button: "bg-violet-600 hover:bg-violet-700" },
+  "Infrastructure": { accent: "bg-amber-500",   badge: "bg-amber-500/10",   badgeText: "text-amber-600 dark:text-amber-400",   button: "bg-amber-600 hover:bg-amber-700" },
+  "Systems":        { accent: "bg-emerald-500", badge: "bg-emerald-500/10", badgeText: "text-emerald-600 dark:text-emerald-400", button: "bg-emerald-600 hover:bg-emerald-700" },
+  "Web":            { accent: "bg-sky-500",     badge: "bg-sky-500/10",     badgeText: "text-sky-600 dark:text-sky-400",       button: "bg-sky-600 hover:bg-sky-700" },
+};
+
+function getCategoryColors(category?: string) {
+  return CATEGORY_COLORS[category ?? ""] ?? { accent: "bg-slate-500", badge: "bg-slate-500/10", badgeText: "text-slate-600 dark:text-slate-400", button: "bg-slate-600 hover:bg-slate-700" };
+}
+
 function ProjectCard({ project }: { project: Project }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"overview" | "demo" | "documentation" | "gallery">("overview");
+  const colors = getCategoryColors(project.category);
 
   const handleCardClick = (e: React.MouseEvent) => {
-    // Don't open modal if clicking on a link
-    if ((e.target as HTMLElement).closest('a')) {
-      return;
-    }
+    if ((e.target as HTMLElement).closest('a')) return;
     setIsModalOpen(true);
   };
 
   const getVideoEmbedUrl = (url: string) => {
-    // YouTube
     if (url.includes('youtube.com') || url.includes('youtu.be')) {
       const videoId = url.includes('youtu.be')
         ? url.split('youtu.be/')[1]?.split('?')[0]
         : url.split('v=')[1]?.split('&')[0];
       return `https://www.youtube.com/embed/${videoId}`;
     }
-    // Vimeo
     if (url.includes('vimeo.com')) {
       const videoId = url.split('vimeo.com/')[1]?.split('?')[0];
       return `https://player.vimeo.com/video/${videoId}`;
     }
-    // Direct video URL
     return url;
   };
 
-  const isDirectVideo = (url: string) => {
-    return url.match(/\.(mp4|webm|ogg)$/i) !== null;
-  };
+  const isDirectVideo = (url: string) => url.match(/\.(mp4|webm|ogg)$/i) !== null;
+
+  const techList = project.technologies.split(",");
 
   return (
     <>
       <div
-        className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:border-gray-400 dark:hover:border-gray-500 transition-all duration-300 cursor-pointer h-full flex flex-col group hover:shadow-xl hover:-translate-y-1"
+        className="group relative rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col"
         onClick={handleCardClick}
       >
+        {/* Category accent bar */}
+        <div className={`h-0.5 w-full ${colors.accent} flex-shrink-0`} />
+
+        {/* Thumbnail */}
         {project.image && (
-          <div className="w-full h-48 relative mb-4 rounded-lg overflow-hidden">
+          <div className="relative aspect-video overflow-hidden flex-shrink-0">
             <Image
               src={project.image}
-              alt={`${project.name} image`}
+              alt={`${project.name} thumbnail`}
               fill
               style={{ objectFit: "cover" }}
-              className="group-hover:scale-105 transition-transform duration-300"
+              className="group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             {project.liveUrl && (
-              <div className="absolute top-2 right-2 flex items-center gap-1.5 bg-green-500/90 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow">
+              <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 bg-emerald-500/90 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow">
                 <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 Live
               </div>
             )}
           </div>
         )}
-        <div className="flex flex-col flex-grow">
-          <h3 className="text-2xl font-bold mb-1">{project.name}</h3>
-          <p className="text-sm text-gray-500 mb-3">{project.period}</p>
-          <p className="text-gray-600 dark:text-gray-400 mb-4 flex-grow line-clamp-3">
+
+        {/* Content */}
+        <div className="flex flex-col flex-1 p-5">
+          {/* Category + Period */}
+          <div className="flex items-center gap-2 mb-2.5 flex-wrap">
+            {project.category && (
+              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${colors.badge} ${colors.badgeText}`}>
+                {project.category}
+              </span>
+            )}
+            <span className="text-xs text-gray-400 dark:text-gray-500">{project.period}</span>
+          </div>
+
+          {/* Title */}
+          <h3 className="text-xl font-bold mb-1.5 leading-tight">{project.name}</h3>
+
+          {/* Description */}
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3.5 flex-grow line-clamp-3">
             {project.description}
           </p>
+
+          {/* Tech pills */}
           <div className="flex flex-wrap gap-1.5 mb-4">
-            {project.technologies.split(",").map((tech, i) => (
+            {techList.slice(0, 4).map((tech, i) => (
               <span
                 key={i}
-                className="px-2 py-0.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-xs font-medium"
+                className="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-md text-xs font-medium border border-gray-200 dark:border-gray-700"
               >
                 {tech.trim()}
               </span>
             ))}
+            {techList.length > 4 && (
+              <span className="px-2 py-0.5 text-gray-400 dark:text-gray-500 text-xs">+{techList.length - 4} more</span>
+            )}
           </div>
 
-          {/* Quick Action Buttons */}
-          <div className="flex gap-2 mt-auto" onClick={(e) => e.stopPropagation()}>
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 bg-gray-800 dark:bg-gray-700 text-white text-sm py-2 px-3 rounded-lg hover:bg-gray-900 dark:hover:bg-gray-600 transition-colors flex items-center justify-center gap-2"
-                title="View on GitHub"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                </svg>
-                GitHub
-              </a>
-            )}
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 bg-blue-600 text-white text-sm py-2 px-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
-                title="View Live Demo"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-                Live
-              </a>
-            )}
-            {!project.githubUrl && !project.liveUrl && (
-              <button className="flex-1 bg-purple-600 text-white text-sm py-2 px-3 rounded-lg hover:bg-purple-700 transition-colors">
-                View Details
-              </button>
-            )}
+            {/* Action buttons */}
+            <div className="flex gap-2 mt-auto" onClick={(e) => e.stopPropagation()}>
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-gray-900 dark:bg-gray-700 text-white text-sm py-2 px-3 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors flex items-center justify-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                  GitHub
+                </a>
+              )}
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex-1 ${colors.button} text-white text-sm py-2 px-3 rounded-lg transition-colors flex items-center justify-center gap-2`}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  Live
+                </a>
+              )}
+              {!project.githubUrl && !project.liveUrl && (
+                <button className={`flex-1 ${colors.button} text-white text-sm py-2 px-3 rounded-lg transition-colors`}>
+                  View Details
+                </button>
+              )}
+            </div>
           </div>
-        </div>
       </div>
 
       {isModalOpen && (
@@ -1231,7 +1422,15 @@ function ProjectCard({ project }: { project: Project }) {
   );
 }
 
+const PROJECT_CATEGORIES = ["All", "Products", "AI & ML", "Infrastructure", "Systems", "Web"] as const;
+
 export default function HomePage() {
+  const [projectFilter, setProjectFilter] = useState<string>("All");
+
+  const filteredProjects = projectFilter === "All"
+    ? projects
+    : projects.filter(p => p.category === projectFilter || !p.category);
+
   return (
     <div className="min-h-screen font-sans">
       <div className="container mx-auto p-8 sm:p-12 md:p-16 lg:p-24">
@@ -1322,10 +1521,25 @@ export default function HomePage() {
         </section>
 
         <section id="projects">
-          <h2 className="text-4xl font-bold mb-8 text-center">Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((proj, index) => (
-              <ProjectCard key={index} project={proj} />
+          <h2 className="text-4xl font-bold mb-6 text-center">Projects</h2>
+          <div className="flex flex-wrap gap-2 justify-center mb-8">
+            {PROJECT_CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setProjectFilter(cat)}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all border ${
+                  projectFilter === cat
+                    ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900 border-gray-900 dark:border-white shadow-sm"
+                    : "bg-transparent text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjects.map((proj) => (
+              <ProjectCard key={proj.name} project={proj} />
             ))}
           </div>
         </section>
