@@ -14,6 +14,7 @@
     "@ai-sdk/google": "^1.0.0",
     "@ai-sdk/openai": "^1.0.0",
     "@calcom/embed-react": "^1.5.3",
+    "@fontsource/inter": "^5.2.8",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
     "@vercel/analytics": "^1.5.0",
@@ -26,6 +27,9 @@
     "three": "^0.185.0",
     "zod": "^3.23.0"
   },
+  "overrides": {
+    "three": "$three"
+  },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
@@ -35,6 +39,7 @@
     "@types/three": "^0.185.0",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
+    "playwright-core": "^1.61.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

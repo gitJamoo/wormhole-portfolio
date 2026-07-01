@@ -1,11 +1,15 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Text, Line, Billboard, Grid } from "@react-three/drei";
+import { OrbitControls, Text, Line, Billboard } from "@react-three/drei";
 import { useMemo } from "react";
 import type { WordVector } from "./types";
 
 const SCALE = 5;
+
+// Bundled locally so troika never fetches a font from the network (which fails
+// in some environments and takes down the whole canvas).
+const FONT = "/fonts/inter.woff";
 
 export function toScene(v: { x: number; y: number; z: number }): [number, number, number] {
   return [v.x * SCALE, v.y * SCALE, v.z * SCALE];
@@ -34,17 +38,17 @@ function AxisLabels({ axes }: { axes: { x: string; y: string; z: string } }) {
       <Line points={[[0, -end, 0], [0, end, 0]]} color="#22c55e" lineWidth={1} />
       <Line points={[[0, 0, -end], [0, 0, end]]} color="#3b82f6" lineWidth={1} />
       <Billboard position={[end + 0.3, 0, 0]}>
-        <Text fontSize={0.5} color="#ef4444" anchorX="left">
+        <Text font={FONT} fontSize={0.5} color="#ef4444" anchorX="left">
           {axes.x || "axis X"}
         </Text>
       </Billboard>
       <Billboard position={[0, end + 0.3, 0]}>
-        <Text fontSize={0.5} color="#22c55e" anchorX="center">
+        <Text font={FONT} fontSize={0.5} color="#22c55e" anchorX="center">
           {axes.y || "axis Y"}
         </Text>
       </Billboard>
       <Billboard position={[0, 0, end + 0.3]}>
-        <Text fontSize={0.5} color="#3b82f6" anchorX="center">
+        <Text font={FONT} fontSize={0.5} color="#3b82f6" anchorX="center">
           {axes.z || "axis Z"}
         </Text>
       </Billboard>
@@ -66,7 +70,7 @@ function WordPoint({
   return (
     <group position={pos}>
       <mesh>
-        <sphereGeometry args={[size, 24, 24]} />
+        <sphereGeometry args={[size, 16, 16]} />
         <meshStandardMaterial
           color={point.color}
           emissive={point.color}
@@ -77,6 +81,7 @@ function WordPoint({
       </mesh>
       <Billboard position={[0, size + 0.25, 0]}>
         <Text
+          font={FONT}
           fontSize={emphasized ? 0.42 : 0.34}
           color="#ffffff"
           anchorX="center"
@@ -135,19 +140,35 @@ export default function Scene({
   }, [points, similarityPair, analogy]);
 
   return (
-    <Canvas camera={{ position: [9, 7, 12], fov: 50 }} dpr={[1, 2]}>
+    <Canvas
+      camera={{ position: [9, 7, 12], fov: 50 }}
+      dpr={1}
+      gl={{
+        antialias: true,
+        // "high-performance" can force a GPU switch on hybrid laptops, which
+        // makes the browser drop the WebGL context. "default" avoids that.
+        powerPreference: "default",
+        failIfMajorPerformanceCaveat: false,
+      }}
+      onCreated={({ gl }) => {
+        const canvas = gl.domElement;
+        // preventDefault lets the browser attempt to restore a lost context
+        // instead of permanently blanking the canvas.
+        canvas.addEventListener(
+          "webglcontextlost",
+          (e) => e.preventDefault(),
+          false
+        );
+      }}
+    >
       <color attach="background" args={["#05070d"]} />
-      <ambientLight intensity={0.7} />
-      <pointLight position={[10, 10, 10]} intensity={80} />
-      <pointLight position={[-10, -5, -10]} intensity={40} color="#3b82f6" />
+      <ambientLight intensity={0.9} />
+      <pointLight position={[10, 10, 10]} intensity={60} />
+      <pointLight position={[-10, -5, -10]} intensity={30} color="#3b82f6" />
 
-      <Grid
-        args={[SCALE * 2.5, SCALE * 2.5]}
+      <gridHelper
+        args={[SCALE * 3, 12, "#334155", "#1e293b"]}
         position={[0, -SCALE - 1.2, 0]}
-        cellColor="#1e293b"
-        sectionColor="#334155"
-        fadeDistance={40}
-        infiniteGrid
       />
 
       <AxisLabels axes={axes} />

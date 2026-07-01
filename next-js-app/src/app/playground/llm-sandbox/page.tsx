@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { tokenize } from "./tokenize";
+import SceneBoundary from "./SceneBoundary";
 import {
   WordVector,
   VectorizeResponse,
@@ -154,13 +155,15 @@ export default function PlaygroundPage() {
       {/* 3D canvas */}
       <div className="relative order-2 h-1/2 w-full md:order-1 md:h-full md:flex-1">
         {words.length > 0 ? (
-          <Scene
-            points={words}
-            axes={axes}
-            highlighted={highlighted}
-            similarityPair={sceneSimilarity}
-            analogy={sceneAnalogy}
-          />
+          <SceneBoundary>
+            <Scene
+              points={words}
+              axes={axes}
+              highlighted={highlighted}
+              similarityPair={sceneSimilarity}
+              analogy={sceneAnalogy}
+            />
+          </SceneBoundary>
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center gap-3 px-6 text-center text-slate-500">
             <div className="text-5xl">🌌</div>

@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Strict Mode double-mounts components in dev, which makes react-three-fiber
+  // create two WebGL contexts. On low-end GPUs (e.g. Intel HD) that exhausts
+  // the context budget and the browser drops the canvas ("WebGL context lost").
+  // Disabling it keeps a single context. (Production never double-mounts.)
+  reactStrictMode: false,
   async redirects() {
     return [
       {
