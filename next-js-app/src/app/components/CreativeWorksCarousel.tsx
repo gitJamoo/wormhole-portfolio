@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 
 interface CreativeWork {
   title: string;
-  youtubeUrl: string;
+  videoUrl: string;
 }
 
 interface CreativeWorksCarouselProps {
@@ -136,13 +136,23 @@ export default function CreativeWorksCarousel({
             key={index}
             className="flex-none w-full md:w-[450px] aspect-video snap-center bg-gray-100 dark:bg-gray-900 rounded-xl overflow-hidden shadow-md border border-gray-200 dark:border-gray-800"
           >
-            <iframe
-              src={getYoutubeEmbedUrl(work.youtubeUrl)}
-              title={work.title}
-              className="w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            {/\.(mp4|webm|ogg)$/i.test(work.videoUrl) ? (
+              <video
+                src={work.videoUrl}
+                title={work.title}
+                controls
+                preload="metadata"
+                className="w-full h-full"
+              />
+            ) : (
+              <iframe
+                src={getYoutubeEmbedUrl(work.videoUrl)}
+                title={work.title}
+                className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            )}
             {/* Overlay for title if needed, or put below */}
           </div>
         ))}

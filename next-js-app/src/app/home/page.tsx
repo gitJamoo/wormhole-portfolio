@@ -205,9 +205,9 @@ const projects: Project[] = [
     technologies: "Next.js, TypeScript, Tailwind CSS, Supabase, Every.org API, Vitest, GitHub Actions, Vercel",
     period: "May 2026 – Present",
     description:
-      "Make your AI use net-positive. Tracks token usage across AI providers, computes CO2e carbon footprint, and routes monthly donations to environmental charities you choose.",
+      "Open-source SaaS that tracks AI token usage across providers, calculates the CO2e footprint, and routes monthly donations to environmental charities to offset it.",
     longDescription:
-      "EcoDues is a full-stack open-source (MIT) SaaS that tracks your AI token usage across OpenRouter, OpenAI, and Anthropic admin APIs, computes the CO2e carbon footprint of your inference, and applies a configurable multiplier (default 2x) to offset your impact. Each month it routes donations to environmental charities you choose via the Every.org Partner API — making your AI use genuinely net-positive. Think Spotify Wrapped for AI carbon, with streaks, leaderboards, and shareable impact cards.",
+      "I built EcoDues because I couldn't find a tool that told me what my AI usage actually cost the environment — let alone did anything about it. It pulls usage data daily from OpenRouter, OpenAI, and Anthropic admin APIs, calculates CO2e per model, applies a configurable offset multiplier (default 2x), and routes the resulting donation to environmental charities through Every.org at the end of each month. MIT-licensed, 30 Vitest tests, deployed on Vercel.",
     image: EcoDuesProjectThumbnail,
     liveUrl: "https://ecodues.org",
     githubUrl: "https://github.com/gitJamoo/ecodues",
@@ -217,7 +217,7 @@ const projects: Project[] = [
       "Daily automated provider sync (OpenRouter, OpenAI, Anthropic)",
       "Monthly donation cycles via Every.org Partner API",
       "Dashboard stats with real-world equivalents (miles driven, tree-days, phone charges)",
-      "\"Spotify Wrapped for AI carbon\" shareable cards",
+      "Shareable annual/monthly impact cards",
       "Leaderboard, streaks & badges",
       "CSV export of usage and footprint data",
       "GitHub & Google OAuth"
@@ -265,18 +265,16 @@ Next.js + TypeScript + Tailwind CSS frontend, Supabase backend, Every.org Partne
     technologies: "GitHub, Docker, AWS, React, Typescript, MongoDB",
     period: "September 2023 - Present",
     description:
-      "Laid groundwork for tech infrastructure, resulting in a robust, scalable application reaching 1,000+ unique users.",
+      "B2B SaaS I co-founded at OSU. Built the full stack from scratch — React, Node.js, MongoDB, AWS — and grew it to 1,000+ users. Won OSU's school-wide pitch competition.",
     longDescription:
-      "As technical co-founder, I led Envolvly's development from concept to a scalable app with live users. I architected the full-stack infrastructure using React, AWS, and MongoDB, and established all technical operations, including the CI/CD pipeline. My leadership in applying Agile methodologies was key to our rapid growth and winning the OSU Business Pitch Competition, demonstrating strong technical and business acumen.",
+      "Envolvly is a B2B SaaS I co-founded at Oregon State. I built the full-stack infrastructure — React, Node.js, MongoDB, AWS — set up CI/CD, and led engineering throughout. We won OSU's school-wide pitch competition, and the platform has reached 1,000+ users. I'm still the primary engineer.",
     image: envolvlyProjectThumbnail,
     liveUrl: "https://www.envolvly.com",
     features: [
       "Full-stack web application with real-time updates",
-      "Scalable AWS infrastructure with auto-scaling",
-      "Secure authentication and authorization system",
+      "AWS infrastructure with auto-scaling",
       "CI/CD pipeline for automated deployments",
-      "MongoDB database with optimized queries",
-      "Responsive design for mobile and desktop"
+      "MongoDB backend with optimized queries"
     ],
     techStack: [
       { category: "Frontend", technologies: ["React", "TypeScript", "CSS3"] },
@@ -314,18 +312,16 @@ Followed Agile methodology with 2-week sprints, daily standups, and continuous i
     technologies: "Python, OpenCV, MediaPipe, Tkinter, NumPy",
     period: "July 2025 - Present",
     description:
-      "A desktop application designed for analysis of stunt performances. Tracks 70 points of accuracy per frame and performs data analysis on stunts performed.",
+      "Computer vision tool for analyzing cheer stunts. Tracks 33 body landmarks per frame, measures joint angles, and exports pose data to CSV.",
     longDescription:
-      "A desktop application designed for detailed analysis of acrobatic performances, such as cheer stunts and partner acrobatics, using advanced computer vision. The application uses MediaPipe's pose estimation to track 33 body landmarks in real-time, enabling coaches and athletes to analyze form, technique, and safety.",
+      "I built StuntCV to solve a problem I actually had as a D1 cheerleader — there was no easy way to review stunt technique on video. It uses MediaPipe Pose to track 33 body landmarks in real-time, measures joint angles, and lets coaches do frame-by-frame playback. Built with Python, OpenCV, and a Tkinter UI. Exports tracking data to CSV for deeper analysis.",
     image: StuntCVProjectThumbnail,
     githubUrl: "https://github.com/gitJamoo/StuntCV",
     features: [
       "Real-time pose estimation with 33 body landmarks",
-      "Video recording and playback analysis",
+      "Frame-by-frame video playback analysis",
       "Angle measurement for joint positions",
-      "Performance metrics and statistics",
-      "Frame-by-frame analysis tools",
-      "Export data to CSV for further analysis"
+      "Export tracking data to CSV"
     ],
     techStack: [
       { category: "Computer Vision", technologies: ["OpenCV", "MediaPipe"] },
@@ -377,17 +373,15 @@ Built with Python using OpenCV for video processing and MediaPipe for pose estim
     technologies: "Rust, Tauri, OpenCV",
     period: "December 2025",
     description:
-      "An accountability app that tracks users eyes and posture to ensure that good habits are followed and work is done.",
+      "Native desktop app that uses your webcam to monitor eye gaze and posture. Sends alerts when you drift. All processing is local — nothing leaves your machine.",
     longDescription:
-      "OVERSEER is an accountability app that tracks users eyes and posture to ensure that good habits are followed and work is done. The app uses Rust and Tauri to create a native desktop application that uses OpenCV to track the user's eyes and posture in real-time. The app has been deployed and has paying users.",
+      "OVERSEER runs silently in the background and uses OpenCV to watch your eye gaze and body posture via webcam. When it detects you've zoned out or are slouching, it sends a corrective alert. Built with Rust and Tauri for a lightweight native binary — far less overhead than an Electron alternative. All processing is local; no data is sent anywhere. Has paying users.",
     image: OVERSEERProjectThumbnail,
     liveUrl: "https://overseer-website.vercel.app",
     features: [
       "Real-time eye tracking for focus monitoring",
       "Posture detection and corrective alerts",
-      "Work session tracking and productivity analytics",
-      "Accountability reports and daily summaries",
-      "Native desktop performance via Tauri + Rust",
+      "Work session tracking and daily summaries",
       "Offline-first — no data leaves your machine"
     ],
     techStack: [
@@ -434,18 +428,16 @@ Shipped as a signed installer for Windows, macOS, and Linux. Available for purch
     technologies: "NVIDIA, AutoGen, Next.js",
     period: "October 2025",
     description:
-      "A first-of-its-kind agentic framework designed to optimize real-time strategy and decision-making in sports.",
+      "Agentic AI for real-time sports strategy. Runs on local NVIDIA hardware, processes live play-by-play data, and surfaces tactical recommendations mid-game.",
     longDescription:
-      "COORDINATOR is a continuous cognitive AI system that transforms sports strategy into adaptive, real-time intelligence. Inspired by the human brain's cognitive cycle, it observes, thinks, acts, and verifies to spot patterns and anticipate game changes. Built on NVIDIA technologies and running on local hardware (DGX Spark), it ensures strategic data remains secure and offline while providing coaches with a significant competitive edge.",
+      "COORDINATOR is an agentic AI system built for real-time sports strategy — it ingests live play-by-play feeds, video, and schematic data, and surfaces tactical recommendations during games. It runs on local NVIDIA DGX Spark hardware so coaching data never leaves the facility. The framework uses a dual-mode reasoning approach: a fast path for in-game decisions and a slower path for deeper strategic analysis between possessions. Built at BVR ST CO with NVIDIA Nemotron and AutoGen.",
     image: CoordinatorProjectThumbnail,
     liveUrl: "https://getcoordinator.ai/",
     features: [
-      "Real-time strategic analysis and adaptive learning",
-      "Dual-mode reasoning (Fast-mode tactics vs. Slow-mode strategy)",
-      "Secure local infrastructure with offline training",
-      "Agentic framework for multi-source data processing",
-      "Low-Rank Adaptation (LoRA) for efficient model fine-tuning",
-      "End-to-end encryption for sensitive team data"
+      "Dual-mode reasoning (fast in-game tactics vs. deep strategic analysis)",
+      "Live play-by-play, video, and schematic data ingestion",
+      "Local NVIDIA DGX Spark deployment — no cloud dependency",
+      "LoRA fine-tuning on team-specific data"
     ],
     techStack: [
       { category: "AI/ML", technologies: ["NVIDIA Nemotron", "AutoGen", "LoRA", "Reinforcement Learning"] },
@@ -466,19 +458,17 @@ Shipped as a signed installer for Windows, macOS, and Linux. Available for purch
     technologies: "React.js, Node.js, Python, GCP",
     period: "September 2025 - Present",
     description:
-      "A central AI service portal designed to serve as the secure, branded front-end for Oregon State University's faculty-facing agentic applications.",
+      "University-wide AI portal I built during my AI Advisor role at OSU. A single secured interface that routes faculty to multiple agentic AI services.",
     longDescription:
-      "The OSU Genesis Hub is a modular web-based interface that acts as a unified entry point for specialized agents like FAIE and GOA. It provides a secure environment through Microsoft SSO and Duo authentication, featuring a registry-based architecture that routes user queries and file attachments to specific agentic services. This project focuses on creating a seamless, persistent chat experience while establishing a standard interface for future OSU-developed AI tools.",
+      "During my AI Advisor role at Oregon State, I built the Genesis AI Hub as the official front-end for OSU's internal agentic tools. Faculty log in via Microsoft SSO and Duo, then interact with specialized agents through a shared chat interface. The backend uses a registry pattern — new agents can be registered and made available without touching the frontend. Built for a 35,000-student institution with FERPA compliance requirements.",
     image: GenesisAIHubProjectThumbnail,
     githubUrl: "https://github.com/GENESIS-AI-Hub/GENESIS-AI-Hub-App",
     liveUrl: "https://genesis.dev.oregonstate.edu/",
     features: [
-      "Modular Agentic Services Registry",
-      "Secure Microsoft SSO & Duo Authentication",
-      "Persistent chat history tied to user accounts",
-      "Context-aware backend routing for specialized agents",
-      "File upload and document attachment support",
-      "Responsive, OSU-branded chat interface"
+      "Registry-based architecture for registering new agents without frontend changes",
+      "Microsoft SSO & Duo authentication",
+      "Persistent chat history per user",
+      "File upload and document attachment support"
     ],
     techStack: [
       { category: "Frontend", technologies: ["React.js", "TypeScript"] },
@@ -521,17 +511,14 @@ Success is measured by the ability to register a simple backend agentic system w
     technologies: "Python, OpenAI API, CSV, ATS",
     period: "August 2025",
     description:
-      "An AI-powered job search application. Creates curated Cover letter, anticipated Interview questions, and more",
+      "CLI tool that reads a resume and job description, then generates a tailored cover letter, ATS score, and interview prep materials.",
     longDescription:
-      "An AI-powered resume builder and analyzer that helps users create and optimize their resumes for job applications. The application uses natural language processing to analyze job descriptions and tailor resumes to match specific positions, improving ATS (Applicant Tracking System) compatibility.",
+      "A Python CLI I built while job searching. You feed it your resume and a job description, and it uses OpenAI to score ATS keyword match, write a tailored cover letter, and generate likely interview questions with suggested answers. No UI — just a script you run from the terminal and pipe output wherever you need it.",
     image: ResumAIProjectThumbnail,
     features: [
-      "AI-powered resume analysis and optimization",
-      "Custom cover letter generation",
-      "Interview question prediction",
-      "ATS compatibility scoring",
-      "Keyword optimization",
-      "Multiple resume format support"
+      "ATS keyword match scoring against job description",
+      "Tailored cover letter generation",
+      "Interview question prediction with suggested answers"
     ],
     techStack: [
       { category: "Languages", technologies: ["Python"] },
@@ -587,17 +574,15 @@ Users report 40%+ improvement in ATS scores and higher callback rates after usin
     technologies: "C, C++, Assembly, OS concepts, Computer Architecture",
     period: "March 2024",
     description:
-      "Completed labs, assignments, & built an Operating system based off of MIT's JOS curriculum.",
+      "Worked through MIT's 6.828 JOS curriculum, implementing memory management, system calls, a file system, and concurrency in C and x86 Assembly.",
     longDescription:
-      "Completed labs, assignments, & built an Operating system based off of MIT's JOS curriculum. Worked directly on memory management, process management, file systems, concurrency, & kernel operations.",
+      "MIT 6.828 (JOS) is one of the harder OS courses you can self-study. I worked through the full lab sequence: physical and virtual memory with paging, context switching and process scheduling, copy-on-write fork, a Unix-like file system, and kernel-level IPC. All in C and x86 Assembly on QEMU. More useful than any lecture for understanding what actually happens below the OS API.",
     image: MITJOSProjectThumbnail,
     features: [
-      "Custom memory management with paging",
-      "Process scheduling and context switching",
-      "File system implementation",
-      "System call interface",
-      "Multi-threading support",
-      "Kernel-level debugging tools"
+      "Virtual memory with paging and page table management",
+      "Copy-on-write fork implementation",
+      "Unix-like file system (create, read, write, delete)",
+      "20+ system calls with user-kernel mode switching"
     ],
     techStack: [
       { category: "Languages", technologies: ["C", "C++", "x86 Assembly"] },
@@ -642,19 +627,17 @@ Deep understanding of how operating systems work at the lowest level, including 
     technologies: "Next.js, TypeScript, Tailwind CSS, Vercel, Generative AI",
     period: "August 2025",
     description:
-      "An AI-powered portfolio experience that dynamically generates pages for a unique visit every time.",
+      "This site. Every /wormhole/* page visit calls an LLM with my bio and generates a unique HTML portfolio page. Supports 10+ models and 100+ languages.",
     longDescription:
-      "The Wormhole is an AI-powered portfolio experience that dynamically generates pages using a Large Language Model (LLM). The LLM is provided with information about my professional background and generates unique content for each visitor. The site also includes a /playground/llm-sandbox — an interactive 3D LLM education lab built with React Three Fiber that visualizes tokenization, embedding clustering, cosine similarity, and word analogies (king − man + woman ≈ queen) in vector space. This project showcases my skills in full-stack development, API design, and generative AI.",
+      "The Wormhole is the core feature of this portfolio. Every visit to a /wormhole/* path calls whichever LLM the visitor has configured — Gemini, GPT-4o, Claude, or others — with my bio and a system prompt, and renders the resulting HTML directly. No two visits produce the same page. Also includes /playground/llm-sandbox, a 3D vector-space lab built with React Three Fiber that lets you visualize tokenization, embedding clusters, cosine similarity, and word analogies in real time.",
     image: WormholeProjectThumbnail,
     githubUrl: "https://github.com/gitJamoo/wormhole-portfolio",
     liveUrl: "https://j-m-s.dev",
     features: [
-      "AI-generated content for unique experiences",
-      "Dynamic page generation with LLM",
-      "Responsive design with Tailwind CSS",
-      "Server-side rendering with Next.js",
-      "Contact form with email integration",
-      "Dark mode support"
+      "Every page visit generates unique HTML via LLM",
+      "10+ supported models (Gemini, GPT-4o, Claude, and more)",
+      "100+ language support",
+      "/playground/llm-sandbox — 3D vector-space visualizer built with React Three Fiber"
     ],
     techStack: [
       { category: "Frontend", technologies: ["Next.js", "React", "TypeScript"] },
@@ -709,9 +692,9 @@ Optimized for speed with server-side rendering, image optimization, and efficien
     technologies: "Next.js 16, TypeScript, Supabase, PostgreSQL, LiveKit, Tailwind CSS, shadcn/ui",
     period: "March 26, 2026",
     description:
-      "A full-stack Discord clone with real-time messaging, voice & video calls, typing indicators, presence tracking, and persistent message history.",
+      "Full-stack Discord clone with real-time messaging, WebRTC voice/video, typing indicators, presence, and full-text search.",
     longDescription:
-      "jcord is a fully-featured real-time chat application built as a Discord clone using modern web technologies. It supports dynamic room creation, real-time messaging via Supabase Realtime (Postgres WebSockets), WebRTC-powered voice and video calls through LiveKit, and a Discord-inspired dark UI built with Tailwind CSS v4 and shadcn/ui. Users have full accounts with authentication, and every message is persisted to PostgreSQL for searchable history.",
+      "Built jcord as a deep-dive into real-time web architecture. Supabase Realtime (Postgres logical replication) handles live messaging per channel with optimistic UI. LiveKit provides the WebRTC layer for voice and video. Typing indicators and presence are broadcast as ephemeral events over Supabase Realtime. Full-text search runs on PostgreSQL tsvector with an indexed messages table. Every message is persisted and searchable.",
     image: jcordProjectThumbnail,
     githubUrl: "https://github.com/gitJamoo/jcord",
     features: [
@@ -768,16 +751,14 @@ Discord-inspired dark theme built with Tailwind CSS v4 and shadcn/ui component p
     technologies: "n8n, Node.js, REST APIs, Webhooks, AI Integrations",
     period: "2024 - Present",
     description:
-      "A self-hosted collection of automation workflows spanning AI agents, sentiment analysis, social listening, lead generation, and self-healing infrastructure.",
+      "Personal collection of self-hosted n8n automation workflows — AI agents, sentiment analysis pipelines, lead gen, and self-healing infrastructure monitors.",
     longDescription:
-      "A personal suite of automation workflows built and self-hosted on n8n. The workflows range broadly — from AI-powered sentiment analysis newsletters and social listening pipelines to lead generation flows, self-healing infrastructure monitors, and custom agentic AI integrations. Runs 24/7 on personal homelab hardware with full data ownership.",
+      "I run a personal n8n instance on my homelab and use it as the orchestration layer for a range of automation workflows: AI-powered sentiment analysis that feeds into automated newsletters, social listening pipelines, lead generation and enrichment, and self-healing infrastructure alerts that trigger automated remediation. All self-hosted in Docker behind Cloudflare Tunnels — no vendor lock-in, full data ownership.",
     features: [
-      "AI-powered sentiment analysis & automated newsletters",
-      "Social listening pipelines across multiple platforms",
+      "AI-powered sentiment analysis and automated newsletters",
+      "Social listening pipelines",
       "Lead generation and enrichment workflows",
-      "Self-healing infrastructure and alert resolution",
-      "Custom AI agent integrations",
-      "Self-hosted — no vendor lock-in, full data ownership"
+      "Self-healing infrastructure monitors with automated remediation"
     ],
     techStack: [
       { category: "Platform", technologies: ["n8n"] },
@@ -817,16 +798,14 @@ Runs as a Docker container on personal homelab hardware behind Nginx and Cloudfl
     technologies: "Raspberry Pi, Docker, Tailscale, Pi-hole, Caddy, Linux",
     period: "2024 - Present",
     description:
-      "A Raspberry Pi-based home server running self-hosted services over a private Tailscale mesh network with Pi-hole DNS and Caddy reverse proxy.",
+      "Raspberry Pi home server running self-hosted services on a Tailscale mesh VPN, with Pi-hole for DNS, Caddy as a reverse proxy, and Docker for containerization.",
     longDescription:
-      "A personal homelab built around a Raspberry Pi as the primary server. Services are containerized with Docker and exposed internally via Caddy reverse proxy using custom .home subdomains, resolved by Pi-hole over a Tailscale mesh VPN. The setup connects multiple personal devices into a private network with SSH access, DNS-level ad blocking, and always-on service hosting.",
+      "My personal homelab runs on a Raspberry Pi with Docker for containerization and Caddy as a reverse proxy that routes .home subdomains to the right container. Pi-hole handles DNS resolution and network-wide ad blocking. Everything is connected over a Tailscale mesh VPN so I can SSH into any device from anywhere without port forwarding. Hosts n8n, Plane, Minecraft, and a few other things permanently.",
     features: [
-      "Tailscale mesh VPN connecting all personal devices",
+      "Tailscale mesh VPN — SSH access from anywhere without port forwarding",
       "Pi-hole for network-wide DNS ad-blocking",
       "Caddy reverse proxy with .home subdomain routing",
-      "Dockerized services (n8n, Plane, and more)",
-      "SSH access to all nodes over Tailscale",
-      "Always-on hosting for personal automation and tools"
+      "Dockerized services: n8n, Plane, Minecraft"
     ],
     techStack: [
       { category: "Hardware", technologies: ["Raspberry Pi"] },
@@ -873,16 +852,14 @@ SSH is configured over Tailscale for all nodes. Services are accessed via Magic 
     technologies: "Python, Claude API, Haiku, Sonnet, Obsidian, Markdown",
     period: "June 2026 – Present",
     description:
-      "LLM-native personal knowledge system that converts 1,400+ AI conversations into a structured Obsidian vault using a two-tier agent pipeline.",
+      "Two-tier agent pipeline that converts 1,400+ AI conversations into a structured Obsidian knowledge base — Haiku for batch digesting, Sonnet for synthesis.",
     longDescription:
-      "An LLM-native personal knowledge system built with Python and the Claude API. Adapters convert 1,400+ AI conversations from Claude, ChatGPT, Gemini, and Claude Code into a unified markdown archive. From there, a two-tier agent pipeline runs: cheap Haiku-class subagents generate conversation digests at scale, and Sonnet-class agents synthesize the digests into distilled Topic, Solution, Decision, and People notes written directly into an Obsidian vault. The result is a living second brain that grows automatically with every AI conversation.",
+      "I had 1,400+ conversations across Claude, ChatGPT, Gemini, and Claude Code with no good way to access what I'd learned in them. So I built this: adapters normalize conversations from all four sources into a unified markdown archive, then Haiku-class subagents batch-digest each conversation cheaply, and Sonnet-class agents synthesize the digests into structured Topic, Solution, Decision, and People notes written directly into Obsidian. It runs automatically — every new conversation gets processed and distilled.",
     features: [
-      "Multi-source adapters (Claude, ChatGPT, Gemini, Claude Code)",
-      "1,400+ conversation archive ingested and normalized",
+      "Multi-source adapters for Claude, ChatGPT, Gemini, and Claude Code exports",
       "Haiku-class subagents for cost-efficient batch digesting",
-      "Sonnet-class agents for high-quality synthesis and distillation",
-      "Structured note types: Topics, Solutions, Decisions, People",
-      "Auto-writes into Obsidian vault markdown format"
+      "Sonnet-class agents for synthesis into Topics, Solutions, Decisions, People notes",
+      "Auto-writes structured notes directly into Obsidian vault"
     ],
     techStack: [
       { category: "Language", technologies: ["Python"] },
@@ -901,16 +878,14 @@ SSH is configured over Tailscale for all nodes. Services are accessed via Magic 
     technologies: "Raspberry Pi 5, Dell OptiPlex, Python, Telegram, N8N, Obsidian, open-source agent framework",
     period: "July 2026 – Present",
     description:
-      "Personal AI executive coordinator — a distributed multi-agent system running on homelab hardware with a Telegram interface and human-in-the-loop approval gate. (In progress.)",
+      "Personal AI executive assistant running on my homelab. Telegram interface, human-in-the-loop approval gate, and integrations for email, calendar, and voice. In progress.",
     longDescription:
-      "Hermes is a personal AI executive coordinator built on a distributed multi-agent system running on a Raspberry Pi 5 and Dell OptiPlex homelab. The interface is Telegram-based with a human approval gate — every action Hermes proposes can be reviewed and confirmed before execution. Integrations include email, voice calls, N8N workflow automation, and calendar management, with a shared Obsidian vault acting as the persistent state layer across agents. Built on an open-source agent framework. Still actively in development.",
+      "Hermes is the personal AI coordinator I've always wanted — something that can manage email, schedule meetings, run workflows, and make calls on my behalf, but only after I approve it. It runs on a Raspberry Pi 5 and Dell OptiPlex, uses Telegram as the interface, and routes tasks to specialized subagents. The shared Obsidian vault is the persistent state layer — agents read and write structured notes to stay in sync. Still in active development.",
     features: [
-      "Distributed multi-agent system on homelab hardware",
-      "Telegram interface with human-in-the-loop approval gate",
-      "Email and calendar integrations",
-      "Voice call capabilities",
+      "Telegram interface with human-in-the-loop approval gate for all actions",
+      "Email, calendar, and voice call integrations",
       "N8N workflow automation integration",
-      "Shared Obsidian vault as persistent agent state layer"
+      "Shared Obsidian vault as persistent state layer across agents"
     ],
     techStack: [
       { category: "Hardware", technologies: ["Raspberry Pi 5", "Dell OptiPlex"] },
@@ -930,28 +905,33 @@ SSH is configured over Tailscale for all nodes. Services are accessed via Magic 
 
 const creativeWorks = [
   {
+    title: "EcoDues Launch Film",
+    videoUrl: "https://www.ecodues.org/launch-film.mp4",
+  },
+  // { title: "OpenBeavs Sizzle Reel", videoUrl: "" }, // TODO: add URL when ready
+  {
     title: "NY Montage 1",
-    youtubeUrl: "https://youtube.com/shorts/ybqFLenkeWE",
+    videoUrl: "https://youtube.com/shorts/ybqFLenkeWE",
   },
   {
     title: "Gaming Montage",
-    youtubeUrl: "https://youtu.be/wxSr9o4Vqsc",
+    videoUrl: "https://youtu.be/wxSr9o4Vqsc",
   },
   {
     title: "Beach Trip",
-    youtubeUrl: "https://youtu.be/pbhPOA26mrI",
+    videoUrl: "https://youtu.be/pbhPOA26mrI",
   },
   {
     title: "Spring Montage",
-    youtubeUrl: "https://youtube.com/shorts/xGahzFqC6dk",
+    videoUrl: "https://youtube.com/shorts/xGahzFqC6dk",
   },
   {
     title: "Winter 25",
-    youtubeUrl: "https://youtube.com/shorts/7nCGFNZC5Pw",
+    videoUrl: "https://youtube.com/shorts/7nCGFNZC5Pw",
   },
   {
     title: "NY Montage 2",
-    youtubeUrl: "https://youtube.com/shorts/qnMAit1Upro",
+    videoUrl: "https://youtube.com/shorts/qnMAit1Upro",
   },
 ];
 
@@ -1121,23 +1101,11 @@ function ExperienceCard({ experience }: { experience: Experience }) {
   );
 }
 
-const CATEGORY_COLORS: Record<string, { accent: string; badge: string; badgeText: string; button: string }> = {
-  "Products":       { accent: "bg-blue-500",    badge: "bg-blue-500/10",    badgeText: "text-blue-600 dark:text-blue-400",     button: "bg-blue-600 hover:bg-blue-700" },
-  "AI & ML":        { accent: "bg-violet-500",  badge: "bg-violet-500/10",  badgeText: "text-violet-600 dark:text-violet-400", button: "bg-violet-600 hover:bg-violet-700" },
-  "Infrastructure": { accent: "bg-amber-500",   badge: "bg-amber-500/10",   badgeText: "text-amber-600 dark:text-amber-400",   button: "bg-amber-600 hover:bg-amber-700" },
-  "Systems":        { accent: "bg-emerald-500", badge: "bg-emerald-500/10", badgeText: "text-emerald-600 dark:text-emerald-400", button: "bg-emerald-600 hover:bg-emerald-700" },
-  "Web":            { accent: "bg-sky-500",     badge: "bg-sky-500/10",     badgeText: "text-sky-600 dark:text-sky-400",       button: "bg-sky-600 hover:bg-sky-700" },
-};
-
-function getCategoryColors(category?: string) {
-  return CATEGORY_COLORS[category ?? ""] ?? { accent: "bg-slate-500", badge: "bg-slate-500/10", badgeText: "text-slate-600 dark:text-slate-400", button: "bg-slate-600 hover:bg-slate-700" };
-}
 
 function ProjectCard({ project }: { project: Project }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"overview" | "demo" | "documentation" | "gallery">("overview");
   const [videoAspect, setVideoAspect] = useState<"16:9" | "9:16">("16:9");
-  const colors = getCategoryColors(project.category);
 
   const handleCardClick = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest('a')) return;
@@ -1167,188 +1135,145 @@ function ProjectCard({ project }: { project: Project }) {
 
   const techList = project.technologies.split(",");
 
+  const tabs = [
+    { id: "overview" as const, label: "Overview", show: true },
+    { id: "demo" as const, label: "Demo", show: !!project.demoVideoUrl },
+    { id: "documentation" as const, label: "Documentation", show: !!project.documentation },
+    { id: "gallery" as const, label: "Gallery", show: !!(project.gallery && project.gallery.length > 0) },
+  ].filter(t => t.show);
+
   return (
     <>
+      {/* Card */}
       <div
-        className="group relative rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col"
+        className="group border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 hover:border-gray-400 dark:hover:border-gray-600 transition-colors duration-200 cursor-pointer flex flex-col overflow-hidden"
         onClick={handleCardClick}
       >
-        {/* Category accent bar */}
-        <div className={`h-0.5 w-full ${colors.accent} flex-shrink-0`} />
-
         {/* Thumbnail */}
         {project.image && (
-          <div className="relative aspect-video overflow-hidden flex-shrink-0">
+          <div className="relative aspect-video overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-900">
             <Image
               src={project.image}
               alt={`${project.name} thumbnail`}
               fill
               style={{ objectFit: "cover" }}
-              className="group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            {project.liveUrl && (
-              <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 bg-emerald-500/90 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow">
-                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                Live
-              </div>
-            )}
           </div>
         )}
 
         {/* Content */}
         <div className="flex flex-col flex-1 p-5">
           {/* Category + Period */}
-          <div className="flex items-center gap-2 mb-2.5 flex-wrap">
+          <div className="flex items-baseline gap-3 mb-3">
             {project.category && (
-              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${colors.badge} ${colors.badgeText}`}>
+              <span className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider">
                 {project.category}
               </span>
             )}
-            <span className="text-xs text-gray-400 dark:text-gray-500">{project.period}</span>
+            <span className="text-xs text-gray-400 dark:text-gray-600">{project.period}</span>
           </div>
 
           {/* Title */}
-          <h3 className="text-xl font-bold mb-1.5 leading-tight">{project.name}</h3>
+          <h3 className="text-lg font-semibold mb-2 leading-snug tracking-tight">{project.name}</h3>
 
           {/* Description */}
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3.5 flex-grow line-clamp-3">
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow line-clamp-3 leading-relaxed">
             {project.description}
           </p>
 
-          {/* Tech pills */}
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            {techList.slice(0, 4).map((tech, i) => (
-              <span
-                key={i}
-                className="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-md text-xs font-medium border border-gray-200 dark:border-gray-700"
+          {/* Tech list — plain text, muted */}
+          <p className="text-xs text-gray-400 dark:text-gray-600 mb-4 leading-relaxed">
+            {techList.slice(0, 5).map(t => t.trim()).join(" · ")}
+            {techList.length > 5 && <span> · +{techList.length - 5} more</span>}
+          </p>
+
+          {/* Action links */}
+          <div className="flex gap-4 mt-auto text-sm" onClick={(e) => e.stopPropagation()}>
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors underline underline-offset-2"
               >
-                {tech.trim()}
-              </span>
-            ))}
-            {techList.length > 4 && (
-              <span className="px-2 py-0.5 text-gray-400 dark:text-gray-500 text-xs">+{techList.length - 4} more</span>
+                GitHub
+              </a>
+            )}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors underline underline-offset-2"
+              >
+                Live
+              </a>
+            )}
+            {!project.githubUrl && !project.liveUrl && (
+              <span className="text-gray-400 dark:text-gray-600 text-xs">Details →</span>
             )}
           </div>
-
-            {/* Action buttons */}
-            <div className="flex gap-2 mt-auto" onClick={(e) => e.stopPropagation()}>
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 bg-gray-900 dark:bg-gray-700 text-white text-sm py-2 px-3 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                  </svg>
-                  GitHub
-                </a>
-              )}
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex-1 ${colors.button} text-white text-sm py-2 px-3 rounded-lg transition-colors flex items-center justify-center gap-2`}
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                  Live
-                </a>
-              )}
-              {!project.githubUrl && !project.liveUrl && (
-                <button className={`flex-1 ${colors.button} text-white text-sm py-2 px-3 rounded-lg transition-colors`}>
-                  View Details
-                </button>
-              )}
-            </div>
-          </div>
+        </div>
       </div>
 
+      {/* Modal */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn"
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
           onClick={handleModalClose}
         >
           <div
-            className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden border border-gray-200 dark:border-gray-800 flex flex-col"
+            className="bg-white dark:bg-gray-950 w-full max-w-5xl max-h-[90vh] overflow-hidden border border-gray-200 dark:border-gray-800 flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="p-6 border-b border-gray-200 dark:border-gray-800">
-              <div className="flex items-start justify-between mb-4">
+            <div className="px-8 pt-8 pb-0 border-b border-gray-200 dark:border-gray-800">
+              <div className="flex items-start justify-between mb-5">
                 <div className="flex-1">
-                  <h2 className="text-3xl font-bold mb-2">{project.name}</h2>
-                  <p className="text-sm text-gray-500">{project.period}</p>
+                  {project.category && (
+                    <p className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">
+                      {project.category}
+                    </p>
+                  )}
+                  <h2 className="text-2xl font-semibold tracking-tight">{project.name}</h2>
+                  <p className="text-sm text-gray-500 dark:text-gray-500 mt-0.5">{project.period}</p>
                 </div>
                 <button
                   onClick={handleModalClose}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors p-2"
+                  className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors p-1 mt-1"
                   aria-label="Close modal"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
 
-              {/* Tab Navigation */}
-              <div className="flex gap-2 overflow-x-auto">
-                <button
-                  onClick={() => setActiveTab("overview")}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === "overview"
-                    ? "bg-blue-600 text-white shadow-lg"
-                    : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
+              {/* Underline Tab Navigation */}
+              <div className="flex gap-0 overflow-x-auto -mb-px">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
+                      activeTab === tab.id
+                        ? "border-gray-900 dark:border-white text-gray-900 dark:text-white"
+                        : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                     }`}
-                >
-                  Overview
-                </button>
-                {project.demoVideoUrl && (
-                  <button
-                    onClick={() => setActiveTab("demo")}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === "demo"
-                      ? "bg-blue-600 text-white shadow-lg"
-                      : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
-                      }`}
                   >
-                    🎬 Demo
+                    {tab.label}
                   </button>
-                )}
-                {project.documentation && (
-                  <button
-                    onClick={() => setActiveTab("documentation")}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === "documentation"
-                      ? "bg-blue-600 text-white shadow-lg"
-                      : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
-                      }`}
-                  >
-                    📝 Documentation
-                  </button>
-                )}
-                {project.gallery && project.gallery.length > 0 && (
-                  <button
-                    onClick={() => setActiveTab("gallery")}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === "gallery"
-                      ? "bg-blue-600 text-white shadow-lg"
-                      : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
-                      }`}
-                  >
-                    🖼️ Gallery
-                  </button>
-                )}
+                ))}
               </div>
             </div>
 
             {/* Modal Content */}
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className="flex-1 overflow-y-auto px-8 py-6">
               {/* Overview Tab */}
               {activeTab === "overview" && (
-                <div className="space-y-6">
+                <div className="space-y-8">
                   {project.image && (
-                    <div className="w-full h-64 relative rounded-lg overflow-hidden">
+                    <div className="w-full h-56 relative overflow-hidden bg-gray-100 dark:bg-gray-900">
                       <Image
                         src={project.image}
                         alt={`${project.name} image`}
@@ -1359,7 +1284,6 @@ function ProjectCard({ project }: { project: Project }) {
                   )}
 
                   <div>
-                    <h3 className="text-xl font-bold mb-3">About This Project</h3>
                     <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                       {project.longDescription}
                     </p>
@@ -1367,12 +1291,12 @@ function ProjectCard({ project }: { project: Project }) {
 
                   {project.features && project.features.length > 0 && (
                     <div>
-                      <h3 className="text-xl font-bold mb-3">✨ Key Features</h3>
-                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">Features</h3>
+                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                         {project.features.map((feature, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <span className="text-blue-600 dark:text-blue-400 mt-1">▸</span>
-                            <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                          <li key={index} className="flex items-start gap-2.5 text-sm text-gray-700 dark:text-gray-300">
+                            <span className="text-gray-300 dark:text-gray-600 mt-0.5 flex-shrink-0">—</span>
+                            <span>{feature}</span>
                           </li>
                         ))}
                       </ul>
@@ -1381,17 +1305,17 @@ function ProjectCard({ project }: { project: Project }) {
 
                   {project.metrics && project.metrics.length > 0 && (
                     <div>
-                      <h3 className="text-xl font-bold mb-3">📊 Impact & Metrics</h3>
+                      <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">Metrics</h3>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                         {project.metrics.map((metric, index) => (
                           <div
                             key={index}
-                            className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800"
+                            className="border border-gray-200 dark:border-gray-800 p-4"
                           >
-                            <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                            <div className="text-xl font-semibold tracking-tight">
                               {metric.value}
                             </div>
-                            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                            <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">
                               {metric.label}
                             </div>
                           </div>
@@ -1402,23 +1326,16 @@ function ProjectCard({ project }: { project: Project }) {
 
                   {project.techStack && project.techStack.length > 0 && (
                     <div>
-                      <h3 className="text-xl font-bold mb-3">🛠️ Tech Stack</h3>
-                      <div className="space-y-4">
+                      <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">Stack</h3>
+                      <div className="space-y-3">
                         {project.techStack.map((stack, index) => (
-                          <div key={index}>
-                            <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">
+                          <div key={index} className="flex gap-3">
+                            <span className="text-xs text-gray-400 dark:text-gray-600 w-24 flex-shrink-0 pt-0.5">
                               {stack.category}
-                            </h4>
-                            <div className="flex flex-wrap gap-2">
-                              {stack.technologies.map((tech, techIndex) => (
-                                <span
-                                  key={techIndex}
-                                  className="px-3 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium"
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
+                            </span>
+                            <span className="text-sm text-gray-700 dark:text-gray-300">
+                              {stack.technologies.join(", ")}
+                            </span>
                           </div>
                         ))}
                       </div>
@@ -1427,7 +1344,7 @@ function ProjectCard({ project }: { project: Project }) {
 
                   {!project.techStack && (
                     <div>
-                      <h3 className="text-xl font-bold mb-3">🛠️ Technologies</h3>
+                      <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">Stack</h3>
                       <p className="text-gray-600 dark:text-gray-400 font-mono text-sm">
                         {project.technologies}
                       </p>
@@ -1440,13 +1357,13 @@ function ProjectCard({ project }: { project: Project }) {
               {activeTab === "demo" && project.demoVideoUrl && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-bold">Project Demo</h3>
-                    <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+                    <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">Demo</h3>
+                    <div className="flex items-center gap-1 border border-gray-200 dark:border-gray-700 p-0.5">
                       <button
                         onClick={() => setVideoAspect("16:9")}
-                        className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
+                        className={`px-2.5 py-1 text-xs font-medium transition-colors ${
                           videoAspect === "16:9"
-                            ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
+                            ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900"
                             : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                         }`}
                       >
@@ -1454,9 +1371,9 @@ function ProjectCard({ project }: { project: Project }) {
                       </button>
                       <button
                         onClick={() => setVideoAspect("9:16")}
-                        className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
+                        className={`px-2.5 py-1 text-xs font-medium transition-colors ${
                           videoAspect === "9:16"
-                            ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
+                            ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900"
                             : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                         }`}
                       >
@@ -1465,7 +1382,7 @@ function ProjectCard({ project }: { project: Project }) {
                     </div>
                   </div>
                   {videoAspect === "16:9" ? (
-                    <div className="w-full aspect-video bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
+                    <div className="w-full aspect-video bg-gray-100 dark:bg-gray-900 overflow-hidden">
                       {isDirectVideo(project.demoVideoUrl) ? (
                         <video
                           controls
@@ -1485,7 +1402,7 @@ function ProjectCard({ project }: { project: Project }) {
                     </div>
                   ) : (
                     <div className="flex justify-center">
-                      <div className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden" style={{ aspectRatio: "9/16", maxHeight: "70vh", width: "auto" }}>
+                      <div className="bg-gray-100 dark:bg-gray-900 overflow-hidden" style={{ aspectRatio: "9/16", maxHeight: "70vh", width: "auto" }}>
                         {isDirectVideo(project.demoVideoUrl) ? (
                           <video
                             controls
@@ -1512,8 +1429,7 @@ function ProjectCard({ project }: { project: Project }) {
               {/* Documentation Tab */}
               {activeTab === "documentation" && project.documentation && (
                 <div className="space-y-4">
-                  <h3 className="text-xl font-bold">Documentation</h3>
-                  <div className="prose dark:prose-invert max-w-none">
+                  <div className="prose dark:prose-invert max-w-none prose-sm">
                     <div className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
                       {project.documentation}
                     </div>
@@ -1523,29 +1439,26 @@ function ProjectCard({ project }: { project: Project }) {
 
               {/* Gallery Tab */}
               {activeTab === "gallery" && project.gallery && project.gallery.length > 0 && (
-                <div className="space-y-4">
-                  <h3 className="text-xl font-bold">Project Gallery</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {project.gallery.map((image, index) => (
-                      <div
-                        key={index}
-                        className="w-full h-48 relative rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 hover:scale-105 transition-transform duration-300 cursor-pointer"
-                      >
-                        <Image
-                          src={image}
-                          alt={`Gallery image ${index + 1}`}
-                          fill
-                          style={{ objectFit: "cover" }}
-                        />
-                      </div>
-                    ))}
-                  </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {project.gallery.map((image, index) => (
+                    <div
+                      key={index}
+                      className="w-full h-48 relative overflow-hidden bg-gray-100 dark:bg-gray-900"
+                    >
+                      <Image
+                        src={image}
+                        alt={`Gallery image ${index + 1}`}
+                        fill
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
 
             {/* Modal Footer */}
-            <div className="p-6 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+            <div className="px-8 py-5 border-t border-gray-200 dark:border-gray-800">
               <div className="flex flex-wrap gap-3 items-center justify-between">
                 <div className="flex flex-wrap gap-3">
                   {project.githubUrl && (
@@ -1553,12 +1466,12 @@ function ProjectCard({ project }: { project: Project }) {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-gray-800 dark:bg-gray-700 text-white font-semibold py-2 px-6 rounded-lg hover:bg-gray-900 dark:hover:bg-gray-600 transition-colors flex items-center gap-2"
+                      className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors underline underline-offset-2 flex items-center gap-1.5"
                     >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                       </svg>
-                      View on GitHub
+                      GitHub
                     </a>
                   )}
                   {project.liveUrl && (
@@ -1566,12 +1479,12 @@ function ProjectCard({ project }: { project: Project }) {
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+                      className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors underline underline-offset-2 flex items-center gap-1.5"
                     >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
-                      View Live Demo
+                      View live
                     </a>
                   )}
                   {project.links && project.links.map((link, index) => (
@@ -1580,7 +1493,7 @@ function ProjectCard({ project }: { project: Project }) {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-purple-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-purple-700 transition-colors"
+                      className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors underline underline-offset-2"
                     >
                       {link.text}
                     </a>
@@ -1588,7 +1501,7 @@ function ProjectCard({ project }: { project: Project }) {
                 </div>
                 <button
                   onClick={handleModalClose}
-                  className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold py-2 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                  className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
                 >
                   Close
                 </button>
@@ -1709,15 +1622,15 @@ export default function HomePage() {
 
         <section id="projects">
           <h2 className="text-4xl font-bold mb-6 text-center">Projects</h2>
-          <div className="flex flex-wrap gap-2 justify-center mb-8">
+          <div className="flex flex-wrap gap-0 justify-center mb-8 border-b border-gray-200 dark:border-gray-800">
             {PROJECT_CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setProjectFilter(cat)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all border ${
+                className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap -mb-px ${
                   projectFilter === cat
-                    ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900 border-gray-900 dark:border-white shadow-sm"
-                    : "bg-transparent text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500"
+                    ? "border-gray-900 dark:border-white text-gray-900 dark:text-white"
+                    : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                 }`}
               >
                 {cat}
