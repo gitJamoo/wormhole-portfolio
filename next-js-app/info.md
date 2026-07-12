@@ -24,8 +24,8 @@ I'm casual and conversational — I like building things that are genuinely usef
 Series A workflow automation company. I work on AI-powered workflow automation end-to-end — from prompt engineering to production — building agentic, multi-step business-process automation.
 
 ### Freelance AI Engineer
-**Remote | May 2026 – Present**
-Built an AI quoting agent for a lumber wholesale distributor. The system reads inbound email RFQs, queries their ERP via SQL for pricing and availability, then drafts Outlook quote replies — fully automated. Stack: N8N, Microsoft Graph API, SQL Server, LLM orchestration.
+**Remote | May 2026 – July 2026**
+Built an AI quoting agent for a lumber wholesale distributor. The system reads inbound email RFQs, queries their ERP via SQL for pricing and availability, then drafts Outlook quote replies — fully automated. Stack: N8N, Microsoft Graph API, SQL Server, LLM orchestration via OpenRouter with a Zero Data Retention (ZDR) configuration for maximum customer data security.
 
 ### Oregon State University Digital Research Initiative — AI Advisor
 **Corvallis, OR | Aug 2025 – June 2026**

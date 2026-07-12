@@ -16,6 +16,8 @@ import hatsAndLaddersLogo from "../../../public/image-assets/hats_and_ladders_lo
 import oregonStateUniversityLogo from "../../../public/image-assets/oregon_state_university_logo.png";
 import envolvlyLogo from "../../../public/image-assets/envolvly_logo.png";
 import bvrstcoLogo from "../../../public/image-assets/bvr_st_co_logo.jpg";
+import magicalLogo from "../../../public/image-assets/magical_logo.png";
+import logLogo from "../../../public/image-assets/log_logo.png";
 
 import osuCheerBoysTeamPhoto from "../../../public/image-assets/Oregon_State_University/OSU_Cheer_Boys_Team_Photo.jpg";
 import osuCheerJamesAtWbbMarchMadness from "../../../public/image-assets/Oregon_State_University/OSU_Cheer_James_at_WBB_March_Madness.jpg";
@@ -113,15 +115,17 @@ const experiences: Experience[] = [
       "Building AI-powered workflow automation features at a Series A startup in San Francisco, shipping end-to-end from prompt engineering through production deployment.",
     longDescription:
       "Joined Magical Inc — a Series A workflow-automation startup in San Francisco — as an AI/Product Engineer. Building AI-powered workflow automation features and shipping end-to-end from prompt engineering through production deployment. Developing agentic capabilities that automate multi-step business processes from natural language, reducing manual work for teams at scale.",
+    logo: magicalLogo,
   },
   {
     company: "Freelance AI Engineer",
     role: "Freelance AI Engineer",
-    period: "May 2026 – Present",
+    period: "May 2026 – July 2026",
     description:
       "Built an AI quoting agent for a lumber wholesale distributor that reads customer RFQ emails, queries live ERP data, and drafts quote replies in Outlook.",
     longDescription:
-      "Built an end-to-end AI quoting agent for a lumber wholesale distributor. The agent reads inbound customer Request for Quote (RFQ) emails, queries the company's ERP database via SQL for live pricing and inventory availability, and drafts accurate quote reply emails directly in Outlook — cutting quote turnaround time significantly. Stack: N8N for workflow orchestration, Microsoft Graph API for email access, SQL Server for ERP queries, and LLM orchestration via Claude and GPT-4o through OpenRouter.",
+      "Built an end-to-end AI quoting agent for a lumber wholesale distributor. The agent reads inbound customer Request for Quote (RFQ) emails, queries the company's ERP database via SQL for live pricing and inventory availability, and drafts accurate quote reply emails directly in Outlook — cutting quote turnaround time significantly. Stack: N8N for workflow orchestration, Microsoft Graph API for email access, SQL Server for ERP queries, and LLM orchestration via Claude and GPT-4o through OpenRouter, configured with Zero Data Retention (ZDR) for maximum customer data security.",
+    logo: logLogo,
   },
   {
     company: "Envolvly",
@@ -908,7 +912,10 @@ const creativeWorks = [
     title: "EcoDues Launch Film",
     videoUrl: "https://www.ecodues.org/launch-film.mp4",
   },
-  // { title: "OpenBeavs Sizzle Reel", videoUrl: "" }, // TODO: add URL when ready
+  {
+    title: "OpenBeavs Sizzle Reel",
+    videoUrl: "https://youtu.be/_Dzs6amoz1c",
+  },
   {
     title: "NY Montage 1",
     videoUrl: "https://youtube.com/shorts/ybqFLenkeWE",
