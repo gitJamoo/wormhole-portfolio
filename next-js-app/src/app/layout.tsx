@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://j-m-s.dev"),
   title: "James M. Smith — AI/Product Engineer",
   description:
     "James M. Smith is an AI/Product Engineer in San Francisco building production AI systems, agentic automation, and full-stack products. Home of the Wormhole — an AI-regenerated portfolio.",

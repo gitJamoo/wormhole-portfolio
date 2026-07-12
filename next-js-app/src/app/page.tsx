@@ -1,15 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
-
-  const handleButtonClick = () => {
-    router.push("/wormhole-config/");
-  };
 
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 sm:p-16 gap-12">
@@ -23,32 +18,35 @@ export default function Home() {
             .
           </h1>
           <p className="text-lg max-w-xl">
-            I am a Computer Science student focusing on Machine Learning with a
-            background in Full Stack, ML/AI, and DevOps. I decided to make a
-            portfolio page and create a unique portfolio experience.
+            AI/Product Engineer at Magical in San Francisco. I build agentic AI
+            systems that ship — a $1.5M recommendation engine at Estée Lauder,
+            a university-wide AI portal at Oregon State, and a few things in
+            between.
           </p>
-          <p className="text-xs max-w-xl text-gray-500">
-            The Wormhole is a unique browsing experience, where AI generates
-            each page being viewed. It has been fed information about me, and
-            makes each vist a one of a kind portfolio viewing experience. Take
-            everything with a grain of salt since it is AI generated.
+          <p className="text-sm text-gray-500 flex items-center justify-center sm:justify-start gap-2">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#D73F09]" />
+            Currently building at Magical Inc · San Francisco
           </p>
         </div>
         <div className="flex flex-col gap-y-4 items-center sm:items-start">
           <div className="flex flex-col sm:flex-row gap-4">
             <button
-              onClick={handleButtonClick}
-              className="rounded-full border border-solid border-transparent flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto shadow-lg transition-all duration-200 ease-in-out hover:scale-105 transform"
-            >
-              Enter the Wormhole
-            </button>
-            <button
               onClick={() => router.push("/home")}
               className="rounded-full border border-solid border-transparent flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto shadow-lg transition-all duration-200 ease-in-out hover:scale-105 transform"
             >
-              Portfolio
+              See My Work
+            </button>
+            <button
+              onClick={() => router.push("/wormhole-config/")}
+              className="rounded-full border border-solid border-transparent flex items-center justify-center bg-gradient-to-r from-[#D73F09] to-[#FDB813] text-white gap-2 font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto shadow-lg transition-all duration-200 ease-in-out hover:scale-105 transform"
+            >
+              Enter the Wormhole
             </button>
           </div>
+          <p className="text-xs max-w-xl text-gray-500 text-center sm:text-left">
+            The Wormhole: an AI generates every page as you browse — no two
+            visits are alike.
+          </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
               href="/james_smith_resume.pdf"
@@ -58,41 +56,29 @@ export default function Home() {
               Resume
             </a>
             <button
-              onClick={() =>
-                window.open(
-                  "https://www.linkedin.com/in/james-m-smith1",
-                  "_blank"
-                )
-              }
-              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
-            >
-              LinkedIn
-            </button>
-            <button
               onClick={() => router.push("/book")}
               className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
             >
               Book a Meeting
             </button>
-            <Link
-              href="/playground"
-              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background gap-1.5"
-            >
-              <span>Playground</span>
-              <span className="text-xs opacity-60">↗</span>
-            </Link>
-            <Link
-              href="/blog"
-              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background gap-1.5"
-            >
-              <span>Blog</span>
-              <span className="text-xs opacity-60">↗</span>
-            </Link>
           </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        {/* You can add footer content here if you like */}
+      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center text-sm text-gray-500">
+        <a
+          href="https://www.linkedin.com/in/james-m-smith1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-foreground transition-colors"
+        >
+          LinkedIn ↗
+        </a>
+        <Link href="/playground" className="hover:text-foreground transition-colors">
+          Playground ↗
+        </Link>
+        <Link href="/blog" className="hover:text-foreground transition-colors">
+          Blog ↗
+        </Link>
       </footer>
     </div>
   );
