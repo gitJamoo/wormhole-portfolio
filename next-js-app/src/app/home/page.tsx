@@ -211,8 +211,7 @@ const projects: Project[] = [
     image: EcoDuesProjectThumbnail,
     liveUrl: "https://ecodues.org",
     githubUrl: "https://github.com/gitJamoo/ecodues",
-    // TODO: paste EcoDues launch video YouTube URL here
-    // demoVideoUrl: "",
+    demoVideoUrl: "https://www.ecodues.org/launch-film.mp4",
     features: [
       "Multiplier slider with 0.25x steps (default 2x offset)",
       "Daily automated provider sync (OpenRouter, OpenAI, Anthropic)",
