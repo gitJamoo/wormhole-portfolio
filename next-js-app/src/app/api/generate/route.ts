@@ -5,20 +5,7 @@ import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
 import fs from "fs";
 import path from "path";
-
-const modelToProvider: { [key: string]: string } = {
-  "gemini-2.5-flash": "google",
-  "gemini-2.5-pro": "google",
-  "gemini-2.5-flash-lite": "google",
-  "gemini-1.5-flash": "google",
-  "claude-3-7-sonnet-latest": "anthropic",
-  "claude-opus-4-1-20250805": "anthropic",
-  "claude-sonnet-4-20250514": "anthropic",
-  "claude-3-haiku-20240307": "anthropic",
-  "gpt-4o": "openai",
-  "gpt-4-turbo": "openai",
-  "gpt-3.5-turbo": "openai",
-};
+import { MODEL_TO_API_PROVIDER } from "@/lib/wormhole-models";
 
 export async function POST(req: NextRequest) {
   try {
@@ -46,7 +33,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const provider = modelToProvider[selectedModel];
+    const provider = MODEL_TO_API_PROVIDER[selectedModel];
 
     if (!provider) {
       return NextResponse.json(

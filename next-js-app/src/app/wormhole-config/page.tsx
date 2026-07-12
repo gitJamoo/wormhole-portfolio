@@ -5,6 +5,11 @@ import { useRouter } from "next/navigation";
 import GeminiIcon from "../components/icons/GeminiIcon";
 import OpenAIIcon from "../components/icons/OpenAIIcon";
 import AnthropicIcon from "../components/icons/AnthropicIcon";
+import {
+  WORMHOLE_MODELS,
+  MODEL_TO_DISPLAY_PROVIDER,
+  DEFAULT_WORMHOLE_MODEL,
+} from "@/lib/wormhole-models";
 
 const languages = [
   "English",
@@ -55,20 +60,6 @@ const languages = [
   "Vietnamese",
 ];
 
-const modelToProvider: { [key: string]: string } = {
-  "gemini-2.5-flash": "Gemini",
-  "gemini-2.5-pro": "Gemini",
-  "gemini-2.5-flash-lite": "Gemini",
-  "gemini-1.5-flash": "Gemini",
-  "claude-3-7-sonnet-latest": "Claude",
-  "claude-opus-4-1-20250805": "Claude",
-  "claude-sonnet-4-20250514": "Claude",
-  "claude-3-haiku-20240307": "Claude",
-  "gpt-4o": "OpenAI",
-  "gpt-4-turbo": "OpenAI",
-  "gpt-3.5-turbo": "OpenAI",
-};
-
 const providers = [
   { value: "Gemini", label: "Gemini", icon: GeminiIcon },
   { value: "OpenAI", label: "OpenAI", icon: OpenAIIcon },
@@ -95,7 +86,7 @@ export default function WormholeConfig() {
     }
     const savedModel = localStorage.getItem("selectedWormholeModel");
     if (savedModel) {
-      const provider = modelToProvider[savedModel];
+      const provider = MODEL_TO_DISPLAY_PROVIDER[savedModel];
       if (provider) {
         setSelectedModel(savedModel);
         setSelectedProvider(provider);
@@ -159,7 +150,7 @@ export default function WormholeConfig() {
   };
 
   const handleContinueWithDefaults = () => {
-    localStorage.setItem("selectedWormholeModel", "gemini-2.5-flash-lite");
+    localStorage.setItem("selectedWormholeModel", DEFAULT_WORMHOLE_MODEL);
     localStorage.setItem("temperature", "1.0");
     localStorage.setItem("wormholeLanguage", "English");
     localStorage.removeItem("wormholeInstructions");
@@ -208,7 +199,7 @@ export default function WormholeConfig() {
                   Continue with defaults
                 </span>
                 <span className="text-sm text-gray-500 dark:text-gray-400">
-                  Default system prompts on gemini-2.5-flash-lite, temperature
+                  Default system prompts on {DEFAULT_WORMHOLE_MODEL}, temperature
                   1.0, in English
                 </span>
               </button>
@@ -362,12 +353,9 @@ export default function WormholeConfig() {
                   onChange={(e) => setSelectedModel(e.target.value)}
                 >
                   <option value="">Select a model</option>
-                  <option value="gemini-2.5-flash">gemini-2.5-flash</option>
-                  <option value="gemini-2.5-pro">gemini-2.5-pro</option>
-                  <option value="gemini-2.5-flash-lite">
-                    gemini-2.5-flash-lite
-                  </option>
-                  <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                  {WORMHOLE_MODELS.filter((m) => m.displayProvider === "Gemini").map((m) => (
+                    <option key={m.id} value={m.id}>{m.id}</option>
+                  ))}
                 </select>
               </div>
             </>
@@ -386,9 +374,9 @@ export default function WormholeConfig() {
                   onChange={(e) => setSelectedModel(e.target.value)}
                 >
                   <option value="">Select a model</option>
-                  <option value="gpt-4o">gpt-4o</option>
-                  <option value="gpt-4-turbo">gpt-4-turbo</option>
-                  <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+                  {WORMHOLE_MODELS.filter((m) => m.displayProvider === "OpenAI").map((m) => (
+                    <option key={m.id} value={m.id}>{m.id}</option>
+                  ))}
                 </select>
               </div>
             </>
@@ -407,18 +395,9 @@ export default function WormholeConfig() {
                   onChange={(e) => setSelectedModel(e.target.value)}
                 >
                   <option value="">Select a model</option>
-                  <option value="claude-3-7-sonnet-latest">
-                    claude-3-7-sonnet-latest
-                  </option>
-                  <option value="claude-opus-4-1-202508059">
-                    claude-opus-4-1-20250805
-                  </option>
-                  <option value="claude-sonnet-4-20250514">
-                    claude-sonnet-4-20250514
-                  </option>
-                  <option value="claude-3-haiku-20240307">
-                    claude-3-haiku-20240307
-                  </option>
+                  {WORMHOLE_MODELS.filter((m) => m.displayProvider === "Claude").map((m) => (
+                    <option key={m.id} value={m.id}>{m.id}</option>
+                  ))}
                 </select>
               </div>
             </>
