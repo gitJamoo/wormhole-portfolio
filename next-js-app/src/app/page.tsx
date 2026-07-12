@@ -2,6 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+
+import smilingHeadshot from "../../public/image-assets/smiling-headshot.jpg";
 
 export default function Home() {
   const router = useRouter();
@@ -10,6 +13,17 @@ export default function Home() {
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 sm:p-16 gap-12">
       <main className="flex flex-col gap-y-6 row-start-2 items-center sm:items-start">
         <div className="flex flex-col gap-y-4 text-center sm:text-left">
+          <div className="relative w-24 h-24 rounded-full overflow-hidden border border-black/[.08] dark:border-white/[.145] mx-auto sm:mx-0">
+            <Image
+              src={smilingHeadshot}
+              alt="James M. Smith"
+              fill
+              priority
+              sizes="96px"
+              style={{ objectFit: "cover" }}
+              className="grayscale hover:grayscale-0 transition-all duration-500"
+            />
+          </div>
           <h1 className="text-4xl font-bold">
             Hello, I am{" "}
             <span className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-[#D73F09] to-[#FDB813] transition-transform duration-300 ease-in-out hover:scale-110 hover:rotate-[-5deg] animate-gradient">
