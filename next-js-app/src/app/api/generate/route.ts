@@ -64,6 +64,11 @@ export async function POST(req: NextRequest) {
     const infoMdPath = path.join(process.cwd(), "info.md");
     const infoMdContent = fs.readFileSync(infoMdPath, "utf-8");
 
+    const resumeMdPath = path.join(process.cwd(), "resume.md");
+    const resumeMdContent = fs.existsSync(resumeMdPath)
+      ? fs.readFileSync(resumeMdPath, "utf-8")
+      : "";
+
     const systemInstructionsPath = path.join(
       process.cwd(),
       "src",
@@ -107,7 +112,11 @@ ${additionalInstructions}
       .replace(/{{currentPath}}/g, currentPath)
       .replace("{{language}}", language);
 
-    const userPrompt = `Here is the raw information about the candidate:\n---\n${infoMdContent}\n---\n${additionalInstructionsText}\n${imageAssetsText}`;
+    const resumeText = resumeMdContent
+      ? `Here is the candidate's resume:\n---\n${resumeMdContent}\n---\n`
+      : "";
+
+    const userPrompt = `Here is the raw information about the candidate:\n---\n${infoMdContent}\n---\n${resumeText}${additionalInstructionsText}\n${imageAssetsText}`;
 
     console.log(
       "Using model:",

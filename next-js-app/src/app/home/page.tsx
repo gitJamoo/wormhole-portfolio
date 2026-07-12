@@ -45,7 +45,7 @@ import WormholeProjectThumbnail from "../../../public/image-assets/projects/Worm
 import StuntCVProjectThumbnail from "../../../public/image-assets/projects/StuntCV/thumbnail.png";
 import ResumAIProjectThumbnail from "../../../public/image-assets/projects/ResumAI/thumbnail.png";
 import CoordinatorProjectThumbnail from "../../../public/image-assets/projects/Coordinator/thumbnail.png";
-import GenesisAIHubProjectThumbnail from "../../../public/image-assets/projects/GenesisAIHub/thumbnail.png";
+import OpenBeavsProjectThumbnail from "../../../public/image-assets/projects/OpenBeavs/thumbnail.png";
 import EcoDuesProjectThumbnail from "../../../public/image-assets/projects/EcoDues/thumbnail.png";
 import OVERSEERProjectThumbnail from "../../../public/image-assets/projects/OVERSEER/thumbnail.png";
 import jcordProjectThumbnail from "../../../public/image-assets/projects/jcord/thumbnail.png";
@@ -453,17 +453,17 @@ Shipped as a signed installer for Windows, macOS, and Linux. Available for purch
     documentation: `https://bvrstco.com/blog/introducing-coordinator`
   },
   {
-    name: "OSU Genesis AI Hub",
+    name: "OpenBeavs",
     category: "AI & ML",
     technologies: "React.js, Node.js, Python, GCP",
     period: "September 2025 - Present",
     description:
       "University-wide AI portal I built during my AI Advisor role at OSU. A single secured interface that routes faculty to multiple agentic AI services.",
     longDescription:
-      "During my AI Advisor role at Oregon State, I built the Genesis AI Hub as the official front-end for OSU's internal agentic tools. Faculty log in via Microsoft SSO and Duo, then interact with specialized agents through a shared chat interface. The backend uses a registry pattern — new agents can be registered and made available without touching the frontend. Built for a 35,000-student institution with FERPA compliance requirements.",
-    image: GenesisAIHubProjectThumbnail,
+      "During my AI Advisor role at Oregon State, I built OpenBeavs (formerly the Genesis AI Hub) as the official front-end for OSU's internal agentic tools. Faculty log in via Microsoft SSO and Duo, then interact with specialized agents through a shared chat interface. The backend uses a registry pattern — new agents can be registered and made available without touching the frontend. Built for a 35,000-student institution with FERPA compliance requirements.",
+    image: OpenBeavsProjectThumbnail,
     githubUrl: "https://github.com/GENESIS-AI-Hub/GENESIS-AI-Hub-App",
-    liveUrl: "https://genesis.dev.oregonstate.edu/",
+    liveUrl: "https://openbeavs-deploy-test-716080272371.us-west1.run.app/",
     features: [
       "Registry-based architecture for registering new agents without frontend changes",
       "Microsoft SSO & Duo authentication",
@@ -481,9 +481,9 @@ Shipped as a signed installer for Windows, macOS, and Linux. Available for purch
       { label: "Target Users", value: "10,000+" },
       { label: "Compliance", value: "FERPA/SSO" }
     ],
-    documentation: `## OSU Genesis Hub
+    documentation: `## OpenBeavs
 
-A secure, web-based portal for registering and interacting with agentic AI applications for Oregon State Faculty.
+A secure, web-based portal for registering and interacting with agentic AI applications for Oregon State Faculty. Formerly known as the OSU Genesis AI Hub.
 
 ## Concept
 The Hub provides a unified front-end for multiple independent AI agents. Instead of disparate tools, faculty access a single, branded interface where developers can register new agentic services using a standardized protocol.
