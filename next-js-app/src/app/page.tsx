@@ -28,40 +28,38 @@ export default function Home() {
             Currently building at Magical Inc · San Francisco
           </p>
         </div>
-        <div className="flex flex-col gap-y-4 items-center sm:items-start">
-          <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col gap-y-3 items-center sm:items-start">
+          <div className="flex flex-wrap justify-center sm:justify-start gap-3 sm:gap-4">
             <button
               onClick={() => router.push("/home")}
-              className="rounded-full border border-solid border-transparent flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto shadow-lg transition-all duration-200 ease-in-out hover:scale-105 transform"
+              className="rounded-full border border-solid border-transparent flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 shadow-lg transition-all duration-200 ease-in-out hover:scale-105 transform"
             >
               See My Work
             </button>
             <button
               onClick={() => router.push("/wormhole-config/")}
-              className="rounded-full border border-solid border-transparent flex items-center justify-center bg-gradient-to-r from-[#D73F09] to-[#FDB813] text-white gap-2 font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto shadow-lg transition-all duration-200 ease-in-out hover:scale-105 transform"
+              className="rounded-full border border-solid border-[#D73F09] bg-transparent text-[#D73F09] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-[#D73F09] hover:text-white transition-colors"
             >
               Enter the Wormhole
+            </button>
+            <a
+              href="/james_smith_resume.pdf"
+              download="james_smith_resume.pdf"
+              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
+            >
+              Resume
+            </a>
+            <button
+              onClick={() => router.push("/book")}
+              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
+            >
+              Book a Meeting
             </button>
           </div>
           <p className="text-xs max-w-xl text-gray-500 text-center sm:text-left">
             The Wormhole: an AI generates every page as you browse — no two
             visits are alike.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a
-              href="/james_smith_resume.pdf"
-              download="james_smith_resume.pdf"
-              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
-            >
-              Resume
-            </a>
-            <button
-              onClick={() => router.push("/book")}
-              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background"
-            >
-              Book a Meeting
-            </button>
-          </div>
         </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center text-sm text-gray-500">
