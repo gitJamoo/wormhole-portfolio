@@ -46,9 +46,11 @@ import StuntCVProjectThumbnail from "../../../public/image-assets/projects/Stunt
 import ResumAIProjectThumbnail from "../../../public/image-assets/projects/ResumAI/thumbnail.png";
 import CoordinatorProjectThumbnail from "../../../public/image-assets/projects/Coordinator/thumbnail.png";
 import GenesisAIHubProjectThumbnail from "../../../public/image-assets/projects/GenesisAIHub/thumbnail.png";
+import EcoDuesProjectThumbnail from "../../../public/image-assets/projects/EcoDues/thumbnail.png";
+import OVERSEERProjectThumbnail from "../../../public/image-assets/projects/OVERSEER/thumbnail.png";
+import jcordProjectThumbnail from "../../../public/image-assets/projects/jcord/thumbnail.png";
 
 import fileIcon from "../../../public/file.svg";
-import globeIcon from "../../../public/globe.svg";
 import windowIcon from "../../../public/window.svg";
 
 interface Experience {
@@ -82,12 +84,12 @@ interface Project {
 
 const education: Education = {
   institution: "Oregon State University",
-  degree: "Bachelor of Engineering in Computer Science & ML/AI",
+  degree: "Bachelor of Science in Computer Science & ML/AI",
   period: "September 2022 – June 2026",
   details:
-    "Minor in Cybersecurity. Relevant Coursework: Operating Systems I&II, Discrete Math, Analysis of Algorithms, Software Eng. I&II, Data Structures, Web Development, Computer Assembly, Technical Writing.",
+    "Graduated Cum Laude. Minor in Cybersecurity. Dean's List. Relevant Coursework: Operating Systems I&II, Discrete Math, Analysis of Algorithms, Software Eng. I&II, Data Structures, Web Development, Computer Assembly, Technical Writing.",
   longDescription:
-    "Attended Oregon State University and was a part of the cheer team, and won an award for my work with Envolvly.",
+    "Graduated Cum Laude from Oregon State University in June 2026 with a B.S. in Computer Science and a Cybersecurity minor. Made the Dean's List and was a member of the OSU cheer team — competing at the NCAA Division I level — and won an entrepreneurship award for my work with Envolvly at the OSU Business Pitch Competition.",
   logo: oregonStateUniversityLogo,
   images: [
     osuCheerBoysTeamPhoto,
@@ -104,6 +106,24 @@ const education: Education = {
 
 const experiences: Experience[] = [
   {
+    company: "Magical Inc",
+    role: "AI/Product Engineer",
+    period: "July 2026 – Present",
+    description:
+      "Building AI-powered workflow automation features at a Series A startup in San Francisco, shipping end-to-end from prompt engineering through production deployment.",
+    longDescription:
+      "Joined Magical Inc — a Series A workflow-automation startup in San Francisco — as an AI/Product Engineer. Building AI-powered workflow automation features and shipping end-to-end from prompt engineering through production deployment. Developing agentic capabilities that automate multi-step business processes from natural language, reducing manual work for teams at scale.",
+  },
+  {
+    company: "Freelance AI Engineer",
+    role: "Freelance AI Engineer",
+    period: "May 2026 – Present",
+    description:
+      "Built an AI quoting agent for a lumber wholesale distributor that reads customer RFQ emails, queries live ERP data, and drafts quote replies in Outlook.",
+    longDescription:
+      "Built an end-to-end AI quoting agent for a lumber wholesale distributor. The agent reads inbound customer Request for Quote (RFQ) emails, queries the company's ERP database via SQL for live pricing and inventory availability, and drafts accurate quote reply emails directly in Outlook — cutting quote turnaround time significantly. Stack: N8N for workflow orchestration, Microsoft Graph API for email access, SQL Server for ERP queries, and LLM orchestration via Claude and GPT-4o through OpenRouter.",
+  },
+  {
     company: "Envolvly",
     role: "Co-Founder",
     period: "February 2023 - Present",
@@ -116,21 +136,21 @@ const experiences: Experience[] = [
   {
     company: "BVR ST CO",
     role: "Machine Learning Intern",
-    period: "October 2025 - Present",
+    period: "October 2025 – June 2026",
     description:
-      "Working as a Machine Learning Intern to create cutting-edge Machine Learning solutions for Collegiate Sports.",
+      "Built ML pipelines for collegiate football performance analysis, processing player-tracking data to surface tactical insights for coaching staff.",
     longDescription:
-      "More will come soon. See COORDINATOR.",
+      "Built ML pipelines for football performance analysis, processing player-tracking and game data to surface tactical insights for coaching staff. Developed computer-vision models for automated game-film breakdown, enabling frame-level recognition of formations and player positioning. Built pattern-recognition systems for player-movement analysis, helping coaches identify tendencies and prepare more effectively for opponents.",
     logo: bvrstcoLogo,
   },
   {
     company: "Oregon State University",
     role: "AI Advisor",
-    period: "August 2025 – Present",
+    period: "August 2025 – June 2026",
     description:
-      "Advising the GENESIS AI development team on creating internal agentic AI tools to streamline university business operations.",
+      "Advised the GENESIS AI development team on building internal agentic AI tools to streamline university business operations across a 35,000-student public research university.",
     longDescription:
-      "Advising the GENESIS AI Dev team on building interal agentic AI tools. This includes but is not limited to creating documentation, training videos, and example codebases. Also worked with vendors (Google, Amazon, Microsoft) in order to ensure best practices in implementation. Created applicaitons across Google Gemini, Amazon Bedrock, and Microsoft Copilot environments.",
+      "Advised the GENESIS AI Dev team on building internal agentic AI tools for Oregon State University, a 35,000-student public research university. Advised university-wide adoption of Amazon Bedrock, Google Gemini, and Microsoft Copilot, working directly with vendor teams to ensure best-practice implementation. Created training materials and example codebases for agentic AI tools, and helped shape AI governance policy for the university.",
     logo: oregonStateUniversityLogo,
   },
   {
@@ -156,7 +176,7 @@ const experiences: Experience[] = [
     role: "Programmer & Technical Analyst Intern",
     period: "June 2024 – August 2024",
     description:
-      "Fortified a critical statewide incident reporting system by creatign tests, directly contributing to system reliability and modernization.",
+      "Fortified a critical statewide incident reporting system by creating tests, directly contributing to system reliability and modernization.",
     longDescription:
       "As a member of the engineering and innovations team, I contributed to the modernization and reliability of critical transit systems through comprehensive testing, automation, and infrastructure enhancements. Engineered and executed over 200 comprehensive tests across 18 suites for a critical, statewide digital incident reporting system, achieving an exceptional 85% code coverage with Jest and Gherkin.",
     logo: njTransitLogo,
@@ -179,6 +199,67 @@ const experiences: Experience[] = [
 ];
 
 const projects: Project[] = [
+  {
+    name: "EcoDues",
+    category: "Products",
+    technologies: "Next.js, TypeScript, Tailwind CSS, Supabase, Every.org API, Vitest, GitHub Actions, Vercel",
+    period: "May 2026 – Present",
+    description:
+      "Make your AI use net-positive. Tracks token usage across AI providers, computes CO2e carbon footprint, and routes monthly donations to environmental charities you choose.",
+    longDescription:
+      "EcoDues is a full-stack open-source (MIT) SaaS that tracks your AI token usage across OpenRouter, OpenAI, and Anthropic admin APIs, computes the CO2e carbon footprint of your inference, and applies a configurable multiplier (default 2x) to offset your impact. Each month it routes donations to environmental charities you choose via the Every.org Partner API — making your AI use genuinely net-positive. Think Spotify Wrapped for AI carbon, with streaks, leaderboards, and shareable impact cards.",
+    image: EcoDuesProjectThumbnail,
+    liveUrl: "https://ecodues.org",
+    githubUrl: "https://github.com/gitJamoo/ecodues",
+    // TODO: paste EcoDues launch video YouTube URL here
+    // demoVideoUrl: "",
+    features: [
+      "Multiplier slider with 0.25x steps (default 2x offset)",
+      "Daily automated provider sync (OpenRouter, OpenAI, Anthropic)",
+      "Monthly donation cycles via Every.org Partner API",
+      "Dashboard stats with real-world equivalents (miles driven, tree-days, phone charges)",
+      "\"Spotify Wrapped for AI carbon\" shareable cards",
+      "Leaderboard, streaks & badges",
+      "CSV export of usage and footprint data",
+      "GitHub & Google OAuth"
+    ],
+    techStack: [
+      { category: "Frontend", technologies: ["Next.js", "TypeScript", "Tailwind CSS"] },
+      { category: "Backend", technologies: ["Supabase", "Every.org Partner API", "Resend", "Zod"] },
+      { category: "Quality", technologies: ["Vitest (30 tests)", "GitHub Actions CI"] },
+      { category: "Infra", technologies: ["Vercel"] }
+    ],
+    metrics: [
+      { label: "Test Coverage", value: "30 tests" },
+      { label: "Providers", value: "3 APIs" },
+      { label: "License", value: "MIT" }
+    ],
+    documentation: `## EcoDues
+
+An open-source SaaS that tracks your AI token usage, computes its CO2e carbon footprint, and routes donations to environmental charities to offset your impact.
+
+## How It Works
+
+1. **Connect your providers** — link OpenRouter, OpenAI, and/or Anthropic admin API keys
+2. **Auto-sync** — EcoDues pulls usage data daily and calculates CO2e per provider/model
+3. **Set your multiplier** — default 2x offset; adjust in 0.25x steps to go further
+4. **Choose your charities** — pick from verified environmental orgs via the Every.org Partner API
+5. **Monthly donations** — EcoDues charges and routes your offset donation automatically
+
+## Features
+
+### Impact Dashboard
+Real-world equivalents translate abstract token counts into miles driven, tree-days of carbon sequestration, and phone charges — making your footprint tangible.
+
+### Shareable Cards
+"Spotify Wrapped for AI carbon" — generate a shareable annual or monthly card showing your usage, footprint, and offset impact.
+
+### Community
+Leaderboard ranks users by offset impact. Streaks reward consistent offsetting. Badges for milestones.
+
+## Tech Stack
+Next.js + TypeScript + Tailwind CSS frontend, Supabase backend, Every.org Partner API for charity routing, Resend for email, Zod for validation. 30 Vitest tests with GitHub Actions CI. Deployed on Vercel.`
+  },
   {
     name: "Envolvly",
     category: "Products",
@@ -300,7 +381,7 @@ Built with Python using OpenCV for video processing and MediaPipe for pose estim
       "An accountability app that tracks users eyes and posture to ensure that good habits are followed and work is done.",
     longDescription:
       "OVERSEER is an accountability app that tracks users eyes and posture to ensure that good habits are followed and work is done. The app uses Rust and Tauri to create a native desktop application that uses OpenCV to track the user's eyes and posture in real-time. The app has been deployed and has paying users.",
-    image: WormholeProjectThumbnail,
+    image: OVERSEERProjectThumbnail,
     liveUrl: "https://overseer-website.vercel.app",
     features: [
       "Real-time eye tracking for focus monitoring",
@@ -564,7 +645,7 @@ Deep understanding of how operating systems work at the lowest level, including 
     description:
       "An AI-powered portfolio experience that dynamically generates pages for a unique visit every time.",
     longDescription:
-      "The Wormhole is an AI-powered portfolio experience that dynamically generates pages using a Large Language Model (LLM). The LLM is provided with information about my professional background and generates unique content for each visitor. This project showcases my skills in full-stack development, API design, and generative AI.",
+      "The Wormhole is an AI-powered portfolio experience that dynamically generates pages using a Large Language Model (LLM). The LLM is provided with information about my professional background and generates unique content for each visitor. The site also includes a /playground/llm-sandbox — an interactive 3D LLM education lab built with React Three Fiber that visualizes tokenization, embedding clustering, cosine similarity, and word analogies (king − man + woman ≈ queen) in vector space. This project showcases my skills in full-stack development, API design, and generative AI.",
     image: WormholeProjectThumbnail,
     githubUrl: "https://github.com/gitJamoo/wormhole-portfolio",
     liveUrl: "https://j-m-s.dev",
@@ -632,6 +713,7 @@ Optimized for speed with server-side rendering, image optimization, and efficien
       "A full-stack Discord clone with real-time messaging, voice & video calls, typing indicators, presence tracking, and persistent message history.",
     longDescription:
       "jcord is a fully-featured real-time chat application built as a Discord clone using modern web technologies. It supports dynamic room creation, real-time messaging via Supabase Realtime (Postgres WebSockets), WebRTC-powered voice and video calls through LiveKit, and a Discord-inspired dark UI built with Tailwind CSS v4 and shadcn/ui. Users have full accounts with authentication, and every message is persisted to PostgreSQL for searchable history.",
+    image: jcordProjectThumbnail,
     githubUrl: "https://github.com/gitJamoo/jcord",
     features: [
       "Real-time messaging via Supabase Realtime (Postgres WebSockets)",
@@ -787,46 +869,90 @@ Acts as a reverse proxy, routing .home hostnames to the appropriate Docker conta
 SSH is configured over Tailscale for all nodes. Services are accessed via Magic DNS (.home hostnames) from any device on the tailnet — no VPN client setup required beyond Tailscale.`
   },
   {
-    name: "My next big thing.",
-    technologies: "???",
-    period: "???",
+    name: "Second Brain Pipeline",
+    category: "AI & ML",
+    technologies: "Python, Claude API, Haiku, Sonnet, Obsidian, Markdown",
+    period: "June 2026 – Present",
     description:
-      "My next big thing could be built with your team. Contact me to make it happen.",
+      "LLM-native personal knowledge system that converts 1,400+ AI conversations into a structured Obsidian vault using a two-tier agent pipeline.",
     longDescription:
-      "My next big thing could be built with your team. Contact me to make it happen.",
-    image: globeIcon,
+      "An LLM-native personal knowledge system built with Python and the Claude API. Adapters convert 1,400+ AI conversations from Claude, ChatGPT, Gemini, and Claude Code into a unified markdown archive. From there, a two-tier agent pipeline runs: cheap Haiku-class subagents generate conversation digests at scale, and Sonnet-class agents synthesize the digests into distilled Topic, Solution, Decision, and People notes written directly into an Obsidian vault. The result is a living second brain that grows automatically with every AI conversation.",
+    features: [
+      "Multi-source adapters (Claude, ChatGPT, Gemini, Claude Code)",
+      "1,400+ conversation archive ingested and normalized",
+      "Haiku-class subagents for cost-efficient batch digesting",
+      "Sonnet-class agents for high-quality synthesis and distillation",
+      "Structured note types: Topics, Solutions, Decisions, People",
+      "Auto-writes into Obsidian vault markdown format"
+    ],
+    techStack: [
+      { category: "Language", technologies: ["Python"] },
+      { category: "AI", technologies: ["Claude API", "claude-haiku-4-5", "claude-sonnet-4-5"] },
+      { category: "Knowledge Base", technologies: ["Obsidian", "Markdown"] }
+    ],
+    metrics: [
+      { label: "Conversations", value: "1,400+" },
+      { label: "Agent Tiers", value: "2" },
+      { label: "Sources", value: "4 providers" }
+    ],
+  },
+  {
+    name: "Hermes",
+    category: "AI & ML",
+    technologies: "Raspberry Pi 5, Dell OptiPlex, Python, Telegram, N8N, Obsidian, open-source agent framework",
+    period: "July 2026 – Present",
+    description:
+      "Personal AI executive coordinator — a distributed multi-agent system running on homelab hardware with a Telegram interface and human-in-the-loop approval gate. (In progress.)",
+    longDescription:
+      "Hermes is a personal AI executive coordinator built on a distributed multi-agent system running on a Raspberry Pi 5 and Dell OptiPlex homelab. The interface is Telegram-based with a human approval gate — every action Hermes proposes can be reviewed and confirmed before execution. Integrations include email, voice calls, N8N workflow automation, and calendar management, with a shared Obsidian vault acting as the persistent state layer across agents. Built on an open-source agent framework. Still actively in development.",
+    features: [
+      "Distributed multi-agent system on homelab hardware",
+      "Telegram interface with human-in-the-loop approval gate",
+      "Email and calendar integrations",
+      "Voice call capabilities",
+      "N8N workflow automation integration",
+      "Shared Obsidian vault as persistent agent state layer"
+    ],
+    techStack: [
+      { category: "Hardware", technologies: ["Raspberry Pi 5", "Dell OptiPlex"] },
+      { category: "Interface", technologies: ["Telegram Bot API"] },
+      { category: "Automation", technologies: ["N8N", "Email", "Calendar"] },
+      { category: "State", technologies: ["Obsidian", "Markdown"] },
+      { category: "Framework", technologies: ["Open-source agent framework", "Python"] }
+    ],
+    metrics: [
+      { label: "Status", value: "In Progress" },
+      { label: "Interface", value: "Telegram" },
+      { label: "Hosting", value: "Self-hosted" }
+    ],
   },
 ];
 
 
 const creativeWorks = [
   {
-    title: "Cinematic Video 1",
-    youtubeUrl: "https://youtube.com/shorts/ybqFLenkeWE", // Placeholder
+    title: "NY Montage 1",
+    youtubeUrl: "https://youtube.com/shorts/ybqFLenkeWE",
   },
   {
-    title: "Cinematic Video 1",
-    youtubeUrl: "https://youtu.be/wxSr9o4Vqsc", // Placeholder
+    title: "Gaming Montage",
+    youtubeUrl: "https://youtu.be/wxSr9o4Vqsc",
   },
   {
-    title: "Cinematic Video 2",
-    youtubeUrl: "https://youtu.be/pbhPOA26mrI", // Placeholder
+    title: "Beach Trip",
+    youtubeUrl: "https://youtu.be/pbhPOA26mrI",
   },
   {
-    title: "Cinematic Video 3",
-    youtubeUrl: "https://youtube.com/shorts/xGahzFqC6dk", // Placeholder
+    title: "Spring Montage",
+    youtubeUrl: "https://youtube.com/shorts/xGahzFqC6dk",
   },
   {
-    title: "Cinematic Video 4",
-    youtubeUrl: "https://youtube.com/shorts/7nCGFNZC5Pw", // Placeholder
+    title: "Winter 25",
+    youtubeUrl: "https://youtube.com/shorts/7nCGFNZC5Pw",
   },
   {
-    title: "Cinematic Video 5",
-    youtubeUrl: "https://youtube.com/shorts/qnMAit1Upro", // Placeholder
-  },
-  {
-    title: "Cinematic Video 7",
-    youtubeUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Placeholder
+    title: "NY Montage 2",
+    youtubeUrl: "https://youtube.com/shorts/qnMAit1Upro",
   },
 ];
 
@@ -1011,11 +1137,17 @@ function getCategoryColors(category?: string) {
 function ProjectCard({ project }: { project: Project }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"overview" | "demo" | "documentation" | "gallery">("overview");
+  const [videoAspect, setVideoAspect] = useState<"16:9" | "9:16">("16:9");
   const colors = getCategoryColors(project.category);
 
   const handleCardClick = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest('a')) return;
     setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setVideoAspect("16:9");
   };
 
   const getVideoEmbedUrl = (url: string) => {
@@ -1140,7 +1272,7 @@ function ProjectCard({ project }: { project: Project }) {
       {isModalOpen && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn"
-          onClick={() => setIsModalOpen(false)}
+          onClick={handleModalClose}
         >
           <div
             className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden border border-gray-200 dark:border-gray-800 flex flex-col"
@@ -1154,7 +1286,7 @@ function ProjectCard({ project }: { project: Project }) {
                   <p className="text-sm text-gray-500">{project.period}</p>
                 </div>
                 <button
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={handleModalClose}
                   className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors p-2"
                   aria-label="Close modal"
                 >
@@ -1308,25 +1440,73 @@ function ProjectCard({ project }: { project: Project }) {
               {/* Demo Tab */}
               {activeTab === "demo" && project.demoVideoUrl && (
                 <div className="space-y-4">
-                  <h3 className="text-xl font-bold">Project Demo</h3>
-                  <div className="w-full aspect-video bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
-                    {isDirectVideo(project.demoVideoUrl) ? (
-                      <video
-                        controls
-                        className="w-full h-full"
-                        src={project.demoVideoUrl}
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-bold">Project Demo</h3>
+                    <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+                      <button
+                        onClick={() => setVideoAspect("16:9")}
+                        className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
+                          videoAspect === "16:9"
+                            ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
+                            : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                        }`}
                       >
-                        Your browser does not support the video tag.
-                      </video>
-                    ) : (
-                      <iframe
-                        src={getVideoEmbedUrl(project.demoVideoUrl)}
-                        className="w-full h-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    )}
+                        16:9
+                      </button>
+                      <button
+                        onClick={() => setVideoAspect("9:16")}
+                        className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
+                          videoAspect === "9:16"
+                            ? "bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm"
+                            : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                        }`}
+                      >
+                        9:16
+                      </button>
+                    </div>
                   </div>
+                  {videoAspect === "16:9" ? (
+                    <div className="w-full aspect-video bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
+                      {isDirectVideo(project.demoVideoUrl) ? (
+                        <video
+                          controls
+                          className="w-full h-full"
+                          src={project.demoVideoUrl}
+                        >
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : (
+                        <iframe
+                          src={getVideoEmbedUrl(project.demoVideoUrl)}
+                          className="w-full h-full"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      )}
+                    </div>
+                  ) : (
+                    <div className="flex justify-center">
+                      <div className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden" style={{ aspectRatio: "9/16", maxHeight: "70vh", width: "auto" }}>
+                        {isDirectVideo(project.demoVideoUrl) ? (
+                          <video
+                            controls
+                            className="h-full w-full"
+                            src={project.demoVideoUrl}
+                          >
+                            Your browser does not support the video tag.
+                          </video>
+                        ) : (
+                          <iframe
+                            src={getVideoEmbedUrl(project.demoVideoUrl)}
+                            className="h-full w-full"
+                            style={{ minWidth: "calc(70vh * 9 / 16)" }}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -1408,7 +1588,7 @@ function ProjectCard({ project }: { project: Project }) {
                   ))}
                 </div>
                 <button
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={handleModalClose}
                   className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold py-2 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
                 >
                   Close
@@ -1447,7 +1627,7 @@ export default function HomePage() {
             James M. Smith
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 mt-2">
-            Machine Learning Engineer & Software Developer
+            AI/Product Engineer
           </p>
           <div className="mt-4 flex justify-center gap-4">
             <a
@@ -1478,6 +1658,12 @@ export default function HomePage() {
             >
               Playground
             </Link>
+            <Link
+              href="/blog"
+              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+            >
+              Blog
+            </Link>
             <a
               href="https://github.com/gitJamoo"
               target="_blank"
@@ -1491,11 +1677,7 @@ export default function HomePage() {
 
         <section className="mb-16">
           <p className="text-lg text-center max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            A passionate and driven computer science student with a focus on
-            machine learning and artificial intelligence. I thrive on building
-            innovative solutions and have a proven track record of delivering
-            high-impact projects in various internship roles. I am always eager
-            to learn and apply new technologies to solve real-world problems.
+            AI/Product Engineer at Magical Inc in San Francisco, building AI-powered workflow automation that ships real features end-to-end. I graduated from Oregon State University in June 2026 (B.S. Computer Science, Cybersecurity minor, Cum Laude) and spent four years as an NCAA Division I cheerleader while building production AI systems on the side. At Estée Lauder I shipped a 12,000-SKU recommendation engine with $1.5M projected annual revenue impact and cut LLM API costs 45% with vector-database caching — and I&apos;ve been chasing that kind of leverage ever since. I care about building things that actually work.
           </p>
         </section>
 

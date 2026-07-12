@@ -1,0 +1,88 @@
+---
+title: "Why I Added a Blog to an AI-Generated Portfolio"
+date: "2026-07-11"
+description: "The Wormhole already lets AI speak for me — so why bother writing anything myself? Here's the honest answer."
+tags: ["meta", "ai"]
+accent: "#D73F09"
+cover: "/image-assets/beaver-headshot.jpg"
+---
+
+If you've poked around this site before, you know the whole gimmick: the Wormhole generates a new portfolio page every single time you visit. Different layout, different writing, different emphasis — all drawn from the same bio I fed it. It's a fun experiment in what AI does when you give it a person's résumé and say "make something."
+
+So the natural question is: **why am I writing posts myself?**
+
+Honestly? Because the Wormhole can't have opinions.
+
+It can summarize my Estée Lauder internship accurately. It can describe EcoDues in three different ways without breaking a sweat. But it can't tell you *why* I built OVERSEER at 2am the weekend before finals, or what it felt like to ship something to production for the first time and watch real users hit it.
+
+That's the gap the blog fills.
+
+## What You'll Actually Find Here
+
+I'm not going to pretend this is a thought-leadership newsletter. It's more like a scratchpad that happens to be public. Expect:
+
+- Short takes on AI tooling I'm actually using at work (at Magical, we move fast)
+- Honest post-mortems on side projects — the ones that worked and the ones that didn't
+- Notes on the intersection of cheerleading discipline and software engineering (yes, really — it comes up more than you'd think)
+- Occasional riffs on whatever OSU CS coursework is haunting me
+
+<Callout variant="tip">
+  If you want the polished, AI-composed version of me — [enter the Wormhole](/) and let it do its thing. If you want the unfiltered version, you're already in the right place.
+</Callout>
+
+## The Stack Behind This
+
+Since this is a technical blog, it's only fair I show the work. The blog is built with **next-mdx-remote** on Next.js 15 App Router. Posts are `.mdx` files in `content/blog/` — I drop a file, push to Vercel, done. Syntax highlighting comes from **rehype-pretty-code** with Shiki under the hood:
+
+```typescript
+// src/lib/blog.ts — the whole read pipeline
+import matter from "gray-matter";
+import readingTime from "reading-time";
+
+export function getPostBySlug(slug: string): BlogPost | null {
+  const raw = fs.readFileSync(filePath, "utf-8");
+  const { data, content } = matter(raw);
+  return {
+    slug,
+    title: data.title,
+    readingTime: readingTime(content).text,
+    // ...
+  };
+}
+```
+
+Each post can set an `accent` color in its frontmatter that themes the links, inline code highlights, and callout borders — you can see it in action on this page (that's OSU orange, naturally).
+
+## The Wormhole Isn't Going Anywhere
+
+I want to be clear: this blog doesn't replace the Wormhole. The Wormhole is still the thing I'm most proud of on this site — a portfolio that genuinely surprises you on every visit is more interesting than a static page. This blog just lives alongside it.
+
+Think of it as: the Wormhole tells you who I am according to an LLM reading my résumé. The blog tells you who I am according to me.
+
+<Callout variant="info">
+  The Wormhole at `/wormhole/*` generates fresh HTML on every visit using whichever LLM you configured. `/home` is the canonical static portfolio if you want ground truth.
+</Callout>
+
+## A video, just because I can
+
+Here's a short I posted a while back — embedding it here mostly to prove the YouTube component works, but also because it slaps.
+
+<YouTube url="https://youtu.be/pbhPOA26mrI" caption="Quick demo clip" />
+
+## And a photo, because headshots deserve to be used
+
+<ImageRow
+  images={[
+    {
+      src: "/image-assets/beaver-headshot.jpg",
+      alt: "James M. Smith headshot",
+      caption: "Professional headshot — yes, those are OSU colors"
+    }
+  ]}
+/>
+
+---
+
+Anyway. Welcome to the blog. I'll try to post something whenever I have something worth saying, which is a pace I can actually maintain.
+
+— James

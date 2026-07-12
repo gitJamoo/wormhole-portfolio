@@ -1,0 +1,47 @@
+# James M. Smith
+
+> AI/Product Engineer based in San Francisco, CA. Building production AI systems, agentic automation, and full-stack products. B.S. Computer Science (Cybersecurity minor) from Oregon State University, June 2026, Cum Laude. Former NCAA Division I cheerleader. Currently at Magical Inc.
+
+## About
+
+James M. Smith is an AI/Product Engineer who graduated from Oregon State University in June 2026 with a B.S. in Computer Science (Cybersecurity minor, Cum Laude) while competing as an NCAA Division I cheerleader. He is currently based in San Francisco, working at Magical Inc on AI-powered workflow automation. He cares about shipping things that actually work — at Estée Lauder he delivered a 12,000-SKU recommendation engine with $1.5M projected annual revenue impact and cut LLM API costs 45% with vector-database caching.
+
+## Site Pages
+
+- [Home / Wormhole Landing](https://j-m-s.dev/) — Entry point; leads to the Wormhole AI-generated portfolio experience or the static portfolio
+- [Portfolio](https://j-m-s.dev/home) — Static portfolio page with experience, projects, education, and contact information; canonical source of truth about James
+- [Blog](https://j-m-s.dev/blog) — James's personal blog: thoughts on AI, product engineering, and building things
+- [Playground](https://j-m-s.dev/playground) — Interactive experiences and demos
+- [LLM Sandbox](https://j-m-s.dev/playground/llm-sandbox) — 3D LLM education lab: explore language model concepts in an interactive vector-space visualization
+- [Book a Meeting](https://j-m-s.dev/book) — Schedule time with James via Cal.com
+- [Wormhole](https://j-m-s.dev/wormhole) — AI-generated portfolio pages; every visit is unique, powered by LLMs (Gemini, GPT-4, Claude) reading James's bio; content varies per visit — use /home for the authoritative static portfolio
+
+## Key Projects
+
+- [EcoDues](https://ecodues.org) — Open-source SaaS platform that offsets AI inference carbon emissions via monthly charity donations; addresses the environmental cost of AI at scale
+- [The Wormhole / j-m-s.dev](https://j-m-s.dev) — AI-regenerated portfolio where every page visit generates unique HTML via a selected LLM; showcases multi-provider AI SDK integration (Anthropic, Google, OpenAI)
+- [StuntCV](https://github.com/gitJamoo/StuntCV) — Résumé and career tooling project
+- [OVERSEER](https://overseer-website.vercel.app) — Autonomous agent oversight and coordination system
+- [COORDINATOR](https://getcoordinator.ai/) — Multi-agent coordination platform
+- [Envolvly](https://www.envolvly.com) — Co-founded platform; community and engagement tooling
+- [OSU Genesis AI Hub](https://genesis.dev.oregonstate.edu/) — Oregon State University AI research and student hub
+
+## Experience
+
+- **Magical Inc** (2026–present) — AI/Product Engineer, San Francisco; building AI-powered workflow automation that ships real features end-to-end
+- **Freelance AI Engineering** (2026–present) — Building custom AI agents and automation pipelines for a lumber wholesale distributor
+- **OSU AI Advisor** (2025–2026) — Advised Oregon State University on AI strategy and student initiatives
+- **BVR ST CO** (2025–2026) — Machine Learning Engineering intern
+- **Estée Lauder** (2025) — ML Engineering intern; shipped 12,000-SKU recommendation engine ($1.5M projected annual revenue impact), cut LLM API costs 45% with vector-database caching
+- **NJ Transit** (2024) — Engineering internship
+- **Envolvly** (2023–present) — Co-founder; built community engagement platform from scratch
+- **Hats & Ladders** (2022) — Early career role
+
+## Links
+
+- GitHub: https://github.com/gitJamoo
+- LinkedIn: https://www.linkedin.com/in/james-m-smith1/
+- Portfolio: https://j-m-s.dev/home
+- Blog: https://j-m-s.dev/blog
+- Blog RSS: https://j-m-s.dev/blog/rss.xml
+- Book a meeting: https://j-m-s.dev/book

@@ -15,11 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "James Smith Portfolio",
-  description: "James Smith Wormhole Portfolio",
+  title: "James M. Smith — AI/Product Engineer",
+  description:
+    "James M. Smith is an AI/Product Engineer in San Francisco building production AI systems, agentic automation, and full-stack products. Home of the Wormhole — an AI-regenerated portfolio.",
   openGraph: {
-    title: "James M. Smith - Wormhole Portfolio",
-    description: "Machine Learning Engineer & Software Developer",
+    title: "James M. Smith — AI/Product Engineer",
+    description:
+      "James M. Smith is an AI/Product Engineer in San Francisco building production AI systems, agentic automation, and full-stack products. Home of the Wormhole — an AI-regenerated portfolio.",
     url: "https://j-m-s.dev",
     siteName: "James M. Smith",
     images: [
@@ -32,6 +34,13 @@ export const metadata: Metadata = {
     ],
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "James M. Smith — AI/Product Engineer",
+    description:
+      "James M. Smith is an AI/Product Engineer in San Francisco building production AI systems, agentic automation, and full-stack products. Home of the Wormhole — an AI-regenerated portfolio.",
+    images: ["/image-assets/og-image.png"],
   },
 };
 

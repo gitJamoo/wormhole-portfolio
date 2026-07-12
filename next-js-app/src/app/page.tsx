@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -73,6 +74,20 @@ export default function Home() {
             >
               Book a Meeting
             </button>
+            <Link
+              href="/playground"
+              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background gap-1.5"
+            >
+              <span>Playground</span>
+              <span className="text-xs opacity-60">↗</span>
+            </Link>
+            <Link
+              href="/blog"
+              className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background gap-1.5"
+            >
+              <span>Blog</span>
+              <span className="text-xs opacity-60">↗</span>
+            </Link>
           </div>
         </div>
       </main>
