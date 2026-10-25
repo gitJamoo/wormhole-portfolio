@@ -1,43 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { put, list } from "@vercel/blob";
+import { put } from "@vercel/blob";
 
 interface Submission {
   name: string;
   email: string;
   message: string;
   date: string;
-}
-
-async function getSubmissions(): Promise<Submission[]> {
-  try {
-    const { blobs } = await list({ prefix: "submissions.json" });
-    if (blobs.length === 0) {
-      return [];
-    }
-    const submissionsBlob = blobs[0];
-    const response = await fetch(submissionsBlob.url);
-    if (!response.ok) {
-      // If the blob is not found or there's an error, start fresh.
-      if (response.status === 404) {
-        return [];
-      }
-      throw new Error(`Failed to fetch submissions: ${response.statusText}`);
-    }
-    const submissions = await response.json();
-    return submissions;
-  } catch (error) {
-    console.error("Error fetching submissions from blob:", error);
-    // In case of any error, assume no submissions exist to avoid data loss.
-    return [];
-  }
-}
-
-async function saveSubmissions(data: Submission[]) {
-  await put("submissions.json", JSON.stringify(data, null, 2), {
-    access: "public",
-    allowOverwrite: true, // Overwrite the existing blob
-    cacheControlMaxAge: 0, // Ensure fresh data is always read
-  });
 }
 
 export async function POST(req: NextRequest) {
@@ -52,15 +20,20 @@ export async function POST(req: NextRequest) {
     }
 
     const newSubmission: Submission = {
-      name,
-      email,
-      message,
+      name: String(name).slice(0, 200),
+      email: String(email).slice(0, 200),
+      message: String(message).slice(0, 5000),
       date: new Date().toISOString(),
     };
 
-    const submissions = await getSubmissions();
-    submissions.push(newSubmission);
-    await saveSubmissions(submissions);
+    // One blob per submission: concurrent posts can't overwrite each other,
+    // and a failed read can never wipe history. The random suffix keeps the
+    // public blob URL unguessable.
+    await put(
+      `submissions/${newSubmission.date}.json`,
+      JSON.stringify(newSubmission),
+      { access: "public", addRandomSuffix: true }
+    );
 
     return NextResponse.json({ message: "Submission saved" }, { status: 200 });
   } catch (error) {
