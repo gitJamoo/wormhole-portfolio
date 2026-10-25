@@ -118,14 +118,6 @@ ${additionalInstructions}
 
     const userPrompt = `Here is the raw information about the candidate:\n---\n${infoMdContent}\n---\n${resumeText}${additionalInstructionsText}\n${imageAssetsText}`;
 
-    console.log(
-      "Using model:",
-      selectedModel,
-      "from provider:",
-      provider,
-      "with temperature:",
-      temperature
-    );
 
     let model;
     if (provider === "google") {

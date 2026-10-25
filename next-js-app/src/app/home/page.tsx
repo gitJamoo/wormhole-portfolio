@@ -52,8 +52,6 @@ import EcoDuesProjectThumbnail from "../../../public/image-assets/projects/EcoDu
 import OVERSEERProjectThumbnail from "../../../public/image-assets/projects/OVERSEER/thumbnail.png";
 import jcordProjectThumbnail from "../../../public/image-assets/projects/jcord/thumbnail.png";
 
-import fileIcon from "../../../public/file.svg";
-import windowIcon from "../../../public/window.svg";
 
 interface Experience {
   company: string;

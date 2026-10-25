@@ -145,7 +145,6 @@ export default function WormholeConfig() {
 
   const handleSaveInstructions = () => {
     localStorage.setItem("wormholeInstructions", additionalInstructions);
-    console.log(additionalInstructions);
     alert("Instructions saved!");
   };
 
