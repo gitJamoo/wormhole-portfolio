@@ -60,14 +60,17 @@ export default function WormholePage() {
           }),
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to generate content");
-        }
-
         const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to generate content");
+        }
         setContent(data.generatedContent);
       } catch (err) {
-        setError("Failed to generate content. Please try again later.");
+        setError(
+          err instanceof Error && err.message
+            ? err.message
+            : "Failed to generate content. Please try again later."
+        );
         console.error(err);
       }
       setLoading(false);

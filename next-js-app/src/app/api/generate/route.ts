@@ -6,15 +6,14 @@ import { resolveModel } from "@/lib/llm";
 
 export async function POST(req: NextRequest) {
   try {
-    const {
-      apiKey,
-      currentPath,
-      additionalInstructions,
-      selectedModel,
-      language = "English",
-      useImageAssets = true,
-      temperature = 0.5,
-    } = await req.json();
+    const body = await req.json();
+    const { apiKey, selectedModel, useImageAssets = true } = body;
+    // Bound free-text inputs so a request can't inflate the prompt (and bill).
+    const currentPath = String(body.currentPath ?? "").slice(0, 200);
+    const additionalInstructions = String(body.additionalInstructions ?? "").slice(0, 2000);
+    const language = String(body.language || "English").slice(0, 50);
+    const t = Number(body.temperature ?? 0.5);
+    const temperature = Number.isFinite(t) ? Math.min(Math.max(t, 0), 2) : 0.5;
 
     if (!currentPath) {
       return NextResponse.json(
@@ -23,7 +22,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const resolved = resolveModel(selectedModel, apiKey);
+    const resolved = resolveModel(req, selectedModel, apiKey);
     if ("error" in resolved) {
       return NextResponse.json(
         { error: resolved.error },

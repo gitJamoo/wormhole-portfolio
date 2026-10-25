@@ -10,22 +10,24 @@ export type WormholeModel = {
   displayProvider: "Gemini" | "OpenAI" | "Claude";
   /** Lowercase provider key consumed by the API route / Vercel AI SDK. */
   apiProvider: "google" | "openai" | "anthropic";
+  /** Cheap enough to run on the site's own keys. Others need a visitor key. */
+  serverKey?: boolean;
 };
 
 export const WORMHOLE_MODELS: WormholeModel[] = [
   // --- Google Gemini (cheap → mid) ---
-  { id: "gemini-2.5-flash-lite", displayProvider: "Gemini", apiProvider: "google" },
-  { id: "gemini-2.5-flash",      displayProvider: "Gemini", apiProvider: "google" },
+  { id: "gemini-2.5-flash-lite", displayProvider: "Gemini", apiProvider: "google", serverKey: true },
+  { id: "gemini-2.5-flash",      displayProvider: "Gemini", apiProvider: "google", serverKey: true },
   { id: "gemini-3.5-flash",      displayProvider: "Gemini", apiProvider: "google" },
   { id: "gemini-3.1-flash-lite", displayProvider: "Gemini", apiProvider: "google" },
 
   // --- OpenAI (cheap → mid) ---
-  { id: "gpt-4o-mini",   displayProvider: "OpenAI", apiProvider: "openai" },
-  { id: "gpt-5.4-nano",  displayProvider: "OpenAI", apiProvider: "openai" },
+  { id: "gpt-4o-mini",   displayProvider: "OpenAI", apiProvider: "openai", serverKey: true },
+  { id: "gpt-5.4-nano",  displayProvider: "OpenAI", apiProvider: "openai", serverKey: true },
   { id: "gpt-5.4-mini",  displayProvider: "OpenAI", apiProvider: "openai" },
 
   // --- Anthropic Claude (cheap → mid) ---
-  { id: "claude-haiku-4-5-20251001", displayProvider: "Claude", apiProvider: "anthropic" },
+  { id: "claude-haiku-4-5-20251001", displayProvider: "Claude", apiProvider: "anthropic", serverKey: true },
   { id: "claude-sonnet-4-6",         displayProvider: "Claude", apiProvider: "anthropic" },
   { id: "claude-sonnet-5",           displayProvider: "Claude", apiProvider: "anthropic" },
 ];
@@ -37,6 +39,11 @@ export const MODEL_TO_DISPLAY_PROVIDER: Record<string, WormholeModel["displayPro
 /** id → apiProvider  (used by the API route) */
 export const MODEL_TO_API_PROVIDER: Record<string, WormholeModel["apiProvider"]> =
   Object.fromEntries(WORMHOLE_MODELS.map((m) => [m.id, m.apiProvider]));
+
+/** Models allowed to run on the site's own API keys. */
+export const SERVER_KEY_MODELS = new Set(
+  WORMHOLE_MODELS.filter((m) => m.serverKey).map((m) => m.id)
+);
 
 /** The default model used by "Continue with defaults". */
 export const DEFAULT_WORMHOLE_MODEL = "gemini-2.5-flash-lite";

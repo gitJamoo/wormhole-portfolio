@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const resolved = resolveModel(selectedModel, apiKey);
+    const resolved = resolveModel(req, selectedModel, apiKey);
     if ("error" in resolved) {
       return NextResponse.json(
         { error: resolved.error },
