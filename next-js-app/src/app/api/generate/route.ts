@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateText } from "ai";
-import { createAnthropic } from "@ai-sdk/anthropic";
-import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { createOpenAI } from "@ai-sdk/openai";
 import fs from "fs";
 import path from "path";
-import { MODEL_TO_API_PROVIDER } from "@/lib/wormhole-models";
+import { resolveModel } from "@/lib/llm";
 
 export async function POST(req: NextRequest) {
   try {
@@ -26,40 +23,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (!selectedModel) {
+    const resolved = resolveModel(selectedModel, apiKey);
+    if ("error" in resolved) {
       return NextResponse.json(
-        { error: "Model selection is required" },
-        { status: 400 }
+        { error: resolved.error },
+        { status: resolved.status }
       );
     }
-
-    const provider = MODEL_TO_API_PROVIDER[selectedModel];
-
-    if (!provider) {
-      return NextResponse.json(
-        { error: "Invalid model selected" },
-        { status: 400 }
-      );
-    }
-
-    let apiKeyToUse: string | undefined;
-    if (apiKey) {
-      apiKeyToUse = apiKey;
-    } else {
-      const envMap: Record<string, string | undefined> = {
-        google: process.env.GEMINI_API_KEY,
-        openai: process.env.OPENAI_API_KEY,
-        anthropic: process.env.ANTHROPIC_API_KEY,
-      };
-      apiKeyToUse = envMap[provider];
-    }
-
-    if (!apiKeyToUse) {
-      return NextResponse.json(
-        { error: `API key for ${provider} not configured` },
-        { status: 400 }
-      );
-    }
+    const { model } = resolved;
 
     const infoMdPath = path.join(process.cwd(), "info.md");
     const infoMdContent = fs.readFileSync(infoMdPath, "utf-8");
@@ -119,17 +90,6 @@ ${additionalInstructions}
     const userPrompt = `Here is the raw information about the candidate:\n---\n${infoMdContent}\n---\n${resumeText}${additionalInstructionsText}\n${imageAssetsText}`;
 
 
-    let model;
-    if (provider === "google") {
-      const google = createGoogleGenerativeAI({ apiKey: apiKeyToUse });
-      model = google(selectedModel);
-    } else if (provider === "openai") {
-      const openai = createOpenAI({ apiKey: apiKeyToUse });
-      model = openai(selectedModel);
-    } else {
-      const anthropic = createAnthropic({ apiKey: apiKeyToUse });
-      model = anthropic(selectedModel);
-    }
 
     const { text } = await generateText({
       model,

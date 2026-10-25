@@ -1,24 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateObject } from "ai";
-import { createAnthropic } from "@ai-sdk/anthropic";
-import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { createOpenAI } from "@ai-sdk/openai";
 import { z } from "zod";
-
-// Same model -> provider mapping used by the Wormhole generate route.
-const modelToProvider: { [key: string]: string } = {
-  "gemini-2.5-flash": "google",
-  "gemini-2.5-pro": "google",
-  "gemini-2.5-flash-lite": "google",
-  "gemini-1.5-flash": "google",
-  "claude-3-7-sonnet-latest": "anthropic",
-  "claude-opus-4-1-20250805": "anthropic",
-  "claude-sonnet-4-20250514": "anthropic",
-  "claude-3-haiku-20240307": "anthropic",
-  "gpt-4o": "openai",
-  "gpt-4-turbo": "openai",
-  "gpt-3.5-turbo": "openai",
-};
+import { resolveModel } from "@/lib/llm";
+import { DEFAULT_WORMHOLE_MODEL } from "@/lib/wormhole-models";
 
 const vectorSchema = z.object({
   words: z.array(
@@ -48,7 +32,7 @@ export async function POST(req: NextRequest) {
     const {
       words,
       apiKey,
-      selectedModel = "gemini-2.5-flash-lite",
+      selectedModel = DEFAULT_WORMHOLE_MODEL,
     }: { words: string[]; apiKey?: string; selectedModel?: string } =
       await req.json();
 
@@ -66,44 +50,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const provider = modelToProvider[selectedModel];
-    if (!provider) {
+    const resolved = resolveModel(selectedModel, apiKey);
+    if ("error" in resolved) {
       return NextResponse.json(
-        { error: "Invalid model selected" },
-        { status: 400 }
+        { error: resolved.error },
+        { status: resolved.status }
       );
     }
-
-    let apiKeyToUse: string | undefined;
-    if (apiKey) {
-      apiKeyToUse = apiKey;
-    } else {
-      const envMap: Record<string, string | undefined> = {
-        google: process.env.GEMINI_API_KEY,
-        openai: process.env.OPENAI_API_KEY,
-        anthropic: process.env.ANTHROPIC_API_KEY,
-      };
-      apiKeyToUse = envMap[provider];
-    }
-
-    if (!apiKeyToUse) {
-      return NextResponse.json(
-        { error: `API key for ${provider} not configured` },
-        { status: 400 }
-      );
-    }
-
-    let model;
-    if (provider === "google") {
-      const google = createGoogleGenerativeAI({ apiKey: apiKeyToUse });
-      model = google(selectedModel);
-    } else if (provider === "openai") {
-      const openai = createOpenAI({ apiKey: apiKeyToUse });
-      model = openai(selectedModel);
-    } else {
-      const anthropic = createAnthropic({ apiKey: apiKeyToUse });
-      model = anthropic(selectedModel);
-    }
+    const { model } = resolved;
 
     const system = `You are an educational tool that demonstrates how word embeddings work.
 Given a list of words, place each word as a point in a simple 3D vector space (a toy stand-in for the high-dimensional embedding space real language models use).
