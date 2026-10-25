@@ -31,7 +31,8 @@ const nextConfig: NextConfig = {
       {
         source: "/resume",
         destination: "/james_smith_resume.pdf",
-        permanent: true,
+        // Temporary so browsers don't cache it forever if the PDF is renamed.
+        permanent: false,
       },
       {
         source: "/lc",

@@ -1,23 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateText } from "ai";
-import { createAnthropic } from "@ai-sdk/anthropic";
-import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { createOpenAI } from "@ai-sdk/openai";
 import fs from "fs";
 import path from "path";
-import { MODEL_TO_API_PROVIDER } from "@/lib/wormhole-models";
+import { resolveModel } from "@/lib/llm";
 
 export async function POST(req: NextRequest) {
   try {
-    const {
-      apiKey,
-      currentPath,
-      additionalInstructions,
-      selectedModel,
-      language = "English",
-      useImageAssets = true,
-      temperature = 0.5,
-    } = await req.json();
+    const body = await req.json();
+    const { apiKey, selectedModel, useImageAssets = true } = body;
+    // Bound free-text inputs so a request can't inflate the prompt (and bill).
+    const currentPath = String(body.currentPath ?? "").slice(0, 200);
+    const additionalInstructions = String(body.additionalInstructions ?? "").slice(0, 2000);
+    const language = String(body.language || "English").slice(0, 50);
+    const t = Number(body.temperature ?? 0.5);
+    const temperature = Number.isFinite(t) ? Math.min(Math.max(t, 0), 2) : 0.5;
 
     if (!currentPath) {
       return NextResponse.json(
@@ -26,40 +22,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (!selectedModel) {
+    const resolved = resolveModel(req, selectedModel, apiKey);
+    if ("error" in resolved) {
       return NextResponse.json(
-        { error: "Model selection is required" },
-        { status: 400 }
+        { error: resolved.error },
+        { status: resolved.status }
       );
     }
-
-    const provider = MODEL_TO_API_PROVIDER[selectedModel];
-
-    if (!provider) {
-      return NextResponse.json(
-        { error: "Invalid model selected" },
-        { status: 400 }
-      );
-    }
-
-    let apiKeyToUse: string | undefined;
-    if (apiKey) {
-      apiKeyToUse = apiKey;
-    } else {
-      const envMap: Record<string, string | undefined> = {
-        google: process.env.GEMINI_API_KEY,
-        openai: process.env.OPENAI_API_KEY,
-        anthropic: process.env.ANTHROPIC_API_KEY,
-      };
-      apiKeyToUse = envMap[provider];
-    }
-
-    if (!apiKeyToUse) {
-      return NextResponse.json(
-        { error: `API key for ${provider} not configured` },
-        { status: 400 }
-      );
-    }
+    const { model } = resolved;
 
     const infoMdPath = path.join(process.cwd(), "info.md");
     const infoMdContent = fs.readFileSync(infoMdPath, "utf-8");
@@ -87,13 +57,20 @@ export async function POST(req: NextRequest) {
         "image-assets"
       );
       if (fs.existsSync(imageAssetsPath)) {
-        const imageFiles = fs.readdirSync(imageAssetsPath);
+        // Real image files only, with subfolder paths, so the model doesn't
+        // reference folder names as if they were images.
+        const imageFiles = (
+          fs.readdirSync(imageAssetsPath, { recursive: true }) as string[]
+        )
+          .filter((file) => /\.(jpe?g|png|webp|gif|svg)$/i.test(file))
+          .map((file) => file.split(path.sep).join("/"));
         if (imageFiles.length > 0) {
           imageAssetsText = `
 **Available Image Assets:**
 You can use the following images in your design. Assume they are served from the '/image-assets' path. For example, to use 'profile.jpg', the path would STRICTLY be '/image-assets/profile.jpg'.
 ---
-${imageFiles.map((file) => `- ${file}`).join("\n")}---
+${imageFiles.map((file) => `- ${file}`).join("\n")}
+---
 `;
         }
       }
@@ -118,26 +95,7 @@ ${additionalInstructions}
 
     const userPrompt = `Here is the raw information about the candidate:\n---\n${infoMdContent}\n---\n${resumeText}${additionalInstructionsText}\n${imageAssetsText}`;
 
-    console.log(
-      "Using model:",
-      selectedModel,
-      "from provider:",
-      provider,
-      "with temperature:",
-      temperature
-    );
 
-    let model;
-    if (provider === "google") {
-      const google = createGoogleGenerativeAI({ apiKey: apiKeyToUse });
-      model = google(selectedModel);
-    } else if (provider === "openai") {
-      const openai = createOpenAI({ apiKey: apiKeyToUse });
-      model = openai(selectedModel);
-    } else {
-      const anthropic = createAnthropic({ apiKey: apiKeyToUse });
-      model = anthropic(selectedModel);
-    }
 
     const { text } = await generateText({
       model,

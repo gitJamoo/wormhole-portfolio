@@ -60,14 +60,17 @@ export default function WormholePage() {
           }),
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to generate content");
-        }
-
         const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to generate content");
+        }
         setContent(data.generatedContent);
       } catch (err) {
-        setError("Failed to generate content. Please try again later.");
+        setError(
+          err instanceof Error && err.message
+            ? err.message
+            : "Failed to generate content. Please try again later."
+        );
         console.error(err);
       }
       setLoading(false);
@@ -100,5 +103,15 @@ export default function WormholePage() {
     );
   }
 
-  return <div dangerouslySetInnerHTML={{ __html: content }} />;
+  // AI-written HTML runs in a sandbox: no scripts and no access to this
+  // origin (where API keys sit in localStorage). <base target="_top"> lets its
+  // /wormhole/... links navigate the real page when clicked.
+  return (
+    <iframe
+      title="Wormhole page"
+      srcDoc={`<!doctype html><meta charset="utf-8"><base target="_top">${content}`}
+      sandbox="allow-top-navigation-by-user-activation allow-popups allow-popups-to-escape-sandbox"
+      className="block w-full h-screen border-0"
+    />
+  );
 }

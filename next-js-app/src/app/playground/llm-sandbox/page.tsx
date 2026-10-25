@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { tokenize } from "./tokenize";
 import SceneBoundary from "./SceneBoundary";
+import { WORMHOLE_MODELS } from "@/lib/wormhole-models";
 import {
   WordVector,
   VectorizeResponse,
@@ -24,13 +25,7 @@ const Scene = dynamic(() => import("./Scene"), {
   ),
 });
 
-const MODELS = [
-  "gemini-2.5-flash-lite",
-  "gemini-2.5-flash",
-  "gpt-4o",
-  "claude-3-haiku-20240307",
-  "claude-sonnet-4-20250514",
-];
+const MODELS = WORMHOLE_MODELS.map((m) => m.id);
 
 const DEFAULT_INPUT =
   "king, queen, man, woman, prince, apple, banana, dog, cat, car, truck, happy, sad";
