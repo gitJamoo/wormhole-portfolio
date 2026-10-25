@@ -33,6 +33,15 @@ export const metadata: Metadata = {
         alt: "James M. Smith Portfolio OG Image",
       },
     ],
+    videos: [
+      {
+        // Absolute: Next doesn't resolve og:video against metadataBase.
+        url: "https://www.j-m-s.dev/og-video.mp4",
+        type: "video/mp4",
+        width: 1200,
+        height: 630,
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
