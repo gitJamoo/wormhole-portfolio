@@ -57,13 +57,20 @@ export async function POST(req: NextRequest) {
         "image-assets"
       );
       if (fs.existsSync(imageAssetsPath)) {
-        const imageFiles = fs.readdirSync(imageAssetsPath);
+        // Real image files only, with subfolder paths, so the model doesn't
+        // reference folder names as if they were images.
+        const imageFiles = (
+          fs.readdirSync(imageAssetsPath, { recursive: true }) as string[]
+        )
+          .filter((file) => /\.(jpe?g|png|webp|gif|svg)$/i.test(file))
+          .map((file) => file.split(path.sep).join("/"));
         if (imageFiles.length > 0) {
           imageAssetsText = `
 **Available Image Assets:**
 You can use the following images in your design. Assume they are served from the '/image-assets' path. For example, to use 'profile.jpg', the path would STRICTLY be '/image-assets/profile.jpg'.
 ---
-${imageFiles.map((file) => `- ${file}`).join("\n")}---
+${imageFiles.map((file) => `- ${file}`).join("\n")}
+---
 `;
         }
       }
