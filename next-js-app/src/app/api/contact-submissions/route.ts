@@ -1,5 +1,17 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { list } from "@vercel/blob";
+import { timingSafeEqual } from "crypto";
+
+// The admin password lives only on the server (Vercel env var). If it's not
+// set, the endpoint stays closed.
+function isAuthorized(req: NextRequest): boolean {
+  const expected = process.env.CONTACT_ADMIN_PASSWORD;
+  const given = req.headers.get("x-admin-password");
+  if (!expected || !given) return false;
+  const a = Buffer.from(given);
+  const b = Buffer.from(expected);
+  return a.length === b.length && timingSafeEqual(a, b);
+}
 
 async function getSubmissions() {
   try {
@@ -23,7 +35,10 @@ async function getSubmissions() {
   }
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  if (!isAuthorized(req)) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
   try {
     const submissions = await getSubmissions();
     return NextResponse.json(submissions, { status: 200 });

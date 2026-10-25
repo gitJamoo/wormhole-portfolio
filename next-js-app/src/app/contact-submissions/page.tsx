@@ -1,8 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
-const PASSWORD = "SUPER_SECURE_PASSWORD"; // Replace with a strong password
+import { useState } from "react";
 
 interface Submission {
   name: string;
@@ -17,33 +15,28 @@ export default function ContactSubmissions() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [error, setError] = useState("");
 
-  const handlePasswordSubmit = (e: React.FormEvent) => {
+  // The server checks the password; nothing secret ships to the browser.
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === PASSWORD) {
+    setError("");
+    try {
+      const response = await fetch("/api/contact-submissions", {
+        headers: { "x-admin-password": password },
+      });
+      if (response.status === 401) {
+        setError("Incorrect password");
+        return;
+      }
+      if (!response.ok) {
+        setError("Failed to fetch submissions.");
+        return;
+      }
+      setSubmissions(await response.json());
       setAuthenticated(true);
-    } else {
-      setError("Incorrect password");
+    } catch {
+      setError("Failed to fetch submissions.");
     }
   };
-
-  useEffect(() => {
-    if (authenticated) {
-      const fetchSubmissions = async () => {
-        try {
-          const response = await fetch("/api/contact-submissions");
-          if (response.ok) {
-            const data = await response.json();
-            setSubmissions(data);
-          } else {
-            setError("Failed to fetch submissions.");
-          }
-        } catch (error) {
-          setError("Failed to fetch submissions.");
-        }
-      };
-      fetchSubmissions();
-    }
-  }, [authenticated]);
 
   if (!authenticated) {
     return (
