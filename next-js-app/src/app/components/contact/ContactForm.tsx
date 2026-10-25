@@ -3,6 +3,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import posthog from 'posthog-js';
 
 export default function ContactForm({ onClose }: { onClose: () => void }) {
   const [name, setName] = useState('');
@@ -28,6 +29,7 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
       });
 
       if (response.ok) {
+        posthog.capture('contact_submitted', { form: 'modal' });
         setSuccess(true);
         setName('');
         setEmail('');

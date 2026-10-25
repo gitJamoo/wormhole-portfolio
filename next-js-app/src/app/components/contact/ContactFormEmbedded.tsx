@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import posthog from 'posthog-js';
 
 export default function ContactFormEmbedded() {
   const [name, setName] = useState('');
@@ -27,6 +28,7 @@ export default function ContactFormEmbedded() {
       });
 
       if (response.ok) {
+        posthog.capture('contact_submitted', { form: 'embedded' });
         setSuccess(true);
         setName('');
         setEmail('');

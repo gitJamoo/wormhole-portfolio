@@ -2,6 +2,7 @@
 
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
+import posthog from "posthog-js";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -13,6 +14,10 @@ export default function Book() {
                 styles: { branding: { brandColor: "#000000" } },
                 hideEventTypeDetails: false,
                 layout: "month_view",
+            });
+            cal("on", {
+                action: "bookingSuccessful",
+                callback: () => posthog.capture("meeting_booked"),
             });
         })();
     }, []);

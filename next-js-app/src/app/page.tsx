@@ -41,12 +41,14 @@ export default function Home() {
           <div className="flex flex-wrap justify-center sm:justify-start gap-3 sm:gap-4">
             <Link
               href="/home"
+              data-ph-capture-attribute-cta="see_my_work"
               className="rounded-full border border-solid border-transparent flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 shadow-lg transition-all duration-200 ease-in-out hover:scale-105 transform"
             >
               See My Work
             </Link>
             <Link
               href="/wormhole-config/"
+              data-ph-capture-attribute-cta="enter_wormhole"
               className="rounded-full border border-solid border-[#D73F09] bg-transparent text-[#D73F09] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-[#D73F09] hover:text-white transition-colors"
             >
               Enter the Wormhole
@@ -54,12 +56,14 @@ export default function Home() {
             <a
               href="/james_smith_resume.pdf"
               download="james_smith_resume.pdf"
+              data-ph-capture-attribute-cta="resume"
               className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
             >
               Resume
             </a>
             <Link
               href="/book"
+              data-ph-capture-attribute-cta="book_meeting"
               className="rounded-full border border-solid border-foreground bg-transparent text-foreground font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 flex items-center justify-center hover:bg-foreground hover:text-background transition-colors"
             >
               Book a Meeting

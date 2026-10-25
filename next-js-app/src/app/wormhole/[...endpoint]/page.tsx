@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import posthog from "posthog-js";
 
 import LoadingScreen from "./loadingScreen";
 
@@ -65,7 +66,18 @@ export default function WormholePage() {
           throw new Error(data.error || "Failed to generate content");
         }
         setContent(data.generatedContent);
+        posthog.capture("wormhole_generated", {
+          model: selectedModel,
+          path: pathname,
+          language,
+          temperature,
+          custom_instructions: !!additionalInstructions,
+        });
       } catch (err) {
+        posthog.capture("wormhole_failed", {
+          model: selectedModel,
+          path: pathname,
+        });
         setError(
           err instanceof Error && err.message
             ? err.message

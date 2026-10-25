@@ -6,6 +6,21 @@ const nextConfig: NextConfig = {
   // the context budget and the browser drops the canvas ("WebGL context lost").
   // Disabling it keeps a single context. (Production never double-mounts.)
   reactStrictMode: false,
+  // PostHog's API paths use trailing slashes; don't let Next.js strip them.
+  skipTrailingSlashRedirect: true,
+  async rewrites() {
+    // Reverse proxy for PostHog so analytics survive ad blockers.
+    return [
+      {
+        source: "/ingest/static/:path*",
+        destination: "https://us-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/ingest/:path*",
+        destination: "https://us.i.posthog.com/:path*",
+      },
+    ];
+  },
   async redirects() {
     return [
       {
