@@ -50,7 +50,7 @@ export function EducationCard({ education }: { education: Education }) {
 
   return (
     <div
-      className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 transition-all duration-300 hover:border-gray-400 dark:hover:border-gray-500 cursor-pointer"
+      className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-sm hover:border-gray-400 dark:hover:border-gray-500 cursor-pointer"
       onClick={() => setIsExpanded(!isExpanded)}
     >
       <div className="flex justify-between items-start">
@@ -128,7 +128,7 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
 
   return (
     <div
-      className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 transition-all duration-300 hover:border-gray-400 dark:hover:border-gray-500 cursor-pointer"
+      className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-sm hover:border-gray-400 dark:hover:border-gray-500 cursor-pointer"
       onClick={() => setIsExpanded(!isExpanded)}
     >
       <div className="flex justify-between items-start">
@@ -137,7 +137,7 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
             <h3 className="text-xl font-bold">{experience.company}</h3>
             {isCurrent && (
               <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
                 Current
               </span>
             )}
@@ -245,7 +245,7 @@ export function ProjectCard({ project }: { project: Project }) {
     <>
       {/* Card */}
       <div
-        className="group border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 hover:border-gray-400 dark:hover:border-gray-600 transition-colors duration-200 cursor-pointer flex flex-col overflow-hidden"
+        className="group rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 hover:border-gray-400 dark:hover:border-gray-600 transition-[transform,border-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-sm cursor-pointer flex flex-col overflow-hidden"
         onClick={handleCardClick}
       >
         {/* Thumbnail */}
@@ -256,6 +256,7 @@ export function ProjectCard({ project }: { project: Project }) {
               alt={`${project.name} thumbnail`}
               fill
               style={{ objectFit: "cover" }}
+              className="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             />
           </div>
         )}
