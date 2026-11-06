@@ -922,98 +922,83 @@ const creativeWorks = [
   },
 ];
 
+const navLink =
+  "bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size,color] duration-200 hover:bg-[length:100%_1px] hover:text-foreground";
+
+const photoStrip = [
+  { src: elcJamesStandingFrontOfBackdrop, alt: "At Estée Lauder headquarters during the 2025 internship" },
+  { src: njtJamesWearingHardhatConsoleRoom, alt: "In the NJ Transit console room" },
+  { src: osuJamesWithBennyOnField, alt: "With Benny Beaver on the field at Oregon State" },
+  { src: osuCheerJamesRunningFlag, alt: "Running the flag at an Oregon State football game" },
+];
+
 export default function HomePage() {
   return (
     <div className="min-h-screen font-sans">
-      <div className="container mx-auto p-8 sm:p-12 md:p-16 lg:p-24">
-        <header className="text-center mb-16">
-          <div className="w-32 h-32 rounded-full mx-auto mb-4 relative overflow-hidden border-2 border-gray-200 dark:border-gray-700">
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 py-12 sm:py-20">
+        <header className="grid md:grid-cols-[auto_1fr] gap-8 md:gap-12 items-start mb-12">
+          <div className="w-28 h-28 md:w-40 md:h-40 rounded-2xl relative overflow-hidden bg-gray-100 dark:bg-gray-900">
             <Image
               src={headshot}
-              alt="James M. Smith Headshot"
+              alt="James M. Smith"
               fill
+              priority
+              sizes="160px"
               style={{ objectFit: "cover" }}
             />
           </div>
-          <h1 className="text-5xl font-extrabold tracking-tight">
-            James M. Smith
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 mt-2">
-            AI/Product Engineer
-          </p>
-          <div className="mt-4 flex justify-center gap-4">
-            <a
-              href="https://www.linkedin.com/in/james-m-smith1/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="mailto:james.smith.tig@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
-            >
-              Email
-            </a>
-            <Link
-              href="/book"
-              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
-            >
-              Bookings
-            </Link>
-            <Link
-              href="/playground"
-              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
-            >
-              Playground
-            </Link>
-            <Link
-              href="/blog"
-              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
-            >
-              Blog
-            </Link>
-            <a
-              href="https://github.com/gitJamoo"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
-            >
-              GitHub
-            </a>
+          <div>
+            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight">
+              James M. Smith
+            </h1>
+            <p className="text-xl text-gray-600 dark:text-gray-400 mt-2">
+              AI/Product Engineer at Magical · San Francisco
+            </p>
+            <nav className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
+              <a href="https://www.linkedin.com/in/james-m-smith1/" target="_blank" rel="noopener noreferrer" className={navLink}>LinkedIn</a>
+              <a href="mailto:james.smith.tig@gmail.com" className={navLink}>Email</a>
+              <a href="https://github.com/gitJamoo" target="_blank" rel="noopener noreferrer" className={navLink}>GitHub</a>
+              <Link href="/book" className={navLink}>Book a meeting</Link>
+              <Link href="/blog" className={navLink}>Blog</Link>
+              <Link href="/playground" className={navLink}>Playground</Link>
+            </nav>
+            <div className="mt-8 grid lg:grid-cols-2 gap-6 text-base leading-relaxed text-gray-700 dark:text-gray-300 max-w-4xl">
+              <p>
+                I build AI-powered workflow automation at Magical Inc and ship it end-to-end. At Estée Lauder I shipped a 12,000-SKU recommendation engine with $1.5M projected annual revenue impact and cut LLM API costs 45% with vector-database caching.
+              </p>
+              <p>
+                I graduated from Oregon State University in June 2026 (B.S. Computer Science, Cybersecurity minor, Cum Laude) and spent four years as an NCAA Division I cheerleader while building production AI systems on the side.
+              </p>
+            </div>
           </div>
         </header>
 
-        <section className="mb-16">
-          <p className="text-lg text-center max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-            AI/Product Engineer at Magical Inc in San Francisco, building AI-powered workflow automation that ships real features end-to-end. I graduated from Oregon State University in June 2026 (B.S. Computer Science, Cybersecurity minor, Cum Laude) and spent four years as an NCAA Division I cheerleader while building production AI systems on the side. At Estée Lauder I shipped a 12,000-SKU recommendation engine with $1.5M projected annual revenue impact and cut LLM API costs 45% with vector-database caching — and I&apos;ve been chasing that kind of leverage ever since. I care about building things that actually work.
-          </p>
-        </section>
-
-        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <div className="md:col-span-1 h-64 bg-gray-900 border border-gray-800 rounded-lg flex items-center justify-center">
-                 <span className="text-gray-500">Picture 1</span>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-24">
+          {photoStrip.map((p) => (
+            <div key={p.alt} className="relative aspect-[4/5] overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-900">
+              <Image
+                src={p.src}
+                alt={p.alt}
+                fill
+                sizes="(min-width: 768px) 280px, 50vw"
+                className="object-cover transition-transform duration-500 ease-out hover:scale-[1.03]"
+              />
             </div>
-            <div className="md:col-span-2 h-64 bg-gray-900 border border-gray-800 rounded-lg flex items-center justify-center">
-                 <span className="text-gray-500">Picture 2</span>
-            </div>
-        </div> */}
+          ))}
+        </div>
 
-        <section id="education" className="mb-16">
-          <h2 className="text-4xl font-bold mb-8 text-center">Education</h2>
+        <section id="education" className="mb-24">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-8">Education</h2>
           <div className="space-y-8">
             <EducationCard education={education} />
           </div>
         </section>
 
-        <section id="experience" className="mb-16">
-          <h2 className="text-4xl font-bold mb-8 text-center">
-            Companies I Have Worked With
+        <section id="experience" className="mb-24">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-8">
+            Experience
           </h2>
-          <div className="space-y-8">
+          <div className="space-y-4">
             {experiences.map((exp, index) => (
               <ExperienceCard key={index} experience={exp} />
             ))}
@@ -1021,24 +1006,24 @@ export default function HomePage() {
         </section>
 
         <section id="projects">
-          <h2 className="text-4xl font-bold mb-6 text-center">Projects</h2>
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-6">Projects</h2>
           <ProjectGrid projects={projects} />
         </section>
 
 
 
-        <section id="creative-works" className="mb-16 mt-24">
-          <h2 className="text-4xl font-bold mb-4 text-center">Creative Works</h2>
-          <p className="text-lg text-center max-w-2xl mx-auto mb-8 text-gray-700 dark:text-gray-300">
+        <section id="creative-works" className="mb-24 mt-24">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-4">Creative Works</h2>
+          <p className="text-lg max-w-2xl mb-8 text-gray-700 dark:text-gray-300">
             I have a passion for making small videos recapping chapters of my life and saving memories. Here are a few:
           </p>
           <CreativeWorksCarousel works={creativeWorks} />
         </section>
 
-        <section id="contact" className="text-center mt-16">
+        <section id="contact" className="mt-16">
           <ContactFormEmbedded />
         </section>
       </div>
-    </div >
+    </div>
   );
 }
