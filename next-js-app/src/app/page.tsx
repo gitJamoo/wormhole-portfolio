@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import finalPresentation from "../../public/image-assets/Estee_Lauder_Images/ELC_James_Given_Final_Presentation.jpg";
+import smilingHeadshot from "../../public/image-assets/smiling-headshot.jpg";
 
 const facts = [
   { value: "$1.5M", label: "projected revenue from my Estée Lauder recommender" },
@@ -79,14 +79,14 @@ export default function Home() {
             </dl>
           </div>
 
-          <div className="relative aspect-[4/3] lg:aspect-[4/5] max-h-[78vh] w-full overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-900 group">
+          <div className="relative aspect-square lg:aspect-[4/5] max-h-[78vh] w-full overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-900 ring-1 ring-black/[.08] dark:ring-white/[.12] group">
             <Image
-              src={finalPresentation}
-              alt="James presenting his machine learning internship project at Estée Lauder"
+              src={smilingHeadshot}
+              alt="James M. Smith"
               fill
               priority
               sizes="(min-width: 1024px) 520px, 100vw"
-              className="object-cover object-[50%_30%] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+              className="object-cover object-[50%_20%] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             />
           </div>
         </div>
