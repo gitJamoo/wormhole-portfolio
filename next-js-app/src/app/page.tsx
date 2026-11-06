@@ -84,6 +84,14 @@ export default function Home() {
         >
           LinkedIn ↗
         </a>
+        <a
+          href="https://github.com/gitJamoo"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-foreground transition-colors"
+        >
+          GitHub ↗
+        </a>
         <Link href="/playground" className="hover:text-foreground transition-colors">
           Playground ↗
         </Link>
