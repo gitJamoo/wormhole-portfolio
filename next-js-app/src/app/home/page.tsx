@@ -4,9 +4,9 @@ import Image from "next/image";
 import ContactFormEmbedded from "../components/contact/ContactFormEmbedded";
 import CreativeWorksCarousel from "../components/CreativeWorksCarousel";
 import {
-  EducationCard,
-  ExperienceCard,
-  ProjectGrid,
+  ExperienceRow,
+  FeaturedProjects,
+  ProjectList,
   type Education,
   type Experience,
   type Project,
@@ -445,6 +445,7 @@ Shipped as a signed installer for Windows, macOS, and Linux. Available for purch
     longDescription:
       "During my AI Advisor role at Oregon State, I built OpenBeavs (formerly the Genesis AI Hub) as the official front-end for OSU's internal agentic tools. Faculty log in via Microsoft SSO and Duo, then interact with specialized agents through a shared chat interface. The backend uses a registry pattern — new agents can be registered and made available without touching the frontend. Built for a 35,000-student institution with FERPA compliance requirements.",
     image: OpenBeavsProjectThumbnail,
+    imageFit: "contain",
     githubUrl: "https://github.com/GENESIS-AI-Hub/GENESIS-AI-Hub-App",
     liveUrl: "https://openbeavs-deploy-test-716080272371.us-west1.run.app/",
     features: [
@@ -922,6 +923,25 @@ const creativeWorks = [
   },
 ];
 
+// Led with on /home; everything else goes in the compact list.
+const FEATURED = ["EcoDues", "OpenBeavs", "Envolvly"];
+const featuredProjects = FEATURED.map((n) => projects.find((p) => p.name === n)!).filter(Boolean);
+const otherProjects = projects.filter((p) => !FEATURED.includes(p.name));
+
+// The degree sits at the end of the timeline, with the Oregon State photos.
+const timeline: Experience[] = [
+  ...experiences,
+  {
+    company: education.institution,
+    role: "B.S. Computer Science · Cum Laude",
+    period: education.period,
+    description: education.details,
+    longDescription: education.longDescription,
+    logo: education.logo,
+    images: education.images,
+  },
+];
+
 const navLink =
   "bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size,color] duration-200 hover:bg-[length:100%_1px] hover:text-foreground";
 
@@ -954,6 +974,9 @@ export default function HomePage() {
             <p className="text-xl text-gray-600 dark:text-gray-400 mt-2">
               AI/Product Engineer at Magical · San Francisco
             </p>
+            <p className="text-sm text-gray-500 mt-1">
+              B.S. Computer Science, Oregon State University &apos;26 · Cum Laude
+            </p>
             <nav className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
               <a href="https://www.linkedin.com/in/james-m-smith1/" target="_blank" rel="noopener noreferrer" className={navLink}>LinkedIn</a>
               <a href="mailto:james.smith.tig@gmail.com" className={navLink}>Email</a>
@@ -984,32 +1007,26 @@ export default function HomePage() {
           ))}
         </div>
 
-        <section id="education" className="mb-24">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-8">Education</h2>
-          <div className="space-y-8">
-            <EducationCard education={education} />
-          </div>
+        <section id="featured" className="mb-24 scroll-mt-20">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-8">Featured work</h2>
+          <FeaturedProjects projects={featuredProjects} />
         </section>
 
-        <section id="experience" className="mb-24">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-8">
-            Experience
-          </h2>
-          <div className="space-y-4">
-            {experiences.map((exp, index) => (
-              <ExperienceCard key={index} experience={exp} />
+        <section id="experience" className="mb-24 scroll-mt-20">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-6">Experience</h2>
+          <ul className="border-t border-black/[.08] dark:border-white/[.1]">
+            {timeline.map((exp) => (
+              <ExperienceRow key={`${exp.company}-${exp.role}`} experience={exp} />
             ))}
-          </div>
+          </ul>
         </section>
 
-        <section id="projects">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-6">Projects</h2>
-          <ProjectGrid projects={projects} />
+        <section id="projects" className="mb-24 scroll-mt-20">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-6">More projects</h2>
+          <ProjectList projects={otherProjects} />
         </section>
 
-
-
-        <section id="creative-works" className="mb-24 mt-24">
+        <section id="creative-works" className="mb-24 scroll-mt-20">
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-4">Creative Works</h2>
           <p className="text-lg max-w-2xl mb-8 text-gray-700 dark:text-gray-300">
             I have a passion for making small videos recapping chapters of my life and saving memories. Here are a few:
