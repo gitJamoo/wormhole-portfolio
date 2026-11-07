@@ -3,8 +3,6 @@
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
 import posthog from "posthog-js";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 
 export default function Book() {
     useEffect(() => {
@@ -24,15 +22,6 @@ export default function Book() {
 
     return (
         <div className="min-h-screen bg-background text-foreground flex flex-col items-center p-4 sm:p-8">
-            <div className="w-full max-w-5xl mb-8 flex justify-between items-center">
-                <Link
-                    href="/home"
-                    className="flex items-center gap-2 text-sm hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-                >
-                    ← Back to Portfolio
-                </Link>
-            </div>
-
             <div className="w-full max-w-5xl bg-card rounded-xl shadow-lg overflow-hidden border border-border">
                 <Cal
                     calLink="james-smith-e4rbyn"

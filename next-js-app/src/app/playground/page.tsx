@@ -34,12 +34,6 @@ export default function PlaygroundPage() {
           <span className="text-xs uppercase tracking-widest text-slate-500">
             Playground
           </span>
-          <Link
-            href="/home"
-            className="text-xs text-slate-400 transition-colors hover:text-white"
-          >
-            ← Portfolio
-          </Link>
         </div>
 
         <h1 className="mb-2 text-3xl font-semibold text-white">

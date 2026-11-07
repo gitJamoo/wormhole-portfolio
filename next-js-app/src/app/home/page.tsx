@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 
 import ContactFormEmbedded from "../components/contact/ContactFormEmbedded";
 import CreativeWorksCarousel from "../components/CreativeWorksCarousel";
@@ -891,6 +890,7 @@ const creativeWorks = [
   {
     title: "EcoDues Launch Film",
     videoUrl: "https://www.ecodues.org/launch-film.mp4",
+    poster: EcoDuesProjectThumbnail.src,
   },
   {
     title: "OpenBeavs Sizzle Reel",
@@ -958,9 +958,6 @@ export default function HomePage() {
               <a href="https://www.linkedin.com/in/james-m-smith1/" target="_blank" rel="noopener noreferrer" className={navLink}>LinkedIn</a>
               <a href="mailto:james.smith.tig@gmail.com" className={navLink}>Email</a>
               <a href="https://github.com/gitJamoo" target="_blank" rel="noopener noreferrer" className={navLink}>GitHub</a>
-              <Link href="/book" className={navLink}>Book a meeting</Link>
-              <Link href="/blog" className={navLink}>Blog</Link>
-              <Link href="/playground" className={navLink}>Playground</Link>
             </nav>
             <div className="mt-8 grid lg:grid-cols-2 gap-6 text-base leading-relaxed text-gray-700 dark:text-gray-300 max-w-4xl">
               <p>
@@ -1020,7 +1017,7 @@ export default function HomePage() {
           <CreativeWorksCarousel works={creativeWorks} />
         </section>
 
-        <section id="contact" className="mt-16">
+        <section id="contact" className="mt-8 scroll-mt-20">
           <ContactFormEmbedded />
         </section>
       </div>
