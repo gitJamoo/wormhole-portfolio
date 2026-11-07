@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
 import { TagFilter } from "./TagFilter";
 
@@ -26,16 +25,6 @@ export default function BlogIndexPage() {
   return (
     <div className="min-h-screen font-sans">
       <div className="container mx-auto px-6 py-16 max-w-5xl">
-        {/* Back link */}
-        <Link
-          href="/home"
-          className="inline-flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors mb-12"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to Portfolio
-        </Link>
 
         {/* Header */}
         <header className="mb-12 text-center">

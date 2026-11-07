@@ -17,7 +17,7 @@ const textLink =
 
 export default function Home() {
   return (
-    <div className="font-sans min-h-screen flex flex-col">
+    <div className="font-sans min-h-[calc(100svh-57px)] flex flex-col">
       <main className="flex-1 flex items-center">
         <div className="w-full max-w-6xl mx-auto px-6 sm:px-10 py-12 lg:py-0 grid lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-16 items-center">
           <div className="flex flex-col gap-6">
@@ -99,12 +99,6 @@ export default function Home() {
         <a href="https://github.com/gitJamoo" target="_blank" rel="noopener noreferrer" className={textLink}>
           GitHub ↗
         </a>
-        <Link href="/playground" className={textLink}>
-          Playground
-        </Link>
-        <Link href="/blog" className={textLink}>
-          Blog
-        </Link>
       </footer>
     </div>
   );
