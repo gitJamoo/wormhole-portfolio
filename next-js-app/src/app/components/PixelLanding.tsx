@@ -3,11 +3,17 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { PixelScene } from '@/lib/pixel-scene/scene';
+import { Check, Clipboard } from 'lucide-react';
 import BeaverLoader from './BeaverLoader';
+import AnthropicIcon from './icons/AnthropicIcon';
+import OpenAIIcon from './icons/OpenAIIcon';
 
 /* The brag sheet agents read to learn about James. */
 const BRAG_REPO = 'github.com/gitJamoo/brag-sheet';
 const AGENT_PROMPT = `Read https://${BRAG_REPO} and tell me about James M. Smith.`;
+const CLAUDE_URL = `https://claude.ai/new?q=${encodeURIComponent(AGENT_PROMPT)}`;
+const CODEX_URL = `codex://new?prompt=${encodeURIComponent(AGENT_PROMPT)}`;
+const CODEX_FALLBACK = `https://chatgpt.com/?q=${encodeURIComponent(AGENT_PROMPT)}`;
 const DAY = 300; // seconds for a full day at 1x; time lingers around golden hour
 
 const FONTS = {
@@ -16,7 +22,7 @@ const FONTS = {
   serif: { label: 'New York', css: 'ui-serif, "New York", "Iowan Old Style", Georgia, serif' },
   mono: { label: 'Mono', css: 'ui-monospace, "SF Mono", SFMono-Regular, var(--font-geist-mono), Menlo, monospace' },
 } as const;
-const SIZES = { s: 0.85, m: 1, l: 1.2 } as const;
+const SIZES = { s: 0.85, m: 1, l: 1.2, xl: 1.4 } as const;
 type FontKey = keyof typeof FONTS;
 type SizeKey = keyof typeof SIZES;
 const MONO = 'ui-monospace, "SF Mono", SFMono-Regular, var(--font-geist-mono), Menlo, monospace';
@@ -31,8 +37,9 @@ export default function PixelLanding() {
   const [copied, setCopied] = useState(false);
   const [fast, setFast] = useState(false);
   const [lab, setLab] = useState(false);
-  const [font, setFont] = useState<FontKey>('sf');
-  const [size, setSize] = useState<SizeKey>('m');
+  const [font, setFont] = useState<FontKey>('mono');
+  // null = responsive default: M on desktop, XL on phones
+  const [size, setSize] = useState<SizeKey | null>(null);
 
   const draw = useCallback(() => {
     const s = st.current, cv = canvasRef.current;
@@ -100,8 +107,14 @@ export default function PixelLanding() {
   const copyPrompt = async () => {
     try { await navigator.clipboard.writeText(AGENT_PROMPT); setCopied(true); setTimeout(() => setCopied(false), 1600); } catch {}
   };
-
-  const scale = SIZES[size];
+  // codex:// only works with the Codex desktop app installed; if nothing takes focus, fall back to ChatGPT.
+  const openCodex = () => {
+    let left = false;
+    const onBlur = () => { left = true; };
+    addEventListener('blur', onBlur, { once: true });
+    location.href = CODEX_URL;
+    setTimeout(() => { removeEventListener('blur', onBlur); if (!left && !document.hidden) window.open(CODEX_FALLBACK, '_blank', 'noopener'); }, 1200);
+  };
   // Each element eases in after the scene is up: opacity + a little lift + blur clearing.
   const rise = (delay: number) => ({
     transition: 'opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.7,.2,1), filter 1.1s ease',
@@ -128,41 +141,69 @@ export default function PixelLanding() {
       )}
 
       <main
-        className="absolute left-0 top-0 flex flex-col items-start gap-4"
-        style={{ padding: 'max(9vh, 24px) max(6vw, 16px)', paddingTop: 'max(12vh, calc(24px + env(safe-area-inset-top)))' }}
+        className="absolute inset-x-0 top-0 flex flex-col items-start gap-4 max-sm:items-center max-sm:text-center [--k:1] max-sm:[--k:1.4]"
+        style={{
+          padding: 'max(12vh, calc(24px + env(safe-area-inset-top))) max(6vw, 16px) 0',
+          ...(size ? ({ '--k': SIZES[size] } as React.CSSProperties) : {}),
+        }}
       >
         <h1
-          className="font-semibold tracking-tight leading-none [text-shadow:0_1px_18px_rgba(0,0,0,.25)]"
-          style={{ fontSize: `clamp(${34 * scale}px, ${5.4 * scale}vw, ${68 * scale}px)`, ...rise(900) }}
+          className="font-semibold tracking-tight leading-none rounded-[12px] border border-white/[.1] bg-[#0e0d12]/35 backdrop-blur-md px-[.4em] py-[.22em] max-w-full"
+          style={{ fontSize: 'min(clamp(calc(34px * var(--k)), calc(5.4vw * var(--k)), calc(68px * var(--k))), 9.6vw)', ...rise(900) }}
         >
           James M. Smith
         </h1>
 
         <div className="inline-flex flex-col items-stretch gap-2 max-w-full">
-          <p className="text-[#f6ecdf]/85 [text-shadow:0_1px_10px_rgba(0,0,0,.3)]" style={{ fontSize: 15 * scale, ...rise(1300) }}>
+          <p className="text-[#f6ecdf]/85 [text-shadow:0_1px_10px_rgba(0,0,0,.35)]" style={{ fontSize: 'calc(15px * var(--k))', ...rise(1300) }}>
             Ask your agent about me:
           </p>
 
           <div
-            className="flex items-center gap-4 rounded-[10px] border border-white/[.16] bg-[#0e0d12]/60 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,.18)] pl-4 pr-2 py-2 max-w-full"
-            style={{ fontFamily: MONO, fontSize: 14 * scale, ...rise(1550) }}
+            className="flex items-center gap-3 rounded-[10px] border border-white/[.16] bg-[#0e0d12]/60 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,.18)] pl-4 pr-1.5 py-1.5 max-w-full"
+            style={{ fontFamily: MONO, fontSize: 'calc(14px * min(var(--k), 1.15))', ...rise(1550) }}
           >
-            <a href={`https://${BRAG_REPO}`} target="_blank" rel="noopener noreferrer" className="min-w-0 truncate hover:text-white" data-ph-capture-attribute-cta="brag_sheet">
-              <span className="text-white/40 select-none">$ </span>tell me about <span className="underline decoration-white/25 underline-offset-4">{BRAG_REPO.replace('github.com/', '')}</span>
+            <a href={`https://${BRAG_REPO}`} target="_blank" rel="noopener noreferrer" className="min-w-0 truncate text-left hover:text-white" data-ph-capture-attribute-cta="brag_sheet">
+              <span className="text-white/40 select-none">$ </span>
+              <span className="max-sm:hidden">tell me about </span>
+              <span className="underline decoration-white/25 underline-offset-4">{BRAG_REPO.replace('github.com/', '')}</span>
             </a>
-            <button
-              onClick={copyPrompt}
-              className="shrink-0 rounded-md border border-white/[.14] px-3 py-1.5 text-[11px] tracking-[.18em] text-[#b9c6ff] hover:bg-white/[.08] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70"
-              aria-label="Copy a prompt for your agent"
-              data-ph-capture-attribute-cta="copy_agent_prompt"
-            >
-              {copied ? '[ COPIED ]' : '[ COPY ]'}
-            </button>
+            <div className="flex shrink-0 items-center gap-0.5 border-l border-white/[.12] pl-1.5">
+              <button
+                onClick={copyPrompt}
+                className={`grid size-8 place-items-center rounded-md transition-[transform,background-color,color] duration-200 hover:bg-white/[.08] active:scale-90 ${copied ? 'text-[#9be7b0] scale-110' : 'text-[#b9c6ff]'}`}
+                aria-label={copied ? 'Copied' : 'Copy a prompt for your agent'}
+                title="Copy prompt"
+                data-ph-capture-attribute-cta="copy_agent_prompt"
+              >
+                {copied ? <Check size={16} strokeWidth={2.5} /> : <Clipboard size={16} />}
+              </button>
+              <a
+                href={CLAUDE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="grid size-8 place-items-center rounded-md text-[#f6ecdf]/80 hover:bg-white/[.08] hover:text-[#e8a07a] active:scale-90 transition"
+                aria-label="Ask Claude about me"
+                title="Ask Claude"
+                data-ph-capture-attribute-cta="ask_claude"
+              >
+                <AnthropicIcon className="size-4" />
+              </a>
+              <button
+                onClick={openCodex}
+                className="grid size-8 place-items-center rounded-md text-[#f6ecdf]/80 hover:bg-white/[.08] hover:text-white active:scale-90 transition"
+                aria-label="Ask Codex about me"
+                title="Ask Codex"
+                data-ph-capture-attribute-cta="ask_codex"
+              >
+                <OpenAIIcon className="size-4" />
+              </button>
+            </div>
           </div>
 
           <nav
             className="grid grid-cols-3 rounded-[10px] border border-white/[.12] bg-[#0e0d12]/30 backdrop-blur-sm text-center text-[#f6ecdf]/85 divide-x divide-white/[.12] overflow-hidden"
-            style={{ fontSize: 13 * scale, ...rise(1800) }}
+            style={{ fontSize: 'calc(13px * min(var(--k), 1.2))', ...rise(1800) }}
           >
             <Link href="/about" className="py-2 hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="learn_more">learn more</Link>
             <Link href="/wormhole-config/" className="py-2 hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="enter_wormhole">wormhole</Link>
@@ -202,7 +243,7 @@ export default function PixelLanding() {
           </div>
           <div className="flex gap-1">
             {(Object.keys(SIZES) as SizeKey[]).map((k) => (
-              <button key={k} onClick={() => setSize(k)} className={`rounded px-2 py-1 uppercase ${size === k ? 'bg-white/20' : 'hover:bg-white/10'}`}>{k}</button>
+              <button key={k} onClick={() => setSize(size === k ? null : k)} className={`rounded px-2 py-1 uppercase ${size === k ? 'bg-white/20' : 'hover:bg-white/10'}`}>{k}</button>
             ))}
           </div>
         </div>
