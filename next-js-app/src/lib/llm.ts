@@ -44,6 +44,7 @@ export function resolveModel(
     google: process.env.GEMINI_API_KEY,
     openai: process.env.OPENAI_API_KEY,
     anthropic: process.env.ANTHROPIC_API_KEY,
+    openrouter: process.env.OPENROUTER_API_KEY,
   };
   if (!apiKey) {
     if (!SERVER_KEY_MODELS.has(selectedModel)) {
@@ -61,6 +62,10 @@ export function resolveModel(
 
   if (provider === "google") {
     return { model: createGoogleGenerativeAI({ apiKey: apiKeyToUse })(selectedModel) };
+  }
+  if (provider === "openrouter") {
+    const openrouter = createOpenAI({ apiKey: apiKeyToUse, baseURL: "https://openrouter.ai/api/v1" });
+    return { model: openrouter.chat(selectedModel) };
   }
   if (provider === "openai") {
     return { model: createOpenAI({ apiKey: apiKeyToUse })(selectedModel) };
