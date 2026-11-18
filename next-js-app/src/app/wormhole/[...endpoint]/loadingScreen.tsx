@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import BeaverLoader from "@/app/components/BeaverLoader";
 
 export default function LoadingScreen() {
   const dotsArray = ["", ".", "..", "..."];
@@ -42,6 +43,7 @@ export default function LoadingScreen() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
+      <BeaverLoader label="" className="mb-6" />
       <div className="text-2xl font-bold mb-2">
         Generating content{dotsArray[dotIndex]}
       </div>
