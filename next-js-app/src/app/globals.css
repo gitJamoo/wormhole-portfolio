@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* dark: follows the OS, and can be forced for a subtree with class="dark" (the night-scene landing) */
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) {
+    @slot;
+  }
+  &:where(.dark, .dark *) {
+    @slot;
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -22,7 +32,13 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, sans-serif;
+}
+
+@keyframes beaver-in {
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes gradient-animation {
@@ -65,4 +81,12 @@ body {
 .flex {
   scrollbar-width: thin; /* "auto" or "thin" */
   scrollbar-color: #888 #2d2d2d; /* thumb color track color */
+}
+/* printing (the resume page): plain white paper, no page chrome */
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    margin: 0 !important;
+  }
 }

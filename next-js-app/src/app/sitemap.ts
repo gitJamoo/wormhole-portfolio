@@ -7,6 +7,7 @@ const BASE_URL = "https://www.j-m-s.dev";
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = [
     "",
+    "/about",
     "/home",
     "/blog",
     "/playground",

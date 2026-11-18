@@ -1,0 +1,87 @@
+/* Screen: the reader's scene, washed nearly white, with the resume reflowed for their device.
+   Print: one Letter page with the same scene, generated at page proportions, under the text. */
+.root { position: relative; min-height: 100vh; color: #17140f; font-family: var(--body, var(--serif)), "New York", Georgia, serif; background: #fbfaf6; }
+.bg { position: fixed; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; filter: var(--tint, none); -webkit-mask-image: var(--mask, none); mask-image: var(--mask, none); }
+.wash { position: fixed; inset: 0; background: #fbfaf6; opacity: var(--wash, 0.86); }
+
+.bar {
+  position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 8px;
+  padding: calc(10px + env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 10px max(16px, env(safe-area-inset-left));
+  font: 12px/1.3 ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace; color: rgba(23, 20, 15, 0.75);
+  background: rgba(250, 248, 243, 0.72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(23, 20, 15, 0.08);
+}
+.bar a, .bar button { color: inherit; text-decoration: none; background: none; border: 0; font: inherit; cursor: pointer; padding: 6px 9px; border-radius: 6px; white-space: nowrap; }
+.bar a:hover, .bar button:hover { background: rgba(23, 20, 15, 0.06); color: #17140f; }
+.bar .primary { background: #17140f; color: #faf8f3; }
+.bar .primary:hover { background: #3a342b; color: #faf8f3; }
+.caption { margin-left: auto; color: rgba(23, 20, 15, 0.5); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+@media (max-width: 640px) { .caption { display: none; } .bar .hideSm { display: none; } .bar .primary { margin-left: auto; } }
+
+.screen { position: relative; max-width: 8.5in; margin: 0 auto; padding: 28px max(18px, env(safe-area-inset-left)) 72px; font-size: 15px; line-height: 1.38; }
+@media (min-width: 720px) { .screen { font-size: 10.6pt; line-height: 1.25; padding: 0.55in 0.55in 1in; } }
+
+/* the hidden print sheet is laid out at real page size all the time, so it can be measured and fitted to one page */
+.sheet { position: absolute; left: -10000px; top: 0; width: 8.5in; height: 11in; overflow: hidden; background: #fff; }
+.sheetBg { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; filter: var(--tint, none); -webkit-mask-image: var(--mask, none); mask-image: var(--mask, none); }
+.sheetWash { position: absolute; inset: 0; background: #fff; opacity: var(--wash, 0.87); }
+.sheetBody { position: relative; padding: var(--pad, 0.42in 0.5in 0.3in); line-height: var(--lh, 1.18); }
+.sheetMark { position: absolute; right: 0.5in; bottom: 0.22in; font: 6.5pt ui-monospace, "SF Mono", Menlo, monospace; color: rgba(23, 20, 15, 0.45); }
+
+/* ?view=page: show the print sheet itself, centered on the scene */
+.pageView .screen { display: none; }
+.pageView .sheet { position: relative; left: 0; margin: 24px auto; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18); }
+
+/* tuning panel (screen only) */
+.panel {
+  position: fixed; z-index: 10; right: max(16px, env(safe-area-inset-right)); top: calc(64px + env(safe-area-inset-top)); bottom: 16px; width: 300px; overflow-y: auto;
+  display: grid; align-content: start; gap: 14px; padding: 14px; border-radius: 12px; color: #f3efe7; background: rgba(20, 18, 24, 0.86);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); font: 12px/1.35 ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+}
+.panelHead { display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(243, 239, 231, 0.6); }
+.panelHead button { background: none; border: 0; color: inherit; font-size: 18px; cursor: pointer; }
+.group { display: grid; gap: 6px; }
+.label { color: rgba(243, 239, 231, 0.6); }
+.seg { display: flex; flex-wrap: wrap; gap: 4px; }
+.seg button, .panelFoot button { font: inherit; color: inherit; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 6px; padding: 5px 8px; cursor: pointer; }
+.seg button:hover, .panelFoot button:hover { background: rgba(255, 255, 255, 0.14); }
+.seg button[aria-pressed="true"] { background: #f3efe7; color: #17140f; border-color: #f3efe7; }
+.slider { display: grid; gap: 6px; color: rgba(243, 239, 231, 0.6); }
+.slider input { width: 100%; accent-color: #e8a07a; }
+.panelFoot { display: flex; gap: 6px; justify-content: space-between; padding-top: 4px; }
+.panelFoot .primary { background: #e8a07a; color: #17140f; border-color: #e8a07a; flex: 1; }
+.tuning.pageView .sheet { margin-right: auto; margin-left: max(24px, calc(50% - 4.25in - 160px)); }
+@media (max-width: 760px) {
+  .panel { top: auto; left: max(12px, env(safe-area-inset-left)); right: max(12px, env(safe-area-inset-right)); width: auto; max-height: 46vh; bottom: max(12px, env(safe-area-inset-bottom)); }
+  .tuning.pageView .sheet { margin-left: 0; transform-origin: top left; zoom: 0.45; }
+}
+
+@media print {
+  @page { size: letter; margin: 0; }
+  .bg, .wash, .bar, .screen, .panel { display: none !important; }
+  .sheet { margin: 0 !important; box-shadow: none !important; zoom: 1 !important; }
+  .sheet { position: relative; left: 0; }
+  .root { min-height: 0; }
+  .root * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ---- the resume itself (shared by screen and print) ---- */
+.name { margin: 0; text-align: var(--align, center); font-family: var(--head, inherit); color: var(--accent, #17140f); font-size: 2.6em; font-weight: 700; line-height: 1.05; letter-spacing: -0.01em; }
+.contact { margin: 0.3em 0 0.1em; text-align: var(--align, center); font-size: 0.86em; }
+.contact a { color: inherit; text-decoration: underline; text-decoration-color: rgba(23, 20, 15, 0.35); text-underline-offset: 0.15em; }
+.sep { padding: 0 0.35em; color: rgba(23, 20, 15, 0.5); }
+.h2 { margin: 0.75em 0 0.3em; padding-bottom: 0.05em; font-size: 1.28em; font-weight: 600; font-family: var(--head, inherit); color: var(--accent, #17140f); border-bottom: 1px solid var(--accent, #17140f); }
+.entry { padding-left: 0.85em; margin-top: 0.32em; break-inside: avoid; }
+.row { display: flex; justify-content: space-between; gap: 0 1em; flex-wrap: wrap; }
+.title { font-weight: 700; }
+.it { font-style: italic; font-size: 0.95em; }
+.bullets { margin: 0.12em 0 0; padding-left: 1.35em; font-size: 0.95em; }
+.bullets li { margin: 0.05em 0; }
+.skills { padding-left: 0.85em; margin: 0; font-size: 0.97em; }
+@media (max-width: 640px) {
+  .screen .row { flex-direction: column; }
+  .screen .row > :last-child { color: rgba(23, 20, 15, 0.6); font-size: 0.9em; }
+  .screen .entry { margin-top: 0.8em; padding-left: 0; }
+  .screen .skills { padding-left: 0; }
+  .screen .bullets { padding-left: 1.1em; }
+  .screen .name { font-size: 2.2em; }
+}

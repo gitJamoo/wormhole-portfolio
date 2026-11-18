@@ -3,7 +3,7 @@ import React from "react";
 const AnthropicIcon = ({ className }: { className?: string }) => (
   <svg
     fill="currentColor"
-    fill-rule="evenodd"
+    fillRule="evenodd"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
