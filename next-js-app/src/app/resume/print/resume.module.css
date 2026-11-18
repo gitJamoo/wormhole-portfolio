@@ -46,6 +46,7 @@
   margin: 0.26in; min-height: calc(11in - 0.52in); box-sizing: border-box; background: rgba(255, 255, 255, var(--paper));
   padding: calc(var(--pt) - 0.12in) calc(var(--px) - 0.2in) calc(var(--pb) - 0.1in); box-shadow: 0 0 0 0.5pt rgba(23, 20, 15, 0.12);
 }
+[data-backing="paper"] .sheetMark { right: calc(0.26in + var(--px) - 0.2in); bottom: calc(0.26in + 0.09in); } /* inside the card, aligned with the text edge */
 [data-backing="paper"] .screen { background: rgba(255, 255, 255, var(--paper)); border-radius: 3px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); margin-top: 20px; margin-bottom: 40px; }
 @media (max-width: 640px) { [data-backing="paper"] .screen { margin: 10px; } }
 [data-backing="halo"] .screen, [data-backing="halo"] .sheetBody { text-shadow: 0 0 0.12em #fff, 0 0 0.3em #fff, 0 0 0.5em #fff; }
