@@ -160,7 +160,7 @@ export default function PixelLanding() {
           </p>
 
           <div
-            className="flex items-center gap-3 rounded-[10px] border border-white/[.16] bg-[#0e0d12]/60 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,.18)] pl-4 pr-1.5 py-1.5 max-w-full"
+            className="flex items-center gap-3 rounded-[10px] border border-white/[.16] bg-[#0e0d12]/60 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,.18)] pl-4 pr-2 py-2 max-w-full"
             style={{ fontFamily: MONO, fontSize: 'calc(14px * min(var(--k), 1.15))', ...rise(1550) }}
           >
             <a href={`https://${BRAG_REPO}`} target="_blank" rel="noopener noreferrer" className="min-w-0 truncate text-left hover:text-white" data-ph-capture-attribute-cta="brag_sheet">
@@ -168,35 +168,35 @@ export default function PixelLanding() {
               <span className="max-sm:hidden">tell me about </span>
               <span className="underline decoration-white/25 underline-offset-4">{BRAG_REPO.replace('github.com/', '')}</span>
             </a>
-            <div className="flex shrink-0 items-center gap-0.5 border-l border-white/[.12] pl-1.5">
+            <div className="flex shrink-0 items-center gap-1.5 border-l border-white/[.12] pl-2.5 pr-1">
+              <a
+                href={CLAUDE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="grid size-6 place-items-center rounded-md text-[#f6ecdf]/80 hover:bg-white/[.08] hover:text-[#e8a07a] active:scale-90 transition"
+                aria-label="Ask Claude about me"
+                title="Ask Claude"
+                data-ph-capture-attribute-cta="ask_claude"
+              >
+                <AnthropicIcon className="size-4 shrink-0" />
+              </a>
+              <button
+                onClick={openCodex}
+                className="grid size-6 place-items-center rounded-md text-[#f6ecdf]/80 hover:bg-white/[.08] hover:text-white active:scale-90 transition"
+                aria-label="Ask Codex about me"
+                title="Ask Codex"
+                data-ph-capture-attribute-cta="ask_codex"
+              >
+                <OpenAIIcon className="size-4 shrink-0" />
+              </button>
               <button
                 onClick={copyPrompt}
-                className={`grid size-8 place-items-center rounded-md transition-[transform,background-color,color] duration-200 hover:bg-white/[.08] active:scale-90 ${copied ? 'text-[#9be7b0] scale-110' : 'text-[#b9c6ff]'}`}
+                className={`grid size-6 place-items-center rounded-md transition-[transform,background-color,color] duration-200 hover:bg-white/[.08] active:scale-90 ${copied ? 'text-[#9be7b0] scale-110' : 'text-[#b9c6ff]'}`}
                 aria-label={copied ? 'Copied' : 'Copy a prompt for your agent'}
                 title="Copy prompt"
                 data-ph-capture-attribute-cta="copy_agent_prompt"
               >
                 {copied ? <Check size={16} strokeWidth={2.5} /> : <Clipboard size={16} />}
-              </button>
-              <a
-                href={CLAUDE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="grid size-8 place-items-center rounded-md text-[#f6ecdf]/80 hover:bg-white/[.08] hover:text-[#e8a07a] active:scale-90 transition"
-                aria-label="Ask Claude about me"
-                title="Ask Claude"
-                data-ph-capture-attribute-cta="ask_claude"
-              >
-                <AnthropicIcon className="size-4" />
-              </a>
-              <button
-                onClick={openCodex}
-                className="grid size-8 place-items-center rounded-md text-[#f6ecdf]/80 hover:bg-white/[.08] hover:text-white active:scale-90 transition"
-                aria-label="Ask Codex about me"
-                title="Ask Codex"
-                data-ph-capture-attribute-cta="ask_codex"
-              >
-                <OpenAIIcon className="size-4" />
               </button>
             </div>
           </div>
