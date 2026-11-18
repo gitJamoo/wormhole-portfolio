@@ -301,22 +301,30 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
 
       <main
         ref={introRef}
-        className="pointer-events-auto absolute inset-x-0 top-0 flex flex-col items-start gap-4 max-sm:items-center max-sm:text-center [--k:1] max-sm:[--k:1.4]"
+        className="pointer-events-auto absolute inset-x-0 top-0 [--k:1] max-sm:[--k:1.4]"
         style={{
-          padding: 'max(12vh, calc(24px + env(safe-area-inset-top))) max(6vw, 16px) 0',
+          paddingTop: 'max(12vh, calc(24px + env(safe-area-inset-top)))',
           ...(size ? ({ '--k': SIZES[size] } as React.CSSProperties) : {}),
         }}
       >
-        <h1
-          className="inline-flex items-center gap-[.32em] font-semibold tracking-tight leading-none rounded-[12px] border border-white/[.1] bg-[#0e0d12]/35 backdrop-blur-md px-[.4em] py-[.22em] max-w-full"
+      {/* same wrap as the nav and the sections below, so the left edge holds from scene to content */}
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 flex flex-col items-start gap-4 max-sm:items-center max-sm:text-center">
+        {/* 1. name plate: who, what and where on the first screen */}
+        <div
+          className="inline-flex items-center gap-[.32em] rounded-[12px] border border-white/[.1] bg-[#0e0d12]/35 backdrop-blur-md px-[.4em] py-[.22em] max-w-full max-sm:text-left"
           style={{ fontSize: 'min(clamp(calc(34px * var(--k)), calc(5.4vw * var(--k)), calc(68px * var(--k))), 8.2vw)', ...rise(900) }}
         >
-          <Image src={headshot} alt="" priority sizes="120px" className="-ml-[.12em] h-[1.3em] w-auto shrink-0 rounded-[.12em] ring-1 ring-white/25" />
-          <span>James M. Smith</span>
-        </h1>
+          <Image src={headshot} alt="" priority sizes="120px" className="-ml-[.12em] h-[1.55em] w-auto shrink-0 rounded-[.12em] ring-1 ring-white/25" />
+          <div className="min-w-0">
+            <h1 className="font-semibold tracking-tight leading-none">James M. Smith</h1>
+            <p className="mt-[.22em] leading-snug tracking-normal text-[#f6ecdf]/80" style={{ fontSize: 'max(.3em, 13px)' }}>
+              AI/Product Engineer at Magical · San Francisco
+            </p>
+          </div>
+        </div>
 
         <div className="inline-flex flex-col items-stretch gap-2 max-w-full">
-          <p className="text-[#f6ecdf]/85 [text-shadow:0_1px_10px_rgba(0,0,0,.35)]" style={{ fontSize: 'calc(15px * var(--k))', ...rise(1300) }}>
+          <p className="self-start max-sm:self-center rounded-md bg-[#0e0d12]/40 backdrop-blur-sm px-2.5 py-1 text-[#f6ecdf]/90 [text-shadow:0_1px_6px_rgba(0,0,0,.3)]" style={{ fontSize: 'calc(15px * var(--k))', ...rise(1300) }}>
             Ask your agent about me:
           </p>
 
@@ -366,11 +374,12 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
             className="grid grid-cols-3 rounded-[10px] border border-white/[.12] bg-[#0e0d12]/30 backdrop-blur-sm text-center text-[#f6ecdf]/85 divide-x divide-white/[.12] overflow-hidden"
             style={{ fontSize: 'calc(13px * min(var(--k), 1.2))', ...rise(1800) }}
           >
-            <Link href="/about" className="py-2 hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="learn_more">learn more</Link>
-            <Link href="/wormhole-config/" className="py-2 hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="enter_wormhole">wormhole</Link>
-            <a href="/resume/print" onClick={openResume} className="py-2 hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="resume">resume</a>
+            <a href="#featured" onClick={goTo('featured')} className="px-2 py-2 leading-tight hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="see_my_work">See my work</a>
+            <Link href="/wormhole-config/" className="px-2 py-2 leading-tight hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="enter_wormhole">Enter the Wormhole</Link>
+            <a href="/resume/print" onClick={openResume} className="px-2 py-2 leading-tight hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="resume">Get my resume</a>
           </nav>
         </div>
+      </div>
       </main>
 
       {/* scroll cue */}
