@@ -1,25 +1,26 @@
 // Shared model list for the Wormhole feature.
 // Single source of truth used by both wormhole-config/page.tsx (client) and
 // api/generate/route.ts (server). The client uses displayProvider ("Gemini" /
-// "OpenAI" / "Claude"); the server needs the lowercase provider key
-// ("google" / "openai" / "anthropic").
+// "OpenAI" / "Claude" / "OpenRouter"); the server needs the lowercase provider
+// key ("google" / "openai" / "anthropic" / "openrouter").
 
 export type WormholeModel = {
   id: string;
   /** Human-readable provider label used in the client UI. */
-  displayProvider: "Gemini" | "OpenAI" | "Claude";
+  displayProvider: "Gemini" | "OpenAI" | "Claude" | "OpenRouter";
   /** Lowercase provider key consumed by the API route / Vercel AI SDK. */
-  apiProvider: "google" | "openai" | "anthropic";
+  apiProvider: "google" | "openai" | "anthropic" | "openrouter";
   /** Cheap enough to run on the site's own keys. Others need a visitor key. */
   serverKey?: boolean;
 };
 
 export const WORMHOLE_MODELS: WormholeModel[] = [
   // --- Google Gemini (cheap → mid) ---
+  { id: "gemini-3.5-flash-lite", displayProvider: "Gemini", apiProvider: "google", serverKey: true },
+  { id: "gemini-3.1-flash-lite", displayProvider: "Gemini", apiProvider: "google", serverKey: true },
   { id: "gemini-2.5-flash-lite", displayProvider: "Gemini", apiProvider: "google", serverKey: true },
   { id: "gemini-2.5-flash",      displayProvider: "Gemini", apiProvider: "google", serverKey: true },
   { id: "gemini-3.5-flash",      displayProvider: "Gemini", apiProvider: "google" },
-  { id: "gemini-3.1-flash-lite", displayProvider: "Gemini", apiProvider: "google" },
 
   // --- OpenAI (cheap → mid) ---
   { id: "gpt-4o-mini",   displayProvider: "OpenAI", apiProvider: "openai", serverKey: true },
@@ -30,6 +31,10 @@ export const WORMHOLE_MODELS: WormholeModel[] = [
   { id: "claude-haiku-4-5-20251001", displayProvider: "Claude", apiProvider: "anthropic", serverKey: true },
   { id: "claude-sonnet-4-6",         displayProvider: "Claude", apiProvider: "anthropic" },
   { id: "claude-sonnet-5",           displayProvider: "Claude", apiProvider: "anthropic" },
+
+  // --- OpenRouter free models (fast; free routes cap requests per day) ---
+  { id: "nvidia/nemotron-3.5-lightning:free", displayProvider: "OpenRouter", apiProvider: "openrouter", serverKey: true },
+  { id: "google/gemma-4-31b-it:free",         displayProvider: "OpenRouter", apiProvider: "openrouter", serverKey: true },
 ];
 
 /** id → displayProvider  (used by the config page) */
@@ -46,4 +51,4 @@ export const SERVER_KEY_MODELS = new Set(
 );
 
 /** The default model used by "Continue with defaults". */
-export const DEFAULT_WORMHOLE_MODEL = "gemini-2.5-flash-lite";
+export const DEFAULT_WORMHOLE_MODEL = "gemini-3.5-flash-lite";
