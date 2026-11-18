@@ -101,7 +101,7 @@
 }
 
 /* ---- the resume itself (shared by screen and print) ---- */
-.name { margin: 0; text-align: var(--align, center); font-family: var(--head, inherit); color: var(--accent, #17140f); font-size: var(--name, 2.6em); font-weight: 700; line-height: 1.05; letter-spacing: -0.01em; }
+.name { margin: 0; text-align: var(--align, center); font-family: var(--head, inherit); color: var(--ink, #000); font-size: var(--name, 2.6em); font-weight: 700; line-height: 1.05; letter-spacing: -0.01em; }
 .contact { margin: 0.3em 0 0.1em; text-align: var(--align, center); font-size: 0.86em; }
 .contact a { color: inherit; text-decoration: underline; text-decoration-color: rgba(23, 20, 15, 0.35); text-underline-offset: 0.15em; }
 .sep { padding: 0 0.35em; color: rgba(23, 20, 15, 0.5); }
@@ -110,7 +110,7 @@
 [data-heads="bar"] .h2 { border-bottom: 0; border-left: 0.22em solid var(--accent); padding: 0.06em 0 0.06em 0.45em; background: color-mix(in srgb, var(--accent) 9%, transparent); }
 [data-heads="pixel"] .h2 { border-bottom: 0; padding-bottom: 0.2em; background: repeating-linear-gradient(90deg, var(--accent) 0 0.24em, transparent 0.24em 0.48em) left bottom / 100% 0.12em no-repeat; }
 [data-heads="pixel"] .h2::before { content: ""; display: inline-block; width: 0.42em; height: 0.42em; margin: 0 0.45em 0.1em 0; background: var(--accent); vertical-align: middle; }
-.h2 { margin: 0.75em 0 0.3em; padding-bottom: 0.05em; font-size: 1.28em; font-weight: 600; font-family: var(--head, inherit); color: var(--accent, #17140f); border-bottom: 1px solid var(--accent, #17140f); }
+.h2 { margin: 0.75em 0 0.3em; padding-bottom: 0.05em; font-size: 1.28em; font-weight: 600; font-family: var(--head, inherit); color: var(--ink, #000); border-bottom: 1px solid var(--accent, #17140f); }
 .entry { padding-left: 0.85em; margin-top: 0.32em; break-inside: avoid; }
 .row { display: flex; justify-content: space-between; gap: 0 1em; flex-wrap: wrap; }
 .title { font-weight: 700; }
@@ -121,7 +121,7 @@
 .skills { padding-left: 0.85em; margin: 0; font-size: 0.97em; }
 @media (max-width: 640px) {
   .screen .row { flex-direction: column; }
-  .screen .row > :last-child { color: rgba(23, 20, 15, 0.75); font-size: 0.9em; }
+  .screen .row > :last-child { color: var(--ink, #000); font-size: 0.9em; }
   .screen .entry { margin-top: 0.8em; padding-left: 0; }
   .screen .skills { padding-left: 0; }
   .screen .bullets { padding-left: 1.1em; }

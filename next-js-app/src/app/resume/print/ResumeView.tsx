@@ -112,7 +112,7 @@ export default function ResumeView() {
             <div className={st.meter} data-grade={grade}>
               <strong>{verdict}</strong>
               <span>Body text {m.pt}pt{m.pt < 8.5 ? ' (small)' : ''}</span>
-              <span>Contrast {r.contrast.toFixed(1)}:1 {r.contrast >= 7 ? 'AAA' : r.contrast >= 4.5 ? 'AA' : 'below AA'}{r.accentWeak ? ' (accent is the weak spot)' : ''}</span>
+              <span>Contrast {r.contrast.toFixed(1)}:1 {r.contrast >= 7 ? 'AAA' : r.contrast >= 4.5 ? 'AA' : 'below AA'}</span>
               <span>Real text layer, one column, standard section names ✓</span>
             </div>
           )}

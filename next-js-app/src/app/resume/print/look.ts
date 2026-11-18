@@ -78,7 +78,9 @@ const rgb = (c: RGB) => `rgb(${c.join(', ')})`;
 const lum = (c: RGB) => { const f = (v: number) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]); };
 const ratio = (a: RGB, b: RGB) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
 const over = (c: RGB, white: number): RGB => c.map((v) => Math.round(v * (1 - white) + 255 * white)) as RGB;
-const accentOf = (o: Opts, sky: RGB) => (o.accent === 'scene' ? sky : ACCENTS[o.accent]);
+// the scene accent only colors rules and bullet markers (all text is ink), darkened until it holds 4.5:1 on white
+const deepen = (c: RGB): RGB => { let x = c; while (ratio(x, [255, 255, 255]) < 4.5) x = x.map((v) => Math.round(v * 0.88)) as RGB; return x; };
+const accentOf = (o: Opts, sky: RGB) => (o.accent === 'scene' ? deepen(sky) : ACCENTS[o.accent]);
 
 export function lookVars(o: Opts, sky: RGB = [23, 20, 15]) {
   const f = FONTS[o.font], d = DENSITY[o.density];
@@ -93,8 +95,8 @@ export const lookAttrs = (o: Opts) => ({ 'data-place': o.place, 'data-backing': 
 // readability on the printed page: the worst background a line can land on vs. the ink and the accent
 export function readability(o: Opts, sky: RGB, dark: RGB) {
   const bg: RGB = CLEAR.has(o.place) ? [255, 255, 255] : o.backing === 'paper' ? over(over(dark, o.wash / 100), PAPER) : over(dark, o.wash / 100);
-  const body = ratio(INK[o.ink], bg), head = ratio(accentOf(o, sky), bg);
-  return { contrast: Math.min(body, head), accentWeak: head < body };
+  void sky; // every line of text is ink; the accent is decoration only
+  return { contrast: ratio(INK[o.ink], bg) };
 }
 
 export function paint(cv: HTMLCanvasElement, seed: number, phase: number | null, W: number, H: number) {
