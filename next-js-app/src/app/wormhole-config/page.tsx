@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import GeminiIcon from "../components/icons/GeminiIcon";
 import OpenAIIcon from "../components/icons/OpenAIIcon";
 import AnthropicIcon from "../components/icons/AnthropicIcon";
+import OpenRouterIcon from "../components/icons/OpenRouterIcon";
 import {
   WORMHOLE_MODELS,
   MODEL_TO_DISPLAY_PROVIDER,
@@ -64,6 +65,7 @@ const providers = [
   { value: "Gemini", label: "Gemini", icon: GeminiIcon },
   { value: "OpenAI", label: "OpenAI", icon: OpenAIIcon },
   { value: "Claude", label: "Claude", icon: AnthropicIcon },
+  { value: "OpenRouter", label: "OpenRouter (free)", icon: OpenRouterIcon },
 ];
 
 export default function WormholeConfig() {
@@ -339,67 +341,23 @@ export default function WormholeConfig() {
             </div>
           </div>
 
-          {selectedProvider === "Gemini" && (
-            <>
-              <div className="flex flex-col gap-4 w-full">
-                <label htmlFor="gemini-model" className="text-lg font-medium">
-                  Gemini Model:
-                </label>
-                <select
-                  id="gemini-model"
-                  className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  value={selectedModel}
-                  onChange={(e) => setSelectedModel(e.target.value)}
-                >
-                  <option value="">Select a model</option>
-                  {WORMHOLE_MODELS.filter((m) => m.displayProvider === "Gemini").map((m) => (
-                    <option key={m.id} value={m.id}>{m.id}</option>
-                  ))}
-                </select>
-              </div>
-            </>
-          )}
-
-          {selectedProvider === "OpenAI" && (
-            <>
-              <div className="flex flex-col gap-4 w-full">
-                <label htmlFor="openai-model" className="text-lg font-medium">
-                  OpenAI Model:
-                </label>
-                <select
-                  id="openai-model"
-                  className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  value={selectedModel}
-                  onChange={(e) => setSelectedModel(e.target.value)}
-                >
-                  <option value="">Select a model</option>
-                  {WORMHOLE_MODELS.filter((m) => m.displayProvider === "OpenAI").map((m) => (
-                    <option key={m.id} value={m.id}>{m.id}</option>
-                  ))}
-                </select>
-              </div>
-            </>
-          )}
-
-          {selectedProvider === "Claude" && (
-            <>
-              <div className="flex flex-col gap-4 w-full">
-                <label htmlFor="claude-model" className="text-lg font-medium">
-                  Claude Model:
-                </label>
-                <select
-                  id="claude-model"
-                  className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  value={selectedModel}
-                  onChange={(e) => setSelectedModel(e.target.value)}
-                >
-                  <option value="">Select a model</option>
-                  {WORMHOLE_MODELS.filter((m) => m.displayProvider === "Claude").map((m) => (
-                    <option key={m.id} value={m.id}>{m.id}</option>
-                  ))}
-                </select>
-              </div>
-            </>
+          {selectedProviderObject && (
+            <div className="flex flex-col gap-4 w-full">
+              <label htmlFor="wormhole-model" className="text-lg font-medium">
+                {selectedProviderObject.value} Model:
+              </label>
+              <select
+                id="wormhole-model"
+                className="rounded-lg border border-solid border-black/[.08] dark:border-white/[.145] transition-colors p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={selectedModel}
+                onChange={(e) => setSelectedModel(e.target.value)}
+              >
+                <option value="">Select a model</option>
+                {WORMHOLE_MODELS.filter((m) => m.displayProvider === selectedProvider).map((m) => (
+                  <option key={m.id} value={m.id}>{m.id}</option>
+                ))}
+              </select>
+            </div>
           )}
         </div>
 
