@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import ContactForm from './contact/ContactForm';
 
 // Pages that own the whole screen or must stay unlinked from the rest of the site.
-const HIDDEN = [/^\/$/, /^\/s\//, /^\/wormhole\//, /^\/agent-kit/, /^\/playground\/llm-sandbox/, /^\/contact-submissions/];
+const HIDDEN = [/^\/$/, /^\/s\//, /^\/resume\//, /^\/wormhole\//, /^\/agent-kit/, /^\/playground\/llm-sandbox/, /^\/contact-submissions/];
 
 const links = [
   { href: '/home', label: 'Work' },

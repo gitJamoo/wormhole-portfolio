@@ -167,6 +167,13 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
     return () => { spy.disconnect(); reveal.disconnect(); };
   }, []);
 
+  // resume opens over this same scene, ready to save as a PDF
+  const openResume = (e: React.MouseEvent) => {
+    const s = st.current; if (!s.seed || s.phase == null) return;
+    e.preventDefault();
+    location.href = `/resume/print?scene=${sceneSlug(s.seed, s.phase)}&print=1`;
+  };
+
   const goTo = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault();
     if (!id) { scrollTo({ top: 0, behavior: 'smooth' }); return; }
@@ -284,7 +291,7 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
               </a>
             ))}
             <span className="mx-1 h-4 w-px bg-white/15 shrink-0" />
-            <a href="/james_smith_resume.pdf" tabIndex={navOn ? 0 : -1} className="shrink-0 rounded-md px-2.5 py-1.5 text-white/55 hover:text-white">resume</a>
+            <a href="/resume/print" onClick={openResume} tabIndex={navOn ? 0 : -1} className="shrink-0 rounded-md px-2.5 py-1.5 text-white/55 hover:text-white">resume</a>
           </nav>
         </div>
       </header>
@@ -361,7 +368,7 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
           >
             <Link href="/about" className="py-2 hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="learn_more">learn more</Link>
             <Link href="/wormhole-config/" className="py-2 hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="enter_wormhole">wormhole</Link>
-            <a href="/james_smith_resume.pdf" className="py-2 hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="resume">resume</a>
+            <a href="/resume/print" onClick={openResume} className="py-2 hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="resume">resume</a>
           </nav>
         </div>
       </main>
