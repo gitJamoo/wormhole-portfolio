@@ -18,6 +18,7 @@ export default function ResumeSheet({ seed, phase, opts, visible = false, onMeas
   const body = useRef<HTMLDivElement>(null);
   const cv = useRef<HTMLCanvasElement>(null);
   const [art, setArt] = useState<{ sky: RGB; dark: RGB; name: string } | null>(null);
+  const [ready, setReady] = useState(false); // text stays hidden until it has been fitted with the real fonts
   const floor = useRef(FLOOR[opts.minSize]); floor.current = FLOOR[opts.minSize];
   const lh0 = useRef(DENSITY[opts.density].lh); lh0.current = DENSITY[opts.density].lh;
   const report = useRef(onMeasure); report.current = onMeasure;
@@ -37,6 +38,7 @@ export default function ResumeSheet({ seed, phase, opts, visible = false, onMeas
     while (over() && fs > 7) { fs -= 0.1; b.style.fontSize = fs.toFixed(1) + 'pt'; }
     const fits = !over();
     b.style.minHeight = '';
+    setReady(true);
     report.current?.({ pt: +fs.toFixed(1), fits, ...a });
   }, []);
 
@@ -49,8 +51,15 @@ export default function ResumeSheet({ seed, phase, opts, visible = false, onMeas
   useEffect(() => {
     if (!art) return;
     let live = true;
-    document.fonts.ready.then(() => requestAnimationFrame(() => live && fit()));
-    return () => { live = false; };
+    // The resume fonts aren't preloaded, and fonts.ready can resolve before the browser has even asked for them.
+    // Load every weight the page uses first, then fit; refit if any font lands later.
+    const b = body.current!, h = b.querySelector('h1');
+    const families = [getComputedStyle(b).fontFamily, h ? getComputedStyle(h).fontFamily : ''].filter(Boolean);
+    const loads = families.flatMap((f) => ['400', '600', '700', 'italic 400'].map((w) => document.fonts.load(`${w} 10pt ${f}`).catch(() => [])));
+    Promise.all(loads).then(() => document.fonts.ready).then(() => requestAnimationFrame(() => live && fit()));
+    const refit = () => { if (live) fit(); };
+    document.fonts.addEventListener('loadingdone', refit);
+    return () => { live = false; document.fonts.removeEventListener('loadingdone', refit); };
   }, [art, opts, fit]);
 
   useEffect(() => { addEventListener('beforeprint', fit); return () => removeEventListener('beforeprint', fit); }, [fit]);
@@ -59,7 +68,7 @@ export default function ResumeSheet({ seed, phase, opts, visible = false, onMeas
     <div ref={sheet} className={`${st.sheet} ${visible ? st.sheetVisible : ''} ${resumeFonts}`} style={lookVars(opts, art?.sky)} {...lookAttrs(opts)} aria-hidden={!visible}>
       <canvas ref={cv} className={st.sheetBg} />
       <div className={st.sheetWash} />
-      <div ref={body} className={st.sheetBody}>
+      <div ref={body} className={st.sheetBody} style={ready ? undefined : { visibility: 'hidden' }}>
         <ResumeBody />
       </div>
       {art && opts.mark === 'show' && <div className={st.sheetMark}>{`No. ${String(seed).padStart(5, '0')} · ${art.name} · j-m-s.dev/s/${sceneSlug(seed, phase)}`}</div>}
