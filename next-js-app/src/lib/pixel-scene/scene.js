@@ -1,4 +1,5 @@
-// Generated pixel landscapes. Source of truth: this file. No DOM; also runs in Node.
+// Generated pixel landscapes. No DOM; also runs in Node.
+import { PixelJames } from './james.js';
 /* Pixel nature scene generator.
  * generate(seed, W, H) -> scene geometry (built once)
  * render(scene, out:Uint32Array, t:seconds, phase:0..1) -> paints one frame
@@ -221,6 +222,7 @@ function build(seed, attempt, W, H) {
       if (cliff) y = xn < 0.78 ? peak + fn(x * 0.12) * 2 + xn * xn * 9 * unit : lerp(peak + 5 * unit, H + 6, Math.pow(clamp((xn - 0.78) / 0.16), 0.7));
       else { y = lerp(peak, wy + (H - wy) * 0.45, sstep(xn)) + fn(x * 0.08 / unit) * 2.5 * unit; if (xn > 1) y = lerp(wy + (H - wy) * 0.45, H + 6, clamp((xn - 1) / 0.5)); }
       ftop[x] = y;
+      S.ftop = ftop;
       for (let yy = Math.ceil(y); yy < H; yy++) {
         const d = yy - y;
         let k = K_GROUND, dd = tex(x, yy, texSeed + 99);
@@ -297,7 +299,29 @@ function build(seed, attempt, W, H) {
   S.sky = SKY.map(k => ({ e: k.e, top: hshift(hex(k.top), mood.ht * k.tw, lerp(1, mood.s, k.tw)), hor: hshift(hex(k.hor), mood.hh * k.tw, lerp(1, mood.s, k.tw)), sun: hex(k.sun), amb: hshift(hex(k.amb), mood.ht * 0.5 * k.tw, 1), light: k.light, glow: k.glow }));
   S.name = `${mood.n} ${B.nouns[seed % B.nouns.length]}`;
   S.pal = new Uint32Array(16 * NK * 3 * 4);
+  placeMe(S, r, R, nearTop);
   return S;
+}
+
+/* Where little James sits: flat foreground ground, clear of big trees and the lighthouse. */
+function placeMe(S, r, R, nearTop) {
+  const { W, H, L, K, wy } = S;
+  const busy = (x, feet) => { let n = 0; for (let y = feet - 15; y < feet; y++) for (let xx = x - 7; xx <= x + 7; xx++) { if (xx < 0 || xx >= W || y < 0) { n += 3; continue; } const i = y * W + xx; if (L[i] === FG && (K[i] === K_TREE || K[i] === K_TRUNK || K[i] === K_WHITE || K[i] === K_RED)) n++; } return n; };
+  const cands = [];
+  for (let x = 8; x < W - 8; x++) {
+    let feet;
+    if (S.water) { if (!S.ftop) return; feet = Math.round(S.ftop[x]) + 1; if (feet < wy - 2 || feet > H - 12 || Math.abs(S.ftop[x - 4] - S.ftop[x + 4]) > 4) continue; }
+    else { feet = Math.round(H - H * 0.13); if (!L[feet * W + x]) continue; }
+    if (S.lamp && Math.abs(x - S.lamp.x) < 10) continue;
+    let solid = true; for (let xx = x - 7; xx <= x + 7 && solid; xx++) for (const dy of [0, 2, 4]) { const yy = Math.min(H - 1, feet + dy); if (L[yy * W + xx] !== FG && S.water) { solid = false; break; } }
+    if (!solid) continue;
+    const b = busy(x, feet); if (b < 6) cands.push([x, feet, b]);
+  }
+  if (!cands.length) return;
+  cands.sort((a, b) => a[2] - b[2]);
+  const pool = cands.slice(0, Math.max(1, Math.ceil(cands.length * 0.4)));
+  const [x, feet] = pool[Math.floor(r() * pool.length)];
+  S.me = { x, feet, beanie: !!(S.B.snowy || S.snowfall) };
 }
 
 function skyAt(S, e) {
@@ -311,7 +335,7 @@ function timeWord(p) {
 }
 
 /* ---------- render one frame ---------- */
-function render(S, out, t, p) {
+function render(S, out, t, p, opts = {}) {
   const { W, H, wy, hz, L, K, F, D, B } = S;
   const th = TAU * (p - 0.25), se = Math.sin(th);
   const C = skyAt(S, se);
@@ -499,6 +523,8 @@ function render(S, out, t, p) {
       for (const [ox, oy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const j = (y + oy) * W + x + ox; out[j] = pack(mix(unpack(out[j]), [200, 230, 120], a * 0.3)); }
     }
   }
+  /* little James */
+  if (S.me) drawMe(S, out, t, C, night, sunTint, opts);
   /* snowfall */
   if (S.snowfall) {
     const sc = mix(WHITE, C.top, 0.15);
@@ -507,6 +533,35 @@ function render(S, out, t, p) {
       const i = y * W + x; out[i] = pack(mix(unpack(out[i]), sc, 0.85));
       if (s.big && x + 1 < W && y + 1 < H) { out[i + 1] = out[i]; out[i + W] = out[i]; out[i + W + 1] = out[i]; }
     }
+  }
+}
+
+function meState(t, wave) {
+  if (wave) return Math.floor(t * 5) % 2 ? 'wave1' : 'wave0';
+  const c = t % 9; if (c > 6.2 && c < 7.7) return 'look';
+  if (t % 3.7 < 0.15) return 'blink';
+  return Math.floor(t * 4) % 2 ? 'type1' : 'type0';
+}
+function drawMe(S, out, t, C, night, sunTint, opts) {
+  const J = PixelJames, me = S.me, { W, H } = S;
+  const st = meState(t, opts.wave);
+  me.cache = me.cache || {};
+  const sp = me.cache[st] || (me.cache[st] = J.sprite(st, { beanie: me.beanie }));
+  const x0 = me.x - (sp.w >> 1), y0 = me.feet - (sp.h - 2);
+  me.box = { x: x0, y: y0, w: sp.w, h: sp.h };
+  const glow = hex('#9fd0ff'), lit = {};
+  for (let j = 0; j < sp.h; j++) for (let i = 0; i < sp.w; i++) {
+    const code = sp.g[j * sp.w + i]; if (!code) continue;
+    const x = x0 + i, y = y0 + j; if (x < 0 || x >= W || y < 0 || y >= H) continue;
+    let c = lit[code];
+    if (!c) {
+      const base = J.RGB[code];
+      let v = code === J.M.OUT ? mix(base, C.amb, 0.25) : mix(C.amb, tint(base, sunTint), 0.25 + C.light * 0.75);
+      if ((code === J.M.SKIN || code === J.M.SKINS || code === J.M.EYE) && night > 0) v = mix(v, glow, 0.35 * night); // laptop glow on the face
+      if (code === J.M.LIDL && night > 0) v = mix(v, glow, 0.5 * night);
+      c = lit[code] = pack(v);
+    }
+    out[y * W + x] = c;
   }
 }
 

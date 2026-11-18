@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { PixelScene } from '@/lib/pixel-scene/scene';
+import { PixelJames } from '@/lib/pixel-scene/james';
 import { Check, Clipboard } from 'lucide-react';
 import BeaverLoader from './BeaverLoader';
 import AnthropicIcon from './icons/AnthropicIcon';
@@ -27,11 +28,14 @@ type FontKey = keyof typeof FONTS;
 type SizeKey = keyof typeof SIZES;
 const MONO = 'ui-monospace, "SF Mono", SFMono-Regular, var(--font-geist-mono), Menlo, monospace';
 
-type Scene = NonNullable<ReturnType<typeof PixelScene.generate>> & { phase0: number; name: string };
+type Scene = NonNullable<ReturnType<typeof PixelScene.generate>> & { phase0: number; name: string; me?: { box?: { x: number; y: number; w: number; h: number } } };
 
 export default function PixelLanding() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const st = useRef<{ S?: Scene; seed: number; phase: number | null; t: number; speed: number; img?: ImageData; buf?: Uint32Array }>({ seed: 0, phase: null, t: 0, speed: 1 });
+  const st = useRef<{ S?: Scene; seed: number; phase: number | null; t: number; speed: number; waveUntil: number; img?: ImageData; buf?: Uint32Array }>({ seed: 0, phase: null, t: 0, speed: 1, waveUntil: -1 });
+  const faceRef = useRef<HTMLCanvasElement>(null);
+  const [hi, setHi] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false });
+  const hiTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const [ready, setReady] = useState(false);
   const [caption, setCaption] = useState({ no: '', name: '', tod: '' });
   const [copied, setCopied] = useState(false);
@@ -44,7 +48,7 @@ export default function PixelLanding() {
   const draw = useCallback(() => {
     const s = st.current, cv = canvasRef.current;
     if (!s.S || !s.img || !s.buf || !cv) return;
-    PixelScene.render(s.S, s.buf, s.t, s.phase!);
+    PixelScene.render(s.S, s.buf, s.t, s.phase!, { wave: s.t < s.waveUntil });
     cv.getContext('2d', { alpha: false })!.putImageData(s.img, 0, 0);
     const tod = PixelScene.timeWord(s.phase!);
     setCaption((c) => (c.tod === tod ? c : { ...c, tod }));
@@ -92,6 +96,26 @@ export default function PixelLanding() {
     return () => { pause(); document.removeEventListener('visibilitychange', onVis); removeEventListener('resize', onResize); };
   }, [setup, draw]);
 
+  // portrait on the name plate
+  useEffect(() => {
+    const ctx = faceRef.current?.getContext('2d'); if (!ctx) return;
+    const im = ctx.createImageData(32, 32); new Uint32Array(im.data.buffer).set(PixelJames.portrait()); ctx.putImageData(im, 0, 0);
+  }, []);
+
+  // little James in the scene: hover shows a pointer, click makes him wave and say hi
+  const hitMe = (e: React.PointerEvent | React.MouseEvent) => {
+    const cv = canvasRef.current, b = st.current.S?.me?.box; if (!cv || !b) return false;
+    const r = cv.getBoundingClientRect(), x = ((e.clientX - r.left) / r.width) * cv.width, y = ((e.clientY - r.top) / r.height) * cv.height;
+    return x >= b.x - 2 && x <= b.x + b.w + 2 && y >= b.y - 3 && y <= b.y + b.h + 1;
+  };
+  const onSceneClick = (e: React.MouseEvent) => {
+    const cv = canvasRef.current, b = st.current.S?.me?.box; if (!cv || !b || !hitMe(e)) return;
+    st.current.waveUntil = st.current.t + 2.6; draw();
+    const r = cv.getBoundingClientRect();
+    setHi({ x: r.left + ((b.x + b.w / 2) / cv.width) * r.width, y: r.top + ((b.y - 1) / cv.height) * r.height, show: true });
+    clearTimeout(hiTimer.current); hiTimer.current = setTimeout(() => setHi((h) => ({ ...h, show: false })), 2400);
+  };
+
   const newScene = () => {
     st.current.phase = null;
     setup(1 + Math.floor(Math.random() * 99999), null);
@@ -131,7 +155,16 @@ export default function PixelLanding() {
         aria-label="A generated pixel-art landscape that changes with every visit"
         className="absolute inset-0 w-full h-full"
         style={{ imageRendering: 'pixelated', opacity: ready ? 1 : 0, transition: 'opacity .6s ease' }}
+        onClick={onSceneClick}
+        onPointerMove={(e) => { e.currentTarget.style.cursor = hitMe(e) ? 'pointer' : ''; }}
       />
+      <div
+        role="status"
+        className="fixed z-10 pointer-events-none whitespace-nowrap rounded-lg border border-white/[.18] bg-[#0e0d12]/70 backdrop-blur-md px-2.5 py-1 text-xs"
+        style={{ left: hi.x, top: hi.y, fontFamily: MONO, opacity: hi.show ? 1 : 0, transform: `translate(-50%, -100%) scale(${hi.show ? 1 : 0.6})`, transition: 'opacity .25s ease, transform .35s cubic-bezier(.3,1.6,.5,1)' }}
+      >
+        {hi.show ? 'hi 👋' : ''}
+      </div>
 
       {/* Shown only if the scene is slow to start (CSS delay), so fast loads never flash it. */}
       {!ready && (
@@ -148,10 +181,11 @@ export default function PixelLanding() {
         }}
       >
         <h1
-          className="font-semibold tracking-tight leading-none rounded-[12px] border border-white/[.1] bg-[#0e0d12]/35 backdrop-blur-md px-[.4em] py-[.22em] max-w-full"
-          style={{ fontSize: 'min(clamp(calc(34px * var(--k)), calc(5.4vw * var(--k)), calc(68px * var(--k))), 9.6vw)', ...rise(900) }}
+          className="inline-flex items-center gap-[.32em] font-semibold tracking-tight leading-none rounded-[12px] border border-white/[.1] bg-[#0e0d12]/35 backdrop-blur-md px-[.4em] py-[.22em] max-w-full"
+          style={{ fontSize: 'min(clamp(calc(34px * var(--k)), calc(5.4vw * var(--k)), calc(68px * var(--k))), 8.2vw)', ...rise(900) }}
         >
-          James M. Smith
+          <canvas ref={faceRef} width={32} height={32} aria-hidden="true" className="-ml-[.12em] size-[1.1em] shrink-0" style={{ imageRendering: 'pixelated' }} />
+          <span>James M. Smith</span>
         </h1>
 
         <div className="inline-flex flex-col items-stretch gap-2 max-w-full">
