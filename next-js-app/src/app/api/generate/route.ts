@@ -3,6 +3,7 @@ import { generateText } from "ai";
 import fs from "fs";
 import path from "path";
 import { resolveModel } from "@/lib/llm";
+import { loadBragSheets } from "@/lib/brag-sheets";
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,13 +32,11 @@ export async function POST(req: NextRequest) {
     }
     const { model } = resolved;
 
-    const infoMdPath = path.join(process.cwd(), "info.md");
-    const infoMdContent = fs.readFileSync(infoMdPath, "utf-8");
-
-    const resumeMdPath = path.join(process.cwd(), "resume.md");
-    const resumeMdContent = fs.existsSync(resumeMdPath)
-      ? fs.readFileSync(resumeMdPath, "utf-8")
-      : "";
+    // Brag sheets are the source of truth; info.md/resume.md are the offline fallback.
+    const brag = await loadBragSheets();
+    const candidateInfo = brag
+      ? `These are the candidate's brag sheets, the source of truth about his work. Respect the confidence tags: state ✅/🟢 figures as fact, qualify 🟡 ones ("about", "projected"), never fill in ❓ or invent numbers.\n\n${brag.context}`
+      : localCandidateInfo();
 
     const systemInstructionsPath = path.join(
       process.cwd(),
@@ -51,28 +50,15 @@ export async function POST(req: NextRequest) {
 
     let imageAssetsText = "";
     if (useImageAssets) {
-      const imageAssetsPath = path.join(
-        process.cwd(),
-        "public",
-        "image-assets"
-      );
-      if (fs.existsSync(imageAssetsPath)) {
-        // Real image files only, with subfolder paths, so the model doesn't
-        // reference folder names as if they were images.
-        const imageFiles = (
-          fs.readdirSync(imageAssetsPath, { recursive: true }) as string[]
-        )
-          .filter((file) => /\.(jpe?g|png|webp|gif|svg)$/i.test(file))
-          .map((file) => file.split(path.sep).join("/"));
-        if (imageFiles.length > 0) {
-          imageAssetsText = `
+      const images = brag ? brag.images.map((i) => `- ${i.url} (${i.alt})`) : localImages();
+      if (images.length > 0) {
+        imageAssetsText = `
 **Available Image Assets:**
-You can use the following images in your design. Assume they are served from the '/image-assets' path. For example, to use 'profile.jpg', the path would STRICTLY be '/image-assets/profile.jpg'.
+You can use the following images in your design. Use each path EXACTLY as written. The text in parentheses describes the photo.
 ---
-${imageFiles.map((file) => `- ${file}`).join("\n")}
+${images.join("\n")}
 ---
 `;
-        }
       }
     }
 
@@ -89,13 +75,7 @@ ${additionalInstructions}
       .replace(/{{currentPath}}/g, currentPath)
       .replace("{{language}}", language);
 
-    const resumeText = resumeMdContent
-      ? `Here is the candidate's resume:\n---\n${resumeMdContent}\n---\n`
-      : "";
-
-    const userPrompt = `Here is the raw information about the candidate:\n---\n${infoMdContent}\n---\n${resumeText}${additionalInstructionsText}\n${imageAssetsText}`;
-
-
+    const userPrompt = `Here is the raw information about the candidate:\n---\n${candidateInfo}\n---\n${additionalInstructionsText}\n${imageAssetsText}`;
 
     const { text } = await generateText({
       model,
@@ -113,4 +93,22 @@ ${additionalInstructions}
       { status: 500 }
     );
   }
+}
+
+function localCandidateInfo(): string {
+  const read = (file: string) => {
+    const p = path.join(process.cwd(), file);
+    return fs.existsSync(p) ? fs.readFileSync(p, "utf-8") : "";
+  };
+  const resume = read("resume.md");
+  return read("info.md") + (resume ? `\n---\nHere is the candidate's resume:\n${resume}` : "");
+}
+
+// Real image files only, with subfolder paths, served from /image-assets.
+function localImages(): string[] {
+  const dir = path.join(process.cwd(), "public", "image-assets");
+  if (!fs.existsSync(dir)) return [];
+  return (fs.readdirSync(dir, { recursive: true }) as string[])
+    .filter((file) => /\.(jpe?g|png|webp|gif|svg)$/i.test(file))
+    .map((file) => `- /image-assets/${file.split(path.sep).join("/")}`);
 }

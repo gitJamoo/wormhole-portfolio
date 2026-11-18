@@ -105,9 +105,9 @@ const experiences: Experience[] = [
     role: "Co-Founder",
     period: "February 2023 - Present",
     description:
-      "Co-founded and scaled a tech startup by building a robust, secure, and scalable full-stack application from the ground up.",
+      "Co-founded a B2B SaaS creator marketplace and built the full MERN stack, Auth0 and Stripe Connect included. 1,000+ users; won OSU's pitch competition.",
     longDescription:
-      "As technical co-founder, I led Envolvly's development from concept to a scalable app with active users. I architected the full-stack infrastructure using React, AWS, and MongoDB, and established all technical operations, including the CI/CD pipeline. My leadership in applying Agile methodologies was key to our rapid growth and winning the OSU Business Pitch Competition, demonstrating strong technical and business acumen.",
+      "As technical co-founder of Envolvly, a B2B SaaS marketplace for creators, I built the full MERN stack from scratch and still lead engineering: Auth0 authentication, Stripe Connect payments and creator payouts, AWS hosting and CI/CD. We grew to 1,000+ users and won OSU's school-wide startup pitch competition.",
     logo: envolvlyLogo,
   },
   {
@@ -239,49 +239,44 @@ Next.js + TypeScript + Tailwind CSS frontend, Supabase backend, Every.org Partne
   {
     name: "Envolvly",
     category: "Products",
-    technologies: "GitHub, Docker, AWS, React, Typescript, MongoDB",
-    period: "September 2023 - Present",
+    technologies: "React, TypeScript, Node.js, Express, MongoDB, Auth0, Stripe Connect, AWS",
+    period: "February 2023 - Present",
     description:
-      "B2B SaaS I co-founded at OSU. Built the full stack from scratch — React, Node.js, MongoDB, AWS — and grew it to 1,000+ users. Won OSU's school-wide pitch competition.",
+      "B2B SaaS marketplace for creators that I co-founded at OSU. I built the full MERN stack from scratch, grew it to 1,000+ users, and won OSU's school-wide pitch competition.",
     longDescription:
-      "Envolvly is a B2B SaaS I co-founded at Oregon State. I built the full-stack infrastructure — React, Node.js, MongoDB, AWS — set up CI/CD, and led engineering throughout. We won OSU's school-wide pitch competition, and the platform has reached 1,000+ users. I'm still the primary engineer.",
+      "Envolvly is a B2B SaaS marketplace for creators that I co-founded at Oregon State. As technical co-founder I built the full MERN application (MongoDB, Express, React, Node.js) from scratch and still lead engineering. That includes Auth0 authentication with backend client-credentials flows and refresh-token handling, and Stripe Connect for everything from customer payments to creator payouts. It has 1,000+ users, and we won OSU's school-wide startup pitch competition.",
     image: envolvlyProjectThumbnail,
     liveUrl: "https://www.envolvly.com",
     features: [
-      "Full-stack web application with real-time updates",
-      "AWS infrastructure with auto-scaling",
-      "CI/CD pipeline for automated deployments",
-      "MongoDB backend with optimized queries"
+      "Creator marketplace on a full MERN stack",
+      "Stripe Connect payments and creator payouts",
+      "Auth0 authentication with JWT expiry and refresh-token handling",
+      "AWS hosting with Docker and GitHub Actions CI/CD"
     ],
     techStack: [
-      { category: "Frontend", technologies: ["React", "TypeScript", "CSS3"] },
+      { category: "Frontend", technologies: ["React", "TypeScript"] },
       { category: "Backend", technologies: ["Node.js", "Express", "MongoDB"] },
-      { category: "DevOps", technologies: ["AWS", "Docker", "GitHub Actions"] },
-      { category: "Tools", technologies: ["Git", "Postman", "VS Code"] }
+      { category: "Auth & Payments", technologies: ["Auth0", "Stripe Connect"] },
+      { category: "DevOps", technologies: ["AWS", "Docker", "GitHub Actions"] }
     ],
     metrics: [
-      { label: "Active Users", value: "1,000+" },
-      { label: "Uptime", value: "99.9%" },
-      { label: "Response Time", value: "<200ms" }
+      { label: "Users", value: "1,000+" },
+      { label: "OSU pitch competition", value: "Winner" },
+      { label: "Role", value: "Co-founder" }
     ],
-    documentation: `## Project Overview
-Envolvly is a comprehensive platform designed to connect students with volunteer opportunities and track their community service hours. The platform streamlines the volunteer management process for both organizations and volunteers.
+    documentation: `## Envolvly
 
-## Technical Architecture
-- **Frontend**: Built with React and TypeScript for type safety and maintainability
-- **Backend**: Node.js/Express API with RESTful endpoints
-- **Database**: MongoDB for flexible document storage
-- **Hosting**: AWS EC2 with load balancing and auto-scaling
-- **CI/CD**: Automated testing and deployment via GitHub Actions
+A B2B SaaS marketplace for creators, co-founded at Oregon State.
 
-## Key Achievements
-- Won OSU Business Pitch Competition ($10,000 prize)
-- Achieved 1,000+ active users within first year
-- Maintained 99.9% uptime since launch
-- Implemented comprehensive security measures including encryption and OAuth
+## What I built
+- **Full-stack MERN app:** MongoDB, Express, React and Node.js, built from scratch. I've been the primary engineer from the start.
+- **Auth:** Auth0, with backend client-credentials flows, JWT expiry handling and refresh-token management.
+- **Payments:** Stripe Connect for the whole money flow, from customer payments to creator payouts.
+- **Infra:** AWS hosting, Docker, and a GitHub Actions CI/CD pipeline, built in Agile sprints with feature branches and PR review.
 
-## Development Process
-Followed Agile methodology with 2-week sprints, daily standups, and continuous integration. Utilized Git for version control with feature branching and pull request reviews.`
+## Milestones
+- Grew to 1,000+ users.
+- Won Oregon State's school-wide startup pitch competition.`
   },
   {
     name: "StuntCV",
@@ -352,7 +347,7 @@ Built with Python using OpenCV for video processing and MediaPipe for pose estim
     description:
       "Native desktop app that uses your webcam to monitor eye gaze and posture. Sends alerts when you drift. All processing is local — nothing leaves your machine.",
     longDescription:
-      "OVERSEER runs silently in the background and uses OpenCV to watch your eye gaze and body posture via webcam. When it detects you've zoned out or are slouching, it sends a corrective alert. Built with Rust and Tauri for a lightweight native binary — far less overhead than an Electron alternative. All processing is local; no data is sent anywhere. Has paying users.",
+      "OVERSEER runs silently in the background and uses OpenCV to watch your eye gaze and body posture via webcam. When it detects you've zoned out or are slouching, it sends a corrective alert. Built with Rust and Tauri for a lightweight native binary — far less overhead than an Electron alternative. All processing is local; no data is sent anywhere. Shipped with a 14-day trial and a Pro license.",
     image: OVERSEERProjectThumbnail,
     liveUrl: "https://overseer-website.vercel.app",
     features: [
@@ -367,7 +362,7 @@ Built with Python using OpenCV for video processing and MediaPipe for pose estim
       { category: "Platform", technologies: ["Desktop (Windows, macOS, Linux)"] }
     ],
     metrics: [
-      { label: "Paying Users", value: "Active" },
+      { label: "Built in", value: "13 days" },
       { label: "Detection", value: "Real-time" },
       { label: "Data Privacy", value: "100% Local" }
     ],
@@ -397,7 +392,7 @@ OVERSEER runs silently in the background, using your webcam to track eye gaze an
 - System tray integration for unobtrusive monitoring
 
 ## Distribution
-Shipped as a signed installer for Windows, macOS, and Linux. Available for purchase with active paying users.`
+Shipped with a 14-day free trial and a Pro tier unlocked by a LemonSqueezy license key.`
   },
   {
     name: "COORDINATOR",
@@ -432,56 +427,53 @@ Shipped as a signed installer for Windows, macOS, and Linux. Available for purch
   {
     name: "OpenBeavs",
     category: "AI & ML",
-    technologies: "React.js, Node.js, Python, GCP",
-    period: "September 2025 - Present",
+    technologies: "SvelteKit, FastAPI, Python, Google A2A, GCP Cloud Run, Firestore, Gemini embeddings",
+    period: "October 2025 - June 2026",
     description:
-      "University-wide AI portal I built during my AI Advisor role at OSU. A single secured interface that routes faculty to multiple agentic AI services.",
+      "Oregon State's AI agent hub: students and faculty sign in with their OSU account, then discover, install, and chat with specialized agents built on Google's A2A protocol.",
     longDescription:
-      "During my AI Advisor role at Oregon State, I built OpenBeavs (formerly the Genesis AI Hub) as the official front-end for OSU's internal agentic tools. Faculty log in via Microsoft SSO and Duo, then interact with specialized agents through a shared chat interface. The backend uses a registry pattern — new agents can be registered and made available without touching the frontend. Built for a 35,000-student institution with FERPA compliance requirements.",
+      "OpenBeavs was my senior capstone and grew out of the GENESIS AI Hub I built as OSU's AI Advisor. It's a single OSU-authenticated hub (forked from Open WebUI) where any team can register an agent in any language through Google's open A2A protocol. I led engineering on a four-person team: 134 of 234 commits (57%) and 28 of 49 merged PRs in the core repo. I built the A2A agent registry and routing, and I'm the sole author of the OSU RAG pipeline (a crawler that continuously indexes oregonstate.edu into Firestore vector search) and the example agent library, about 29K lines across three repos. I also built the Microsoft SSO integration and a zero-manual-step Cloud Run deployment with CI. It's live at genesis.dev.oregonstate.edu, and the next capstone team has picked it up.",
     image: OpenBeavsProjectThumbnail,
     imageFit: "contain",
-    githubUrl: "https://github.com/GENESIS-AI-Hub/GENESIS-AI-Hub-App",
-    liveUrl: "https://openbeavs-deploy-test-716080272371.us-west1.run.app/",
+    githubUrl: "https://github.com/OpenBeavs",
+    liveUrl: "https://genesis.dev.oregonstate.edu/",
+    demoVideoUrl: "https://youtu.be/_Dzs6amoz1c",
     features: [
-      "Registry-based architecture for registering new agents without frontend changes",
-      "Microsoft SSO & Duo authentication",
-      "Persistent chat history per user",
-      "File upload and document attachment support"
+      "A2A agent registry: agent-card discovery, JSON-RPC routing between agents, admin and visibility controls",
+      "OSU RAG pipeline: a rate-limited BFS crawler that continuously indexes oregonstate.edu into Firestore vector search with Gemini embeddings",
+      "Example A2A agent library: a working agent in minutes, in any language",
+      "Microsoft Entra ID SSO, so OSU users don't need a new account",
+      "One-command GCP Cloud Run deploys, with CI gates (ruff, ESLint, pytest)"
     ],
     techStack: [
-      { category: "Frontend", technologies: ["React.js", "TypeScript"] },
-      { category: "Backend", technologies: ["Node.js", "Python (FastAPI/Flask)", "Java (Spring Boot)"] },
-      { category: "Authentication", technologies: ["Microsoft SSO", "Duo"] },
-      { category: "Cloud/Data", technologies: ["Google Cloud Platform (GCP)", "PostgreSQL", "Firebase"] }
+      { category: "Frontend", technologies: ["SvelteKit", "Open WebUI (fork)", "TypeScript"] },
+      { category: "Backend", technologies: ["FastAPI", "Python", "Google A2A (JSON-RPC 2.0)"] },
+      { category: "Data/AI", technologies: ["Firestore vector search", "Gemini embeddings", "LangChain"] },
+      { category: "Infra", technologies: ["GCP Cloud Run", "Docker", "GitHub Actions", "Microsoft Entra ID SSO"] }
     ],
     metrics: [
-      { label: "Response Latency", value: "<5s" },
-      { label: "Target Users", value: "10,000+" },
-      { label: "Compliance", value: "FERPA/SSO" }
+      { label: "Core-repo commits", value: "57%" },
+      { label: "Merged PRs", value: "28 of 49" },
+      { label: "Lines added", value: "~29K" }
     ],
     documentation: `## OpenBeavs
 
-A secure, web-based portal for registering and interacting with agentic AI applications for Oregon State Faculty. Formerly known as the OSU Genesis AI Hub.
+Oregon State's AI agent hub. Students and faculty sign in with their OSU account, then discover, install, and chat with specialized AI agents. Every agent speaks Google's open **A2A** protocol (JSON-RPC 2.0, \`/.well-known/agent.json\` agent cards), so any team can plug one in, written in any language.
 
-## Concept
-The Hub provides a unified front-end for multiple independent AI agents. Instead of disparate tools, faculty access a single, branded interface where developers can register new agentic services using a standardized protocol.
+## Lineage
+GENESIS AI Hub (React + FastAPI registry, built in my AI Advisor role) → a fork of Open WebUI → **OpenBeavs** (SvelteKit + FastAPI, senior capstone, live). One platform, three iterations.
 
-## Technical Architecture
+## What I built
+- **A2A agent registry and routing:** agent-card discovery, routing between agents, admin management, visibility controls.
+- **OSU RAG pipeline (sole author):** a multi-threaded BFS crawler with rate limiting, a circuit breaker, retry/backoff and robots.txt compliance. It continuously indexes oregonstate.edu, then an ETL step chunks the pages into Firestore vector search with Gemini embeddings.
+- **Example A2A agent library (sole author):** proof that you can build an agent in minutes.
+- **Microsoft SSO:** de-risked "no new accounts" with a standalone Entra ID test app first.
+- **Zero-manual-step Cloud Run deployment** and CI (ruff, ESLint, pytest).
 
-### Frontend & Security
-- Built with React.js for a responsive, professional chat experience.
-- Strict access control via OSU Microsoft SSO and Duo authentication.
+## Numbers
+134 of 234 commits (57%) and 28 of 49 merged PRs in the core repo, the most of any contributor on a four-person team. About 29K lines added across three repos.
 
-### Registry & Routing
-- Centralized registry system to manage agent metadata and endpoints.
-- Backend routing that passes conversation context and attachments to the selected agent (e.g., FAIE or GOA).
-
-### Infrastructure
-- Preferred deployment on Google Cloud Platform (GCP).
-- Persistent storage for user sessions and chat histories.
-
-## Success Criteria
-Success is measured by the ability to register a simple backend agentic system with the Hub and successfully invoke it through the frontend chat interface to perform specific tasks.`
+Live at genesis.dev.oregonstate.edu (requires an OSU login).`
   },
   {
     name: "ResumAI",
@@ -825,32 +817,6 @@ Acts as a reverse proxy, routing .home hostnames to the appropriate Docker conta
 SSH is configured over Tailscale for all nodes. Services are accessed via Magic DNS (.home hostnames) from any device on the tailnet — no VPN client setup required beyond Tailscale.`
   },
   {
-    name: "Second Brain Pipeline",
-    category: "AI & ML",
-    technologies: "Python, Claude API, Haiku, Sonnet, Obsidian, Markdown",
-    period: "June 2026 – Present",
-    description:
-      "Two-tier agent pipeline that converts 1,400+ AI conversations into a structured Obsidian knowledge base — Haiku for batch digesting, Sonnet for synthesis.",
-    longDescription:
-      "I had 1,400+ conversations across Claude, ChatGPT, Gemini, and Claude Code with no good way to access what I'd learned in them. So I built this: adapters normalize conversations from all four sources into a unified markdown archive, then Haiku-class subagents batch-digest each conversation cheaply, and Sonnet-class agents synthesize the digests into structured Topic, Solution, Decision, and People notes written directly into Obsidian. It runs automatically — every new conversation gets processed and distilled.",
-    features: [
-      "Multi-source adapters for Claude, ChatGPT, Gemini, and Claude Code exports",
-      "Haiku-class subagents for cost-efficient batch digesting",
-      "Sonnet-class agents for synthesis into Topics, Solutions, Decisions, People notes",
-      "Auto-writes structured notes directly into Obsidian vault"
-    ],
-    techStack: [
-      { category: "Language", technologies: ["Python"] },
-      { category: "AI", technologies: ["Claude API", "claude-haiku-4-5", "claude-sonnet-4-5"] },
-      { category: "Knowledge Base", technologies: ["Obsidian", "Markdown"] }
-    ],
-    metrics: [
-      { label: "Conversations", value: "1,400+" },
-      { label: "Agent Tiers", value: "2" },
-      { label: "Sources", value: "4 providers" }
-    ],
-  },
-  {
     name: "Hermes",
     category: "AI & ML",
     technologies: "Raspberry Pi 5, Dell OptiPlex, Python, Telegram, N8N, Obsidian, open-source agent framework",
@@ -978,7 +944,7 @@ export default function WorkContent({ compactHeader = false }: { compactHeader?:
             </p>
             <nav className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-600 dark:text-gray-400">
               <a href="https://www.linkedin.com/in/james-m-smith1/" target="_blank" rel="noopener noreferrer" className={navLink}>LinkedIn</a>
-              <a href="mailto:james.smith.tig@gmail.com" className={navLink}>Email</a>
+              <a href="mailto:real.jamesmsmith@gmail.com" className={navLink}>Email</a>
               <a href="https://github.com/gitJamoo" target="_blank" rel="noopener noreferrer" className={navLink}>GitHub</a>
             </nav>
             <div className="mt-8 grid lg:grid-cols-2 gap-6 text-base leading-relaxed text-gray-700 dark:text-gray-300 max-w-4xl">

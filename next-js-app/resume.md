@@ -1,6 +1,6 @@
 # JAMES M. SMITH
 
-San Francisco, CA | (503) 713-8776 | james.smith.tig@gmail.com
+San Francisco, CA | (503) 713-8776 | real.jamesmsmith@gmail.com
 LinkedIn: linkedin.com/in/james-m-smith1 | GitHub: github.com/gitJamoo | Portfolio: j-m-s.dev
 US Citizen
 
@@ -130,11 +130,6 @@ Live at ecodues.org | Open source (MIT), github.com/gitJamoo
 
 - Designed and operate a phased multi-agent AI coordinator on self-hosted hardware (Raspberry Pi 5 and Dell OptiPlex), using Notion as a shared state layer, MCP integrations for Gmail and Calendar, and a Telegram human-approval gate for outbound actions.
 - Applied security-first agent design: hardcoded sender allowlists, separate agent-owned email identity, and approval flows routed outside email to prevent command injection.
-
-### Second Brain Pipeline — LLM Knowledge Distillation System (2026 – Present)
-
-- Built a pipeline that ingests 1,400+ AI conversation exports across four formats (Claude, ChatGPT, Gemini Takeout, Claude Code JSONL) via an adapter pattern and distills them into an Obsidian knowledge base of topics, solutions, decisions, and people.
-- Optimized inference costs by routing per-conversation digests to a small model and reserving a frontier model for synthesis.
 
 ### Wormhole Portfolio / LLM Sandbox — Interactive AI Education Lab (2025 – 2026)
 Live at j-m-s.dev
