@@ -8,6 +8,9 @@ import Image from 'next/image';
 import headshot from '../../../public/image-assets/smiling-headshot.jpg';
 import { Check, Clipboard } from 'lucide-react';
 import BeaverLoader from './BeaverLoader';
+import dynamic from 'next/dynamic';
+
+const ResumeOverlay = dynamic(() => import('../resume/print/ResumeOverlay'), { ssr: false });
 import AnthropicIcon from './icons/AnthropicIcon';
 import OpenAIIcon from './icons/OpenAIIcon';
 
@@ -56,6 +59,7 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
   const [hi, setHi] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false });
   const hiTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const [ready, setReady] = useState(false);
+  const [resumeAt, setResumeAt] = useState<{ seed: number; phase: number } | null>(null);
   const [caption, setCaption] = useState({ no: '', name: '', tod: '' });
   const [copied, setCopied] = useState(false);
   const [fast, setFast] = useState(false);
@@ -171,8 +175,9 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
   const openResume = (e: React.MouseEvent) => {
     const s = st.current; if (!s.seed || s.phase == null) return;
     e.preventDefault();
-    location.href = `/resume/print?scene=${sceneSlug(s.seed, s.phase)}&print=1`;
+    setResumeAt({ seed: s.seed, phase: s.phase });
   };
+  const closeResume = useCallback(() => setResumeAt(null), []);
 
   const goTo = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -433,6 +438,7 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
           </div>
         </div>
       )}
+      {resumeAt && <ResumeOverlay seed={resumeAt.seed} phase={resumeAt.phase} onClose={closeResume} />}
     </div>
   );
 }

@@ -89,4 +89,8 @@ body {
     background: #fff !important;
     margin: 0 !important;
   }
+  /* the resume overlay on any page: print only the sheet */
+  html[data-resume-print] body > :not([data-resume-portal]) {
+    display: none !important;
+  }
 }
