@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { PixelScene } from '@/lib/pixel-scene/scene';
+import { sceneSlug } from '@/lib/pixel-scene/share';
 import Image from 'next/image';
 import headshot from '../../../public/image-assets/smiling-headshot.jpg';
 import { Check, Clipboard } from 'lucide-react';
@@ -41,7 +42,7 @@ const NAV = [
 ];
 const ease = (x: number) => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
 
-export default function PixelLanding({ children }: { children?: React.ReactNode }) {
+export default function PixelLanding({ children, initialSeed, initialPhase = null }: { children?: React.ReactNode; initialSeed?: number; initialPhase?: number | null }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const st = useRef<{ S?: Scene; seed: number; phase: number | null; t: number; speed: number; waveUntil: number; scroll: number; img?: ImageData; buf?: Uint32Array }>({ seed: 0, phase: null, t: 0, speed: 1, waveUntil: -1, scroll: 0 });
   const stageRef = useRef<HTMLDivElement>(null);
@@ -91,7 +92,8 @@ export default function PixelLanding({ children }: { children?: React.ReactNode 
     const s = st.current;
     const m = location.hash.match(/^#(\d{1,5})(?:-(\d{1,3}))?$/);
     setLab(new URLSearchParams(location.search).has('lab'));
-    setup(m ? +m[1] : 1 + Math.floor(Math.random() * 99999), m && m[2] ? +m[2] / 1000 : null);
+    if (m) setup(+m[1], m[2] ? +m[2] / 1000 : null);
+    else setup(initialSeed ?? 1 + Math.floor(Math.random() * 99999), initialSeed ? initialPhase : null);
     setReady(true);
 
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -113,6 +115,7 @@ export default function PixelLanding({ children }: { children?: React.ReactNode 
     document.addEventListener('visibilitychange', onVis);
     addEventListener('resize', onResize);
     return () => { pause(); document.removeEventListener('visibilitychange', onVis); removeEventListener('resize', onResize); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- the initial scene is only read on mount
   }, [setup, draw]);
 
   // Scroll: the scene sinks and zooms a touch, the intro lifts away faster, a vignette closes in,
@@ -187,12 +190,13 @@ export default function PixelLanding({ children }: { children?: React.ReactNode 
   const newScene = () => {
     st.current.phase = null;
     setup(1 + Math.floor(Math.random() * 99999), null);
-    history.replaceState(null, '', location.pathname + location.search);
+    history.replaceState(null, '', location.pathname.startsWith('/s/') ? '/' : location.pathname + location.search);
   };
   const toggleFast = () => { st.current.speed = st.current.speed === 1 ? 40 : 1; setFast(st.current.speed > 1); };
   const share = async () => {
     const s = st.current;
-    const url = `${location.origin}/#${s.seed}-${String(Math.round(s.phase! * 1000) % 1000).padStart(3, '0')}`;
+    // /s/<seed>-<time> opens this exact scene, and its link preview is this scene too
+    const url = `${location.origin}/s/${sceneSlug(s.seed, s.phase!)}`;
     try { if (navigator.share) { await navigator.share({ title: s.S?.name, url }); return; } } catch (e) { if ((e as Error).name === 'AbortError') return; }
     try { await navigator.clipboard.writeText(url); } catch {}
   };
