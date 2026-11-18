@@ -88,9 +88,6 @@ LLM-regenerated portfolio — every page visit generates unique content. Support
 ### Hermes *(in progress)*
 Personal multi-agent AI coordinator running on a Pi 5 + OptiPlex homelab. Telegram interface with human-approval gate for sensitive actions. Agentic architecture with task routing.
 
-### Second Brain Pipeline
-LLM-native knowledge system: 1,400+ conversations distilled into an Obsidian vault via Claude Haiku/Sonnet agents. Turns raw archive notes into structured Topics, Solutions, Decisions, and People notes.
-
 ### StuntCV
 **github.com/gitJamoo/StuntCV**
 YOLOv8 + ByteTrack body tracking application for cheer stunt analysis. FastAPI web UI. Tracks the base and flyer, exports pose data to CSV, overlays skeleton views on video.

@@ -14,7 +14,7 @@ export default function ContactFormEmbedded() {
           <Link href="/book" className={buttonSecondary}>
             Book a meeting
           </Link>
-          <a href="mailto:james.smith.tig@gmail.com" className={buttonSecondary}>
+          <a href="mailto:real.jamesmsmith@gmail.com" className={buttonSecondary}>
             Email me
           </a>
         </div>
