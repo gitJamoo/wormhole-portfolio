@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { PixelScene } from '@/lib/pixel-scene/scene';
-import { PixelJames } from '@/lib/pixel-scene/james';
+import Image from 'next/image';
+import face from '../../../public/image-assets/face.jpg';
 import { Check, Clipboard } from 'lucide-react';
 import BeaverLoader from './BeaverLoader';
 import AnthropicIcon from './icons/AnthropicIcon';
@@ -33,7 +34,6 @@ type Scene = NonNullable<ReturnType<typeof PixelScene.generate>> & { phase0: num
 export default function PixelLanding() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const st = useRef<{ S?: Scene; seed: number; phase: number | null; t: number; speed: number; waveUntil: number; img?: ImageData; buf?: Uint32Array }>({ seed: 0, phase: null, t: 0, speed: 1, waveUntil: -1 });
-  const faceRef = useRef<HTMLCanvasElement>(null);
   const [hi, setHi] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false });
   const hiTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const [ready, setReady] = useState(false);
@@ -95,12 +95,6 @@ export default function PixelLanding() {
     addEventListener('resize', onResize);
     return () => { pause(); document.removeEventListener('visibilitychange', onVis); removeEventListener('resize', onResize); };
   }, [setup, draw]);
-
-  // portrait on the name plate
-  useEffect(() => {
-    const ctx = faceRef.current?.getContext('2d'); if (!ctx) return;
-    const im = ctx.createImageData(32, 32); new Uint32Array(im.data.buffer).set(PixelJames.portrait()); ctx.putImageData(im, 0, 0);
-  }, []);
 
   // little James in the scene: hover shows a pointer, click makes him wave and say hi
   const hitMe = (e: React.PointerEvent | React.MouseEvent) => {
@@ -184,7 +178,7 @@ export default function PixelLanding() {
           className="inline-flex items-center gap-[.32em] font-semibold tracking-tight leading-none rounded-[12px] border border-white/[.1] bg-[#0e0d12]/35 backdrop-blur-md px-[.4em] py-[.22em] max-w-full"
           style={{ fontSize: 'min(clamp(calc(34px * var(--k)), calc(5.4vw * var(--k)), calc(68px * var(--k))), 8.2vw)', ...rise(900) }}
         >
-          <canvas ref={faceRef} width={32} height={32} aria-hidden="true" className="-ml-[.12em] size-[1.1em] shrink-0" style={{ imageRendering: 'pixelated' }} />
+          <Image src={face} alt="" priority sizes="80px" className="-ml-[.12em] size-[1.1em] shrink-0 rounded-full object-cover ring-1 ring-white/25" />
           <span>James M. Smith</span>
         </h1>
 
