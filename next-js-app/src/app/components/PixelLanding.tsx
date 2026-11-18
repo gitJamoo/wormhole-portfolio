@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { PixelScene } from '@/lib/pixel-scene/scene';
 import { sceneSlug } from '@/lib/pixel-scene/share';
+import { FLIGHT_IDS, flightFor, playIntro, type FlightId, type IntroMode } from '@/lib/pixel-scene/intro';
 import Image from 'next/image';
 import headshot from '../../../public/image-assets/smiling-headshot.jpg';
 import { Check, Clipboard } from 'lucide-react';
@@ -54,6 +55,13 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
   const vignetteRef = useRef<HTMLDivElement>(null);
   const washRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const fxRef = useRef<HTMLCanvasElement>(null);
+  const plateRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLHeadingElement>(null);
+  const roleRef = useRef<HTMLParagraphElement>(null);
+  const askRef = useRef<HTMLParagraphElement>(null);
+  const cmdRef = useRef<HTMLDivElement>(null);
+  const linksRef = useRef<HTMLElement>(null);
   const [navOn, setNavOn] = useState(false);
   const [active, setActive] = useState('');
   const [hi, setHi] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false });
@@ -121,6 +129,32 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
     return () => { pause(); document.removeEventListener('visibilitychange', onVis); removeEventListener('resize', onResize); };
   // eslint-disable-next-line react-hooks/exhaustive-deps -- the initial scene is only read on mount
   }, [setup, draw]);
+
+  // Entrance: the scene's birds fly in and become the name (one of five flights, picked by the scene).
+  // Repeat visits in a session get the quick dither; reduced motion shows everything at once.
+  // ?intro=drift|swirl|formation|rise|converge|dither forces one, for testing.
+  useEffect(() => {
+    const s = st.current, cv = canvasRef.current;
+    const parts = { plate: plateRef.current, name: nameRef.current, role: roleRef.current, ask: askRef.current, cmd: cmdRef.current, links: linksRef.current };
+    if (!cv || !s.buf || !fxRef.current || Object.values(parts).some((p) => !p)) return;
+    const q = new URLSearchParams(location.search).get('intro') ?? '';
+    let seen = false;
+    try { seen = sessionStorage.getItem('jms-intro') === '1'; sessionStorage.setItem('jms-intro', '1'); } catch {}
+    const forced = FLIGHT_IDS.includes(q as FlightId);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let stop = () => {};
+    let started = false;
+    const start = setTimeout(() => {
+      started = true;
+      const mode: IntroMode = reduce || scrollY > 8 ? 'none' : q === 'dither' ? 'dither' : forced ? 'birds' : seen ? 'dither' : 'birds';
+      stop = playIntro({ fx: fxRef.current!, buf: s.buf!, W: cv.width, H: cv.height, parts: parts as Record<keyof typeof parts, HTMLElement>, mode, flight: forced ? (q as FlightId) : flightFor(s.seed) });
+    }, 350);
+    // scrolling or resizing mid-flight skips to the end
+    const skip = () => { if (started) stop(); };
+    const onScroll = () => { if (scrollY > 8) skip(); };
+    addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', skip);
+    return () => { clearTimeout(start); stop(); removeEventListener('scroll', onScroll); removeEventListener('resize', skip); };
+  }, []);
 
   // Scroll: the scene sinks and zooms a touch, the intro lifts away faster, a vignette closes in,
   // the day drifts toward evening, then the nav slides down and the content rises over the scene.
@@ -269,6 +303,8 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
         className="fixed inset-0 pointer-events-none opacity-0"
         style={{ background: 'radial-gradient(ellipse 85% 75% at 50% 42%, transparent 35%, rgba(6,7,12,.55) 70%, rgba(6,7,12,.95) 100%)' }}
       />
+      {/* the entrance's birds fly over everything, on the scene's pixel grid */}
+      <canvas ref={fxRef} aria-hidden="true" className="fixed inset-0 z-20 w-full h-full pointer-events-none" style={{ imageRendering: 'pixelated' }} />
 
       {/* sticky nav: slides in once you scroll past the scene */}
       <header
@@ -316,26 +352,28 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
       <div className="max-w-6xl mx-auto px-6 sm:px-10 flex flex-col items-start gap-4 max-sm:items-center max-sm:text-center">
         {/* 1. name plate: who, what and where on the first screen */}
         <div
+          ref={plateRef}
           className="inline-flex items-center gap-[.32em] rounded-[12px] border border-white/[.1] bg-[#0e0d12]/35 backdrop-blur-md px-[.4em] py-[.22em] max-w-full max-sm:text-left"
-          style={{ fontSize: 'min(clamp(calc(34px * var(--k)), calc(5.4vw * var(--k)), calc(68px * var(--k))), 8.2vw)', ...rise(900) }}
+          style={{ fontSize: 'min(clamp(calc(34px * var(--k)), calc(5.4vw * var(--k)), calc(68px * var(--k))), 8.2vw)', opacity: 0 }}
         >
           <Image src={headshot} alt="" priority sizes="120px" className="-ml-[.12em] h-[1.55em] w-auto shrink-0 rounded-[.12em] ring-1 ring-white/25" />
           <div className="min-w-0">
-            <h1 className="font-semibold tracking-tight leading-none">James M. Smith</h1>
-            <p className="mt-[.22em] leading-snug tracking-normal text-[#f6ecdf]/80" style={{ fontSize: 'max(.3em, 13px)' }}>
+            <h1 ref={nameRef} className="font-semibold tracking-tight leading-none">James M. Smith</h1>
+            <p ref={roleRef} className="mt-[.22em] leading-snug tracking-normal text-[#f6ecdf]/80" style={{ fontSize: 'max(.3em, 13px)' }}>
               AI/Product Engineer at Magical · San Francisco
             </p>
           </div>
         </div>
 
         <div className="inline-flex flex-col items-stretch gap-2 max-w-full">
-          <p className="self-start max-sm:self-center rounded-md bg-[#0e0d12]/40 backdrop-blur-sm px-2.5 py-1 text-[#f6ecdf]/90 [text-shadow:0_1px_6px_rgba(0,0,0,.3)]" style={{ fontSize: 'calc(15px * var(--k))', ...rise(1300) }}>
+          <p ref={askRef} className="self-start max-sm:self-center rounded-md bg-[#0e0d12]/40 backdrop-blur-sm px-2.5 py-1 text-[#f6ecdf]/90 [text-shadow:0_1px_6px_rgba(0,0,0,.3)]" style={{ fontSize: 'calc(15px * var(--k))', opacity: 0 }}>
             Ask your agent about me:
           </p>
 
           <div
+            ref={cmdRef}
             className="flex items-center gap-3 rounded-[10px] border border-white/[.16] bg-[#0e0d12]/60 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,.18)] pl-4 pr-2 py-2 max-w-full"
-            style={{ fontFamily: MONO, fontSize: 'calc(14px * min(var(--k), 1.15))', ...rise(1550) }}
+            style={{ fontFamily: MONO, fontSize: 'calc(14px * min(var(--k), 1.15))', opacity: 0 }}
           >
             <a href={`https://${BRAG_REPO}`} target="_blank" rel="noopener noreferrer" className="min-w-0 truncate text-left hover:text-white" data-ph-capture-attribute-cta="brag_sheet">
               <span className="text-white/40 select-none">$ </span>
@@ -376,8 +414,9 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
           </div>
 
           <nav
+            ref={linksRef}
             className="grid grid-cols-3 rounded-[10px] border border-white/[.12] bg-[#0e0d12]/30 backdrop-blur-sm text-center text-[#f6ecdf]/85 divide-x divide-white/[.12] overflow-hidden"
-            style={{ fontSize: 'calc(13px * min(var(--k), 1.2))', ...rise(1800) }}
+            style={{ fontSize: 'calc(13px * min(var(--k), 1.2))', opacity: 0 }}
           >
             <a href="#featured" onClick={goTo('featured')} className="px-2 py-2 leading-tight hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="see_my_work">See my work</a>
             <Link href="/wormhole-config/" className="px-2 py-2 leading-tight hover:bg-white/[.08] hover:text-white" data-ph-capture-attribute-cta="enter_wormhole">Enter the Wormhole</Link>
