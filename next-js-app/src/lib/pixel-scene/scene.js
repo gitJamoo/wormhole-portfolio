@@ -299,12 +299,12 @@ function build(seed, attempt, W, H) {
   S.sky = SKY.map(k => ({ e: k.e, top: hshift(hex(k.top), mood.ht * k.tw, lerp(1, mood.s, k.tw)), hor: hshift(hex(k.hor), mood.hh * k.tw, lerp(1, mood.s, k.tw)), sun: hex(k.sun), amb: hshift(hex(k.amb), mood.ht * 0.5 * k.tw, 1), light: k.light, glow: k.glow }));
   S.name = `${mood.n} ${B.nouns[seed % B.nouns.length]}`;
   S.pal = new Uint32Array(16 * NK * 3 * 4);
-  placeMe(S, r, R, nearTop);
+  placeMe(S, r);
   return S;
 }
 
 /* Where little James sits: flat foreground ground, clear of big trees and the lighthouse. */
-function placeMe(S, r, R, nearTop) {
+function placeMe(S, r) {
   const { W, H, L, K, wy } = S;
   const busy = (x, feet) => { let n = 0; for (let y = feet - 15; y < feet; y++) for (let xx = x - 7; xx <= x + 7; xx++) { if (xx < 0 || xx >= W || y < 0) { n += 3; continue; } const i = y * W + xx; if (L[i] === FG && (K[i] === K_TREE || K[i] === K_TRUNK || K[i] === K_WHITE || K[i] === K_RED)) n++; } return n; };
   const cands = [];
