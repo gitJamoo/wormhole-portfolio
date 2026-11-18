@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { PixelScene } from '@/lib/pixel-scene/scene';
 import { sceneSlug } from '@/lib/pixel-scene/share';
+import { createPost, type Post } from '@/lib/pixel-scene/post';
 import { FLIGHT_IDS, flightFor, playIntro, type FlightId, type IntroMode } from '@/lib/pixel-scene/intro';
 import Image from 'next/image';
 import headshot from '../../../public/image-assets/smiling-headshot.jpg';
@@ -56,6 +57,8 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
   const washRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const fxRef = useRef<HTMLCanvasElement>(null);
+  const glRef = useRef<HTMLCanvasElement>(null);
+  const post = useRef<Post | null>(null);
   const plateRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
   const roleRef = useRef<HTMLParagraphElement>(null);
@@ -80,7 +83,9 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
     const s = st.current, cv = canvasRef.current;
     if (!s.S || !s.img || !s.buf || !cv) return;
     PixelScene.render(s.S, s.buf, s.t, (s.phase! + 0.12 * ease(s.scroll)) % 1, { wave: s.t < s.waveUntil });
-    cv.getContext('2d', { alpha: false })!.putImageData(s.img, 0, 0);
+    if (post.current?.lost()) { post.current = null; if (glRef.current) glRef.current.style.display = 'none'; }
+    if (post.current) post.current.draw(s.buf, s.S, performance.now()); // shaded copy on the WebGL canvas above
+    else cv.getContext('2d', { alpha: false })!.putImageData(s.img, 0, 0);
     const tod = PixelScene.timeWord(s.phase!);
     setCaption((c) => (c.tod === tod ? c : { ...c, tod }));
   }, []);
@@ -95,6 +100,7 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
     cv.width = W; cv.height = H;
     s.img = cv.getContext('2d', { alpha: false })!.createImageData(W, H);
     s.buf = new Uint32Array(s.img.data.buffer);
+    post.current?.setup(s.S, W, H);
     s.phase = phase ?? s.phase ?? s.S.phase0;
     setCaption({ no: 'No. ' + String(seed).padStart(5, '0'), name: s.S.name, tod: '' });
     draw();
@@ -104,6 +110,11 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
     const s = st.current;
     const m = location.hash.match(/^#(\d{1,5})(?:-(\d{1,3}))?$/);
     setLab(new URLSearchParams(location.search).has('lab'));
+    // light, rays and grade on top of the pixels when WebGL2 is there (?shaders=off to compare)
+    if (glRef.current && new URLSearchParams(location.search).get('shaders') !== 'off') {
+      post.current = createPost(glRef.current);
+      if (post.current) glRef.current.style.display = 'block';
+    }
     if (m) setup(+m[1], m[2] ? +m[2] / 1000 : null);
     else setup(initialSeed ?? 1 + Math.floor(Math.random() * 99999), initialSeed ? initialPhase : null);
     setReady(true);
@@ -280,6 +291,12 @@ export default function PixelLanding({ children, initialSeed, initialPhase = nul
         style={{ imageRendering: 'pixelated', opacity: ready ? 1 : 0, transition: 'opacity .6s ease' }}
         onClick={onSceneClick}
         onPointerMove={(e) => { e.currentTarget.style.cursor = hitMe(e) ? 'pointer' : ''; }}
+      />
+      <canvas
+        ref={glRef}
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        style={{ display: 'none', opacity: ready ? 1 : 0, transition: 'opacity .6s ease' }}
       />
       <div
         role="status"

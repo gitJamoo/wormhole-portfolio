@@ -373,6 +373,7 @@ function render(S, out, t, p, opts = {}) {
   /* sky tables: band x glow level */
   const NB = 12, NG = 5;
   const glowSrc = se > -0.1 ? { x: sx, y: sy, c: C.sun, a: C.glow } : { x: mx, y: my, c: hex('#9fb0e0'), a: 0.25 * night * (me > 0 ? 1 : 0) };
+  S.glow = { x: glowSrc.x, y: glowSrc.y, c: glowSrc.c, a: glowSrc.a, sun: se > -0.1, se }; // for post-processing (light source in scene pixels)
   const sk = new Uint32Array((NB + 1) * NG);
   for (let b = 0; b <= NB; b++) { const c = mix(C.top, C.hor, b / NB); for (let g = 0; g < NG; g++) sk[b * NG + g] = pack(mix(c, glowSrc.c, (g / (NG - 1)) * 0.62)); }
   const GR = Math.max(W, H) * 0.42;
