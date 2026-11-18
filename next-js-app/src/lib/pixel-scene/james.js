@@ -52,50 +52,50 @@ function sprite(state, opts = {}) {
   return { w, h, g: outline(g, w, h) };
 }
 
-/* ---- 32x32 portrait ---- */
+/* ---- 32x32 portrait, hand-placed. One character per pixel; edit freely. ---- */
+const PORTRAIT = [
+    '................................',
+    '............ooooooo.o...........',
+    '.........ooo2222222o2o..........',
+    '........o234443312222o..........',
+    '........o3343333132211o.........',
+    '.......o233333313331211o........',
+    '......o22313331334412111o.......',
+    '......o22213313333132111o.......',
+    '......o22343122231321111o.......',
+    '......o22333122212221111o.......',
+    '......o22232222212211111o.......',
+    '.......o22212212111ssS11o.......',
+    '.......o211s11s1s2sssSo1o.......',
+    '.......o1ssbbb2sssbbbSoo........',
+    '.......oSsbssssssssssbSSo.......',
+    '......oSSssseesssseesSSSSo......',
+    '......oSDsseiwsssswieSSDSo......',
+    '.......oSshsSSshSsSSsSSSo.......',
+    '........oshhssshSssssSoo........',
+    '.........ossSsSDSSsSso..........',
+    '.........osssmssssmsso..........',
+    '..........osssmmmmSSo...........',
+    '...........osssllsSSo...........',
+    '...........oSSSSSSSSo...........',
+    '...........oSsssssSSo...........',
+    '..........ocwwwwwwwwco..........',
+    '.......oooKkwwwTtwwwKoooo.......',
+    '....oookkkkKwwwttwwKkkkkkooo....',
+    '..ookkkkkkkkKwtTttKkkkkkkkkkoo..',
+    'ookkkkkkkkkkkKttttKkkkkkkkkkkkoo',
+    'kkkkkkkkkkkkkKttTKkkkkkkkkkkkkkk',
+    'kkkkkkkkkkkkkkKtKtkkkkkkkkkkkkkk',
+];
+const PCOL = {
+  o: '#1a1520', 1: '#74492a', 2: '#a8743f', 3: '#d4a066', 4: '#ecc58a', // outline, hair dark→highlight
+  s: '#f2c7a2', S: '#d99d7c', D: '#b97a60', h: '#fbdcc0', b: '#5e3b22', // skin, shadow, deep, light, brows
+  e: '#2b2733', i: '#6f93a3', w: '#f1ede6', c: '#cfc9bf', m: '#b4675d', l: '#d68a7c', // eyes, shirt, mouth
+  k: '#262b3a', K: '#3d4560', t: '#8e2a36', T: '#b8414e', // suit, tie
+};
 function portrait() {
-  const S = 32, g = new Uint8Array(S * S);
-  const set = (x, y, c) => { if (x >= 0 && y >= 0 && x < S && y < S) g[y * S + x] = c; };
-  const ell = (cx, cy, rx, ry, c, cond) => { for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) { const dx = (x + 0.5 - cx) / rx, dy = (y + 0.5 - cy) / ry; if (dx * dx + dy * dy <= 1 && (!cond || cond(x, y))) set(x, y, c); } };
-  const rect = (x0, y0, x1, y1, c) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) set(x, y, c); };
-  // suit shoulders
-  ell(16, 34, 15.5, 9, M.SUIT);
-  // shirt V + tie
-  for (let y = 25; y < 32; y++) { const hw = Math.max(0, 4 - (y - 25) * 0.6); for (let x = Math.round(16 - hw); x <= Math.round(15 + hw); x++) set(x, y, M.SHIRT); }
-  rect(15, 26, 16, 31, M.TIE); set(14, 27, M.TIE); set(17, 27, M.TIE);
-  // lapels
-  for (let y = 25; y < 32; y++) { const xo = Math.round(4.5 - (y - 25) * 0.6); set(16 - xo - 1, y, M.SUITL); set(15 + xo + 1, y, M.SUITL); }
-  // neck
-  rect(13, 20, 18, 25, M.SKIN); rect(13, 20, 18, 21, M.SKINS); set(13, 22, M.SKINS); set(18, 22, M.SKINS);
-  // collar points
-  set(12, 25, M.SHIRT); set(13, 25, M.SHIRT); set(18, 25, M.SHIRT); set(19, 25, M.SHIRT); set(13, 24, M.SHIRT); set(18, 24, M.SHIRT);
-  // ears
-  ell(9.2, 15.5, 1.5, 2.2, M.SKINS); ell(22.8, 15.5, 1.5, 2.2, M.SKINS);
-  // head
-  ell(16, 14.6, 6.7, 7.6, M.SKIN);
-  for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) if (g[y * S + x] === M.SKIN && (x >= 21 || (y >= 20 && x >= 19))) g[y * S + x] = M.SKINS;
-  // hair: soft volume, fringe falling forward in strands
-  ell(16, 9.6, 8.2, 6, M.HAIR, (x, y) => y <= 10 || ((x <= 9 || x >= 22) && y <= 13));
-  ell(15.5, 7.6, 7.4, 4.6, M.HAIR);
-  const fringe = [12, 13, 13, 13, 12, 12, 13, 12, 11, 11, 11, 10, 11, 12]; // fringe bottom for x = 9..22
-  for (let i = 0; i < fringe.length; i++) for (let y = 8; y <= fringe[i]; y++) set(9 + i, y, M.HAIR);
-  set(8, 12, M.HAIR); set(23, 11, M.HAIR); set(23, 12, M.HAIR);
-  for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
-    if (g[y * S + x] !== M.HAIR) continue;
-    const top = !g[(y - 1) * S + x] || g[(y - 1) * S + x] === M.OUT;
-    if (x >= 20 && y > 6) g[y * S + x] = M.HAIRD;                       // shadow side
-    else if ((x - y + 40) % 5 === 0 && y >= 9) g[y * S + x] = M.HAIRD;  // strands in the fringe
-    else if (top || ((x - y + 40) % 5 === 2 && y > 3 && y < 10 && x < 19)) g[y * S + x] = M.HAIRL; // light on the crown
-  }
-  // brows, eyes, nose, smile
-  rect(11, 14, 13, 14, M.BROW); rect(18, 14, 20, 14, M.BROW);
-  set(12, 16, M.SHIRT); set(13, 16, M.EYE); set(13, 17, M.EYE); set(12, 17, M.IRIS);
-  set(19, 16, M.SHIRT); set(18, 16, M.EYE); set(18, 17, M.EYE); set(19, 17, M.IRIS);
-  set(16, 19, M.SKINS); set(15, 19, M.SKINS);
-  rect(14, 21, 17, 21, M.MOUTH); set(13, 20, M.MOUTH); set(18, 20, M.MOUTH); set(15, 22, M.SKINS); set(16, 22, M.SKINS);
-  const o = outline(g, S, S);
-  const out = new Uint32Array(S * S);
-  for (let i = 0; i < S * S; i++) if (o[i]) out[i] = pack(RGB[o[i]]);
+  const out = new Uint32Array(32 * 32);
+  for (let y = 0; y < 32; y++) for (let x = 0; x < 32; x++) { const ch = PORTRAIT[y][x]; if (ch !== '.') out[y * 32 + x] = pack(hex(PCOL[ch])); }
   return out;
 }
 
