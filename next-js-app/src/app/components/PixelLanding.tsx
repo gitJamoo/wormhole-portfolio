@@ -10,8 +10,8 @@ import AnthropicIcon from './icons/AnthropicIcon';
 import OpenAIIcon from './icons/OpenAIIcon';
 
 /* The brag sheet agents read to learn about James. */
-const BRAG_REPO = 'github.com/gitJamoo/brag-sheet';
-const AGENT_PROMPT = `Read https://${BRAG_REPO} and tell me about James M. Smith.`;
+const BRAG_REPO = 'github.com/gitJamoo/brag-sheets';
+const AGENT_PROMPT = `Read https://${BRAG_REPO} (start at AGENTS.md) and tell me about James M. Smith.`;
 const CLAUDE_URL = `https://claude.ai/new?q=${encodeURIComponent(AGENT_PROMPT)}`;
 const CODEX_URL = `codex://new?prompt=${encodeURIComponent(AGENT_PROMPT)}`;
 const CODEX_FALLBACK = `https://chatgpt.com/?q=${encodeURIComponent(AGENT_PROMPT)}`;
