@@ -25,7 +25,7 @@ export type Opts = { [K in keyof typeof OPTIONS]: keyof (typeof OPTIONS)[K] } & 
 // James's pick: the visitor's scene framing a paper card
 export const DEFAULTS: Opts = {
   place: 'full', backing: 'paper', tint: 'color', font: 'source', nameSize: 'classic', align: 'center', heads: 'caps', bullets: 'arrow',
-  accent: 'scene', ink: 'black', minSize: 's85', density: 'normal', pixels: 'fine', mark: 'show', wash: 20,
+  accent: 'scene', ink: 'black', minSize: 's95', density: 'normal', pixels: 'fine', mark: 'show', wash: 20,
 };
 // plain paper, no scene
 export const CLASSIC: Opts = { ...DEFAULTS, place: 'none', backing: 'none', heads: 'rule', bullets: 'dot', accent: 'ink', mark: 'hide' };
@@ -65,7 +65,7 @@ const TINTS: Record<Opts['tint'], string> = {
   color: 'none', mono: 'grayscale(1) contrast(1.1)', sepia: 'sepia(.85) saturate(1.2)', blueprint: 'grayscale(1) sepia(1) hue-rotate(175deg) saturate(2.2)', dusk: 'hue-rotate(-25deg) saturate(1.35)',
 };
 export const PIXEL_K = { fine: 0.5, normal: 1, chunky: 2 };
-const DENSITY = { tight: { pt: 0.34, px: 0.45, pb: 0.28, lh: 1.12 }, normal: { pt: 0.42, px: 0.5, pb: 0.3, lh: 1.18 }, airy: { pt: 0.55, px: 0.62, pb: 0.4, lh: 1.3 } };
+export const DENSITY = { tight: { pt: 0.34, px: 0.45, pb: 0.28, lh: 1.12 }, normal: { pt: 0.42, px: 0.5, pb: 0.3, lh: 1.18 }, airy: { pt: 0.55, px: 0.62, pb: 0.4, lh: 1.3 } };
 export const FLOOR = { s75: 7.5, s85: 8.5, s95: 9.5 };
 const NAME_EM = { classic: 2.6, large: 3.3, poster: 4.2 };
 const BULLET = { dot: 'disc', dash: '"–  "', square: 'square', arrow: '"›  "' };

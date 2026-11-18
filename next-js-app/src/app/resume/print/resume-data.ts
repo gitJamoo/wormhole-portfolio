@@ -4,7 +4,7 @@ export type Project = { name: string; tech: string; date: string; bullets: strin
 
 export const contact = [
   { label: "(503) 713-8776", href: "tel:+15037138776" },
-  { label: "james.smith.tig@gmail.com", href: "mailto:james.smith.tig@gmail.com" },
+  { label: "real.jamesmsmith@gmail.com", href: "mailto:real.jamesmsmith@gmail.com" },
   { label: "linkedin.com/in/james-m-smith1/", href: "https://www.linkedin.com/in/james-m-smith1/" },
   { label: "github.com/gitJamoo", href: "https://github.com/gitJamoo" },
   { label: "j-m-s.dev", href: "https://j-m-s.dev" },
