@@ -1,6 +1,6 @@
 /* Screen: the reader's scene, washed nearly white, with the resume reflowed for their device.
    Print: one Letter page with the same scene, generated at page proportions, under the text. */
-.root { position: relative; min-height: 100vh; color: #17140f; font-family: var(--body, var(--serif)), "New York", Georgia, serif; background: #fbfaf6; }
+.root { --band: 13%; --spine: 9%; position: relative; min-height: 100vh; color: var(--ink, #17140f); font-family: var(--body, var(--serif)), "New York", Georgia, serif; background: #fbfaf6; }
 .bg { position: fixed; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; filter: var(--tint, none); -webkit-mask-image: var(--mask, none); mask-image: var(--mask, none); }
 .wash { position: fixed; inset: 0; background: #fbfaf6; opacity: var(--wash, 0.86); }
 
@@ -14,18 +14,45 @@
 .bar a:hover, .bar button:hover { background: rgba(23, 20, 15, 0.06); color: #17140f; }
 .bar .primary { background: #17140f; color: #faf8f3; }
 .bar .primary:hover { background: #3a342b; color: #faf8f3; }
+.toggle { display: inline-flex; }
+.bar .toggle button { border-radius: 0; border: 1px solid rgba(23, 20, 15, 0.14); padding: 5px 9px; }
+.bar .toggle button:first-child { border-radius: 6px 0 0 6px; }
+.bar .toggle button:last-child { border-radius: 0 6px 6px 0; border-left: 0; }
+.bar .toggle button[aria-pressed="true"] { background: #17140f; color: #faf8f3; border-color: #17140f; }
 .caption { margin-left: auto; color: rgba(23, 20, 15, 0.5); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
-@media (max-width: 640px) { .caption { display: none; } .bar .hideSm { display: none; } .bar .primary { margin-left: auto; } }
+@media (max-width: 640px) { .caption { display: none; } .bar .toggle { margin-left: auto; } }
 
 .screen { position: relative; max-width: 8.5in; margin: 0 auto; padding: 28px max(18px, env(safe-area-inset-left)) 72px; font-size: 15px; line-height: 1.38; }
 @media (min-width: 720px) { .screen { font-size: 10.6pt; line-height: 1.25; padding: 0.55in 0.55in 1in; } }
 
 /* the hidden print sheet is laid out at real page size all the time, so it can be measured and fitted to one page */
-.sheet { position: absolute; left: -10000px; top: 0; width: 8.5in; height: 11in; overflow: hidden; background: #fff; }
+.sheet { position: absolute; left: -10000px; top: 0; width: 8.5in; height: 11in; overflow: hidden; background: #fff; text-align: left; letter-spacing: normal;
+  color: var(--ink, #000); font-family: var(--body, var(--serif)), "New York", Georgia, serif; } /* self-contained: it also renders inside the landing overlay */
 .sheetBg { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; filter: var(--tint, none); -webkit-mask-image: var(--mask, none); mask-image: var(--mask, none); }
 .sheetWash { position: absolute; inset: 0; background: #fff; opacity: var(--wash, 0.87); }
-.sheetBody { position: relative; padding: var(--pad, 0.42in 0.5in 0.3in); line-height: var(--lh, 1.18); }
+.sheetBody { position: relative; padding: var(--pt, 0.42in) var(--px, 0.5in) var(--pb, 0.3in); line-height: var(--lh, 1.18); }
+.sheetBody .h2, .sheetBody .entry { break-inside: avoid; }
 .sheetMark { position: absolute; right: 0.5in; bottom: 0.22in; font: 6.5pt ui-monospace, "SF Mono", Menlo, monospace; color: rgba(23, 20, 15, 0.45); }
+
+/* placements that keep the scene clear of the text: push the text past the art */
+[data-place="banner"] .sheetBody { padding-top: calc(11in * 0.13 + var(--pt)); }
+[data-place="spine"] .sheetBody { padding-left: calc(8.5in * 0.09 + var(--px)); }
+[data-place="banner"] .screen { margin-top: 13vh; }
+[data-place="banner"] .bg, [data-place="banner"] .wash { position: absolute; height: 100vh; } /* the banner scrolls away instead of sitting under the text */
+@media (max-width: 900px) { [data-place="spine"] .screen { padding-left: calc(9vw + 16px); } }
+
+/* behind the text: a paper card (scene becomes a frame) or a soft white halo around each glyph */
+[data-backing="paper"] .sheetBody {
+  margin: 0.26in; min-height: calc(11in - 0.52in); box-sizing: border-box; background: rgba(255, 255, 255, var(--paper));
+  padding: calc(var(--pt) - 0.12in) calc(var(--px) - 0.2in) calc(var(--pb) - 0.1in); box-shadow: 0 0 0 0.5pt rgba(23, 20, 15, 0.12);
+}
+[data-backing="paper"] .sheetMark { right: calc(0.26in + var(--px) - 0.2in); bottom: calc(0.26in + 0.09in); } /* inside the card, aligned with the text edge */
+[data-backing="paper"] .screen { background: rgba(255, 255, 255, var(--paper)); border-radius: 3px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); margin-top: 20px; margin-bottom: 40px; }
+@media (max-width: 640px) { [data-backing="paper"] .screen { margin: 10px; } }
+[data-backing="halo"] .screen, [data-backing="halo"] .sheetBody { text-shadow: 0 0 0.12em #fff, 0 0 0.3em #fff, 0 0 0.5em #fff; }
+
+[data-place="none"] .bg, [data-place="none"] .wash, [data-place="none"] .sheetBg, [data-place="none"] .sheetWash { display: none; }
+.sheetVisible { position: relative; left: 0; }
 
 /* ?view=page: show the print sheet itself, centered on the scene */
 .pageView .screen { display: none; }
@@ -47,6 +74,17 @@
 .seg button[aria-pressed="true"] { background: #f3efe7; color: #17140f; border-color: #f3efe7; }
 .slider { display: grid; gap: 6px; color: rgba(243, 239, 231, 0.6); }
 .slider input { width: 100%; accent-color: #e8a07a; }
+.meter { display: grid; gap: 3px; padding: 10px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.12); color: rgba(243, 239, 231, 0.7); }
+.meter strong { color: #f3efe7; font-weight: 600; }
+.meter strong::before { content: "●  "; }
+.meter[data-grade="great"] strong::before { color: #7fd18b; }
+.meter[data-grade="ok"] strong::before { color: #e8c86a; }
+.meter[data-grade="low"] strong::before, .meter[data-grade="over"] strong::before { color: #ef7d6b; }
+.presets { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.presets button { display: grid; gap: 2px; text-align: left; font: inherit; color: inherit; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 6px; padding: 7px 8px; cursor: pointer; }
+.presets button:hover { background: rgba(255, 255, 255, 0.14); }
+.presets b { font-weight: 600; }
+.presets span { font-size: 10.5px; color: rgba(243, 239, 231, 0.55); }
 .panelFoot { display: flex; gap: 6px; justify-content: space-between; padding-top: 4px; }
 .panelFoot .primary { background: #e8a07a; color: #17140f; border-color: #e8a07a; flex: 1; }
 .tuning.pageView .sheet { margin-right: auto; margin-left: max(24px, calc(50% - 4.25in - 160px)); }
@@ -61,25 +99,31 @@
   .sheet { margin: 0 !important; box-shadow: none !important; zoom: 1 !important; }
   .sheet { position: relative; left: 0; }
   .root { min-height: 0; }
-  .root * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .root *, .sheet, .sheet * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 
 /* ---- the resume itself (shared by screen and print) ---- */
-.name { margin: 0; text-align: var(--align, center); font-family: var(--head, inherit); color: var(--accent, #17140f); font-size: 2.6em; font-weight: 700; line-height: 1.05; letter-spacing: -0.01em; }
+.name { margin: 0; text-align: var(--align, center); font-family: var(--head, inherit); color: var(--ink, #000); font-size: var(--name, 2.6em); font-weight: 700; line-height: 1.05; letter-spacing: -0.01em; }
 .contact { margin: 0.3em 0 0.1em; text-align: var(--align, center); font-size: 0.86em; }
 .contact a { color: inherit; text-decoration: underline; text-decoration-color: rgba(23, 20, 15, 0.35); text-underline-offset: 0.15em; }
 .sep { padding: 0 0.35em; color: rgba(23, 20, 15, 0.5); }
-.h2 { margin: 0.75em 0 0.3em; padding-bottom: 0.05em; font-size: 1.28em; font-weight: 600; font-family: var(--head, inherit); color: var(--accent, #17140f); border-bottom: 1px solid var(--accent, #17140f); }
+/* heading styles */
+[data-heads="caps"] .h2 { text-transform: uppercase; letter-spacing: 0.12em; font-size: 1em; font-weight: 700; border-bottom-width: 0.5pt; }
+[data-heads="bar"] .h2 { border-bottom: 0; border-left: 0.22em solid var(--accent); padding: 0.06em 0 0.06em 0.45em; background: color-mix(in srgb, var(--accent) 9%, transparent); }
+[data-heads="pixel"] .h2 { border-bottom: 0; padding-bottom: 0.2em; background: repeating-linear-gradient(90deg, var(--accent) 0 0.24em, transparent 0.24em 0.48em) left bottom / 100% 0.12em no-repeat; }
+[data-heads="pixel"] .h2::before { content: ""; display: inline-block; width: 0.42em; height: 0.42em; margin: 0 0.45em 0.1em 0; background: var(--accent); vertical-align: middle; }
+.h2 { margin: 0.75em 0 0.3em; padding-bottom: 0.05em; font-size: 1.28em; font-weight: 600; font-family: var(--head, inherit); color: var(--ink, #000); border-bottom: 1px solid var(--accent, #17140f); }
 .entry { padding-left: 0.85em; margin-top: 0.32em; break-inside: avoid; }
 .row { display: flex; justify-content: space-between; gap: 0 1em; flex-wrap: wrap; }
 .title { font-weight: 700; }
 .it { font-style: italic; font-size: 0.95em; }
-.bullets { margin: 0.12em 0 0; padding-left: 1.35em; font-size: 0.95em; }
+.bullets { margin: 0.12em 0 0; padding-left: 1.35em; font-size: 0.95em; list-style-type: var(--bullet, disc); }
+.bullets li::marker { color: var(--accent); }
 .bullets li { margin: 0.05em 0; }
 .skills { padding-left: 0.85em; margin: 0; font-size: 0.97em; }
 @media (max-width: 640px) {
   .screen .row { flex-direction: column; }
-  .screen .row > :last-child { color: rgba(23, 20, 15, 0.6); font-size: 0.9em; }
+  .screen .row > :last-child { color: var(--ink, #000); font-size: 0.9em; }
   .screen .entry { margin-top: 0.8em; padding-left: 0; }
   .screen .skills { padding-left: 0; }
   .screen .bullets { padding-left: 1.1em; }
