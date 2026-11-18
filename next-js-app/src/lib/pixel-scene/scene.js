@@ -524,7 +524,7 @@ function render(S, out, t, p, opts = {}) {
     }
   }
   /* little James */
-  if (S.me) drawMe(S, out, t, C, night, sunTint, opts);
+  if (S.me && !opts.noMe) drawMe(S, out, t, C, night, sunTint, opts);
   /* snowfall */
   if (S.snowfall) {
     const sc = mix(WHITE, C.top, 0.15);

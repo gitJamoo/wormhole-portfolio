@@ -49,7 +49,7 @@ function paint(cv: HTMLCanvasElement, seed: number, phase: number | null, W: num
   const ctx = cv.getContext('2d', { alpha: false })!;
   const img = ctx.createImageData(W, H);
   const px = new Uint32Array(img.data.buffer);
-  PixelScene.render(S, px, 2.3, phase ?? S.phase0, {});
+  PixelScene.render(S, px, 2.3, phase ?? S.phase0, { noMe: true }); // no little James on the resume
   ctx.putImageData(img, 0, 0);
   // average sky color (top third), darkened enough to read as text on white
   let r = 0, g = 0, b = 0; const n = W * Math.floor(H / 3);
