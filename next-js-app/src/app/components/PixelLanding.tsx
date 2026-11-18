@@ -31,9 +31,27 @@ const MONO = 'ui-monospace, "SF Mono", SFMono-Regular, var(--font-geist-mono), M
 
 type Scene = NonNullable<ReturnType<typeof PixelScene.generate>> & { phase0: number; name: string; me?: { box?: { x: number; y: number; w: number; h: number } } };
 
-export default function PixelLanding() {
+const NAV = [
+  { id: 'about', label: 'about' },
+  { id: 'featured', label: 'work' },
+  { id: 'experience', label: 'experience' },
+  { id: 'projects', label: 'projects' },
+  { id: 'creative-works', label: 'creative' },
+  { id: 'contact', label: 'contact' },
+];
+const ease = (x: number) => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
+
+export default function PixelLanding({ children }: { children?: React.ReactNode }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const st = useRef<{ S?: Scene; seed: number; phase: number | null; t: number; speed: number; waveUntil: number; img?: ImageData; buf?: Uint32Array }>({ seed: 0, phase: null, t: 0, speed: 1, waveUntil: -1 });
+  const st = useRef<{ S?: Scene; seed: number; phase: number | null; t: number; speed: number; waveUntil: number; scroll: number; img?: ImageData; buf?: Uint32Array }>({ seed: 0, phase: null, t: 0, speed: 1, waveUntil: -1, scroll: 0 });
+  const stageRef = useRef<HTMLDivElement>(null);
+  const introRef = useRef<HTMLElement>(null);
+  const hudRef = useRef<HTMLDivElement>(null);
+  const vignetteRef = useRef<HTMLDivElement>(null);
+  const washRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [navOn, setNavOn] = useState(false);
+  const [active, setActive] = useState('');
   const [hi, setHi] = useState<{ x: number; y: number; show: boolean }>({ x: 0, y: 0, show: false });
   const hiTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const [ready, setReady] = useState(false);
@@ -48,7 +66,7 @@ export default function PixelLanding() {
   const draw = useCallback(() => {
     const s = st.current, cv = canvasRef.current;
     if (!s.S || !s.img || !s.buf || !cv) return;
-    PixelScene.render(s.S, s.buf, s.t, s.phase!, { wave: s.t < s.waveUntil });
+    PixelScene.render(s.S, s.buf, s.t, (s.phase! + 0.12 * ease(s.scroll)) % 1, { wave: s.t < s.waveUntil });
     cv.getContext('2d', { alpha: false })!.putImageData(s.img, 0, 0);
     const tod = PixelScene.timeWord(s.phase!);
     setCaption((c) => (c.tod === tod ? c : { ...c, tod }));
@@ -82,6 +100,7 @@ export default function PixelLanding() {
       raf = requestAnimationFrame(frame);
       acc += Math.min(0.1, (now - last) / 1000); last = now;
       if (acc < 1 / 24) return; // pixel art doesn't need 60fps
+      if (s.scroll > 1.4) { acc = 0; return; } // scene is covered by the content; save battery
       s.t += acc; s.phase = PixelScene.advance(s.phase!, acc * s.speed, DAY); acc = 0;
       draw();
     };
@@ -95,6 +114,61 @@ export default function PixelLanding() {
     addEventListener('resize', onResize);
     return () => { pause(); document.removeEventListener('visibilitychange', onVis); removeEventListener('resize', onResize); };
   }, [setup, draw]);
+
+  // Scroll: the scene sinks and zooms a touch, the intro lifts away faster, a vignette closes in,
+  // the day drifts toward evening, then the nav slides down and the content rises over the scene.
+  useEffect(() => {
+    const s = st.current;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let raf = 0;
+    const apply = () => {
+      raf = 0;
+      const p = scrollY / innerHeight; s.scroll = p;
+      const e = ease(p);
+      if (stageRef.current) stageRef.current.style.transform = reduce ? '' : `translate3d(0, ${-e * 9}vh, 0) scale(${1 + e * 0.07})`;
+      if (introRef.current) { introRef.current.style.transform = reduce ? '' : `translate3d(0, ${-p * 32}vh, 0)`; introRef.current.style.opacity = String(1 - ease(p * 1.5)); }
+      if (hudRef.current) hudRef.current.style.opacity = String(1 - ease(p * 3));
+      if (vignetteRef.current) vignetteRef.current.style.opacity = String(e);
+      if (washRef.current) washRef.current.style.opacity = String(ease((p - 0.2) / 0.9) * 0.6);
+      setNavOn(p > 0.72);
+      if (!reduce && p < 1.4) draw();
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(apply); };
+    apply();
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll);
+    // the page background stays night-dark so overscroll never flashes white
+    const html = document.documentElement, prev = html.style.background;
+    html.style.background = '#0b0c12';
+    return () => { removeEventListener('scroll', onScroll); removeEventListener('resize', onScroll); cancelAnimationFrame(raf); html.style.background = prev; };
+  }, [draw]);
+
+  useEffect(() => {
+    const root = contentRef.current; if (!root) return;
+    // highlight the nav item for the section in view
+    const spy = new IntersectionObserver((entries) => {
+      for (const en of entries) if (en.isIntersecting) setActive(en.target.id);
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    NAV.forEach((n) => { const el = document.getElementById(n.id); if (el) spy.observe(el); });
+    // sections drift up softly as they enter
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const blocks = Array.from(root.querySelectorAll<HTMLElement>('header, section, .grid'));
+    const reveal = new IntersectionObserver((entries) => {
+      for (const en of entries) if (en.isIntersecting) { const el = en.target as HTMLElement; el.style.opacity = '1'; el.style.transform = 'none'; reveal.unobserve(el); }
+    }, { rootMargin: '0px 0px -8% 0px' });
+    if (!reduce) blocks.forEach((el) => {
+      if (el.getBoundingClientRect().top < innerHeight) return;
+      el.style.opacity = '0'; el.style.transform = 'translateY(24px)'; el.style.transition = 'opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)';
+      reveal.observe(el);
+    });
+    return () => { spy.disconnect(); reveal.disconnect(); };
+  }, []);
+
+  const goTo = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!id) { scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   // little James in the scene: hover shows a pointer, click makes him wave and say hi
   const hitMe = (e: React.PointerEvent | React.MouseEvent) => {
@@ -143,7 +217,12 @@ export default function PixelLanding() {
   });
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-[#14110f] text-[#f6ecdf]" style={{ fontFamily: FONTS[font].css }}>
+    <div
+      className="dark relative text-[#f6ecdf]"
+      style={{ fontFamily: FONTS[font].css, background: '#0b0c12', '--background': '#0b0c12', '--foreground': '#ededed' } as React.CSSProperties}
+    >
+      {/* the stage: fixed behind everything */}
+      <div ref={stageRef} className="fixed inset-0 overflow-hidden origin-[50%_70%] will-change-transform">
       <canvas
         ref={canvasRef}
         aria-label="A generated pixel-art landscape that changes with every visit"
@@ -166,9 +245,52 @@ export default function PixelLanding() {
           <BeaverLoader />
         </div>
       )}
+      </div>
+      <div ref={washRef} aria-hidden="true" className="fixed inset-0 pointer-events-none bg-[#0b0c12] opacity-0" />
+      <div
+        ref={vignetteRef}
+        aria-hidden="true"
+        className="fixed inset-0 pointer-events-none opacity-0"
+        style={{ background: 'radial-gradient(ellipse 85% 75% at 50% 42%, transparent 35%, rgba(6,7,12,.55) 70%, rgba(6,7,12,.95) 100%)' }}
+      />
+
+      {/* sticky nav: slides in once you scroll past the scene */}
+      <header
+        className="fixed inset-x-0 top-0 z-30 border-b border-white/[.08] bg-[#0b0c12]/55 backdrop-blur-md transition-[transform,opacity] duration-500 ease-out"
+        style={{ transform: navOn ? 'none' : 'translateY(-100%)', opacity: navOn ? 1 : 0, paddingTop: 'env(safe-area-inset-top)', fontFamily: MONO }}
+        aria-hidden={!navOn}
+      >
+        <div className="max-w-6xl mx-auto h-14 px-6 sm:px-10 flex items-center gap-6 text-[13px]">
+          <a href="#" onClick={goTo('')} tabIndex={navOn ? 0 : -1} className="flex items-center gap-2.5 shrink-0 text-[#f6ecdf] hover:text-white">
+            <Image src={headshot} alt="" sizes="32px" className="h-7 w-auto rounded-[4px] ring-1 ring-white/20" />
+            <span className="max-sm:hidden">James M. Smith</span>
+          </a>
+          <nav className="ml-auto flex items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {NAV.map((n) => (
+              <a
+                key={n.id}
+                href={`#${n.id}`}
+                onClick={goTo(n.id)}
+                tabIndex={navOn ? 0 : -1}
+                aria-current={active === n.id ? 'location' : undefined}
+                className={`relative shrink-0 rounded-md px-2.5 py-1.5 transition-colors ${active === n.id ? 'text-white' : 'text-white/55 hover:text-white'}`}
+              >
+                {n.label}
+                <span className={`absolute left-1/2 -bottom-0.5 h-[3px] w-[3px] -translate-x-1/2 bg-[#e8a07a] transition-opacity ${active === n.id ? 'opacity-100' : 'opacity-0'}`} />
+              </a>
+            ))}
+            <span className="mx-1 h-4 w-px bg-white/15 shrink-0" />
+            <a href="/james_smith_resume.pdf" tabIndex={navOn ? 0 : -1} className="shrink-0 rounded-md px-2.5 py-1.5 text-white/55 hover:text-white">resume</a>
+          </nav>
+        </div>
+      </header>
+
+      {/* the first screen: transparent so the scene shows; only its controls take clicks */}
+      <section className="relative h-[100svh] pointer-events-none">
 
       <main
-        className="absolute inset-x-0 top-0 flex flex-col items-start gap-4 max-sm:items-center max-sm:text-center [--k:1] max-sm:[--k:1.4]"
+        ref={introRef}
+        className="pointer-events-auto absolute inset-x-0 top-0 flex flex-col items-start gap-4 max-sm:items-center max-sm:text-center [--k:1] max-sm:[--k:1.4]"
         style={{
           padding: 'max(12vh, calc(24px + env(safe-area-inset-top))) max(6vw, 16px) 0',
           ...(size ? ({ '--k': SIZES[size] } as React.CSSProperties) : {}),
@@ -240,8 +362,14 @@ export default function PixelLanding() {
         </div>
       </main>
 
+      {/* scroll cue */}
+      <div className="absolute inset-x-0 bottom-20 flex justify-center text-[11px] tracking-[.25em] uppercase text-[#f6ecdf]/55" style={{ fontFamily: MONO, ...rise(3200) }}>
+        <span className="motion-safe:animate-bounce">scroll ↓</span>
+      </div>
+
       {/* scene caption + controls */}
       <div
+        ref={hudRef}
         className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-2 pointer-events-none text-xs"
         style={{ padding: '0 max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left))', fontFamily: MONO, ...rise(2300) }}
       >
@@ -260,9 +388,18 @@ export default function PixelLanding() {
           ))}
         </div>
       </div>
+      </section>
+
+      {/* the rest of the site rises over the darkened scene */}
+      <div ref={contentRef} className="relative z-10">
+        <div aria-hidden="true" className="h-[22vh] bg-gradient-to-b from-transparent to-[#0b0c12]" />
+        <div className="bg-[#0b0c12] text-[#ededed]" style={{ fontFamily: 'var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif' }}>
+          {children}
+        </div>
+      </div>
 
       {lab && (
-        <div className="absolute right-4 top-4 rounded-lg border border-white/[.14] bg-[#0e0d12]/70 backdrop-blur-md p-3 text-xs space-y-2" style={{ fontFamily: MONO }}>
+        <div className="fixed right-4 top-16 z-40 rounded-lg border border-white/[.14] bg-[#0e0d12]/70 backdrop-blur-md p-3 text-xs space-y-2" style={{ fontFamily: MONO }}>
           <div className="text-white/50 uppercase tracking-[.14em]">type lab</div>
           <div className="flex gap-1">
             {(Object.keys(FONTS) as FontKey[]).map((k) => (
