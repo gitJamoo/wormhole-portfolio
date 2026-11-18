@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { PixelScene } from '@/lib/pixel-scene/scene';
 import Image from 'next/image';
-import face from '../../../public/image-assets/face.jpg';
+import headshot from '../../../public/image-assets/smiling-headshot.jpg';
 import { Check, Clipboard } from 'lucide-react';
 import BeaverLoader from './BeaverLoader';
 import AnthropicIcon from './icons/AnthropicIcon';
@@ -178,7 +178,7 @@ export default function PixelLanding() {
           className="inline-flex items-center gap-[.32em] font-semibold tracking-tight leading-none rounded-[12px] border border-white/[.1] bg-[#0e0d12]/35 backdrop-blur-md px-[.4em] py-[.22em] max-w-full"
           style={{ fontSize: 'min(clamp(calc(34px * var(--k)), calc(5.4vw * var(--k)), calc(68px * var(--k))), 8.2vw)', ...rise(900) }}
         >
-          <Image src={face} alt="" priority sizes="80px" className="-ml-[.12em] size-[1.1em] shrink-0 rounded-full object-cover ring-1 ring-white/25" />
+          <Image src={headshot} alt="" priority sizes="120px" className="-ml-[.12em] h-[1.3em] w-auto shrink-0 rounded-[.12em] ring-1 ring-white/25" />
           <span>James M. Smith</span>
         </h1>
 
