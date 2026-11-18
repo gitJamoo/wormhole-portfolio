@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { sceneSlug } from '@/lib/pixel-scene/share';
 import ResumeSheet from './ResumeSheet';
@@ -8,11 +8,10 @@ import { CLASSIC, DEFAULTS } from './look';
 import o from './overlay.module.css';
 
 /* The resume, laid over whatever page you're on (the landing), drawn from the scene you're looking at.
-   It opens the print dialog as soon as the page is laid out; printing shows only the sheet. */
+   Save as PDF opens the print dialog; printing shows only the sheet. */
 export default function ResumeOverlay({ seed, phase, onClose }: { seed: number; phase: number; onClose: () => void }) {
   const [classic, setClassic] = useState(false);
   const [scale, setScale] = useState(0.5);
-  const printed = useRef(false);
 
   useEffect(() => {
     const html = document.documentElement;
@@ -24,12 +23,6 @@ export default function ResumeOverlay({ seed, phase, onClose }: { seed: number; 
     addEventListener('keydown', onKey); addEventListener('resize', size);
     return () => { html.removeAttribute('data-resume-print'); html.style.overflow = prev; removeEventListener('keydown', onKey); removeEventListener('resize', size); };
   }, [onClose]);
-
-  const onMeasure = useCallback(() => {
-    if (printed.current) return;
-    printed.current = true;
-    setTimeout(() => print(), 250);
-  }, []);
 
   const full = `/resume/print?scene=${sceneSlug(seed, phase)}${classic ? '&look=classic' : ''}`;
 
@@ -46,7 +39,7 @@ export default function ResumeOverlay({ seed, phase, onClose }: { seed: number; 
       </div>
       <div className={o.holder} style={{ width: 816 * scale, height: 1056 * scale }}>
         <div className={o.scaler} style={{ transform: `scale(${scale})` }}>
-          <ResumeSheet seed={seed} phase={phase} opts={classic ? CLASSIC : DEFAULTS} visible onMeasure={onMeasure} />
+          <ResumeSheet seed={seed} phase={phase} opts={classic ? CLASSIC : DEFAULTS} visible />
         </div>
       </div>
     </div>,

@@ -9,7 +9,7 @@ import { CLASSIC, DEFAULTS, LABELS, lookAttrs, lookVars, OPTIONS, paint, PIXEL_K
 import st from './resume.module.css';
 
 /* /resume/print — the resume over the visitor's scene (or Classic: plain paper).
-   ?print=1 opens the print dialog; ?tune=1 opens the (unlisted) tuning panel. */
+   Printing only starts from Save as PDF. ?tune=1 opens the (unlisted) tuning panel. */
 export default function ResumeView() {
   const screenCv = useRef<HTMLCanvasElement>(null);
   const [scene, setScene] = useState<{ seed: number; phase: number } | null>(null);
@@ -19,13 +19,11 @@ export default function ResumeView() {
   const [pageView, setPageView] = useState(false); // ?view=page shows the exact printed page on screen
   const [copied, setCopied] = useState(false);
   const [m, setM] = useState<Measure | null>(null);
-  const wantPrint = useRef(false);
   const look = classic ? CLASSIC : opts;
 
   // first load: scene from the landing (?scene=48213-740) or a fresh one, plus any saved picks
   useEffect(() => {
     const q = new URLSearchParams(location.search);
-    wantPrint.current = q.get('print') === '1';
     const parsed = parseSceneSlug(q.get('scene') ?? '');
     const seed = parsed?.seed ?? 1 + Math.floor(Math.random() * 99999);
     const S = PixelScene.generate(seed, 120, 64) as unknown as { phase0: number };
@@ -62,11 +60,7 @@ export default function ResumeView() {
     history.replaceState(null, '', location.pathname + '?' + q);
   }, [opts, classic, scene]);
 
-  // arriving with ?print=1: open the print dialog once the page has been laid out the first time
-  const onMeasure = useCallback((x: Measure) => {
-    setM(x);
-    if (wantPrint.current) { wantPrint.current = false; setTimeout(() => print(), 300); }
-  }, []);
+  const onMeasure = useCallback((x: Measure) => setM(x), []);
 
   const set = <K extends keyof Opts>(k: K, v: Opts[K]) => { setClassic(false); setOpts((o) => ({ ...o, [k]: v })); };
   const slug = scene ? sceneSlug(scene.seed, scene.phase) : '';

@@ -26,7 +26,8 @@
 @media (min-width: 720px) { .screen { font-size: 10.6pt; line-height: 1.25; padding: 0.55in 0.55in 1in; } }
 
 /* the hidden print sheet is laid out at real page size all the time, so it can be measured and fitted to one page */
-.sheet { position: absolute; left: -10000px; top: 0; width: 8.5in; height: 11in; overflow: hidden; background: #fff; }
+.sheet { position: absolute; left: -10000px; top: 0; width: 8.5in; height: 11in; overflow: hidden; background: #fff; text-align: left; letter-spacing: normal;
+  color: var(--ink, #000); font-family: var(--body, var(--serif)), "New York", Georgia, serif; } /* self-contained: it also renders inside the landing overlay */
 .sheetBg { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; filter: var(--tint, none); -webkit-mask-image: var(--mask, none); mask-image: var(--mask, none); }
 .sheetWash { position: absolute; inset: 0; background: #fff; opacity: var(--wash, 0.87); }
 .sheetBody { position: relative; padding: var(--pt, 0.42in) var(--px, 0.5in) var(--pb, 0.3in); line-height: var(--lh, 1.18); }
