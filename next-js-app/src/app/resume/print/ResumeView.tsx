@@ -1,5 +1,6 @@
 'use client';
 
+import { printResume } from "./printResume";
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { PixelScene } from '@/lib/pixel-scene/scene';
 import { parseSceneSlug, sceneSlug } from '@/lib/pixel-scene/share';
@@ -86,7 +87,7 @@ export default function ResumeView() {
           <button aria-pressed={!classic} onClick={() => setClassic(false)}>Scene</button>
           <button aria-pressed={classic} onClick={() => setClassic(true)}>Classic</button>
         </div>
-        <button className={st.primary} onClick={() => print()}>Save as PDF</button>
+        <button className={st.primary} onClick={printResume}>Save as PDF</button>
       </header>
 
       <article className={st.screen}>

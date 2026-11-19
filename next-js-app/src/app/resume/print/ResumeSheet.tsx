@@ -30,12 +30,17 @@ export default function ResumeSheet({ seed, phase, opts, visible = false, onMeas
     const room = page.clientHeight - parseFloat(cs.marginTop) - parseFloat(cs.marginBottom) - 4;
     b.style.minHeight = '0'; // measure the content, not the paper card's full-page min-height
     const over = () => b.scrollHeight > room;
-    let fs = 10.6, lh = lh0.current;
+    let fs = 10.2, lh = lh0.current;
     b.style.fontSize = fs + 'pt'; b.style.lineHeight = String(lh);
     // 1) shrink to the chosen floor, 2) tighten the leading, 3) only then go below the floor; never clip
     while (over() && fs > floor.current + 0.01) { fs -= 0.1; b.style.fontSize = fs.toFixed(1) + 'pt'; }
     while (over() && lh > 1.05) { lh -= 0.01; b.style.lineHeight = lh.toFixed(2); }
     while (over() && fs > 7) { fs -= 0.1; b.style.fontSize = fs.toFixed(1) + 'pt'; }
+    // 4) spare room goes to breathing space (leading), not ever-bigger type
+    if (!over()) {
+      while (!over() && lh < 1.34) { lh += 0.01; b.style.lineHeight = lh.toFixed(2); }
+      if (over()) { lh -= 0.01; b.style.lineHeight = lh.toFixed(2); }
+    }
     const fits = !over();
     b.style.minHeight = '';
     setReady(true);
