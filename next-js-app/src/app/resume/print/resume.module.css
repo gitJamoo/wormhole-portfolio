@@ -121,11 +121,12 @@
 .bullets li::marker { color: var(--accent); }
 .bullets li { margin: 0.05em 0; }
 .skills { padding-left: 0.85em; margin: 0; font-size: 0.97em; }
+.summary { padding-left: 0.85em; margin: 0.15em 0 0; font-size: 0.97em; }
 @media (max-width: 640px) {
   .screen .row { flex-direction: column; }
   .screen .row > :last-child { color: var(--ink, #000); font-size: 0.9em; }
   .screen .entry { margin-top: 0.8em; padding-left: 0; }
-  .screen .skills { padding-left: 0; }
+  .screen .skills, .screen .summary { padding-left: 0; }
   .screen .bullets { padding-left: 1.1em; }
   .screen .name { font-size: 2.2em; }
 }

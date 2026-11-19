@@ -1,5 +1,6 @@
 'use client';
 
+import { printResume } from "./printResume";
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { sceneSlug } from '@/lib/pixel-scene/share';
@@ -34,7 +35,7 @@ export default function ResumeOverlay({ seed, phase, onClose }: { seed: number; 
           <button aria-pressed={classic} onClick={() => setClassic(true)}>Classic</button>
         </div>
         <a href={full} className={o.quiet}>Full page</a>
-        <button className={o.primary} onClick={() => print()}>Save as PDF</button>
+        <button className={o.primary} onClick={printResume}>Save as PDF</button>
         <button className={o.close} onClick={onClose} aria-label="Close">×</button>
       </div>
       <div className={o.holder} style={{ width: 816 * scale, height: 1056 * scale }}>

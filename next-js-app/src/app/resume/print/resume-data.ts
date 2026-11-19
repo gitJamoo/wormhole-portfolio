@@ -1,94 +1,94 @@
-// Mirrors public/james_smith_resume.pdf. Update both together.
+// Source of truth: github.com/gitJamoo/brag-sheets. Every figure here is quoted from a sheet; don't round up.
+// Kept plain for ATS parsers: standard section names, one date format, no tables or icons in the text.
 export type Entry = { title: string; date: string; org: string; place: string; bullets: string[] };
 export type Project = { name: string; tech: string; date: string; bullets: string[] };
 
 export const contact = [
+  { label: "San Francisco, CA" },
   { label: "(503) 713-8776", href: "tel:+15037138776" },
   { label: "real.jamesmsmith@gmail.com", href: "mailto:real.jamesmsmith@gmail.com" },
-  { label: "linkedin.com/in/james-m-smith1/", href: "https://www.linkedin.com/in/james-m-smith1/" },
-  { label: "github.com/gitJamoo", href: "https://github.com/gitJamoo" },
+  { label: "linkedin.com/in/james-m-smith1", href: "https://www.linkedin.com/in/james-m-smith1/" },
   { label: "j-m-s.dev", href: "https://j-m-s.dev" },
   { label: "US Citizen" },
 ];
 
-export const education = {
-  school: "Oregon State University",
-  date: "September 2022 – June 2026",
-  degree: "BS in Computer Science (Focus: Machine Learning & AI), Minor in Cybersecurity",
-  place: "Corvallis, OR",
-  bullets: [
-    ["Relevant Coursework:", "Machine Learning, Deep Learning, Data Mining, Artificial Intelligence, Analysis of Algorithms, Data Structures, Operating Systems, Mathematical Statistics, Database Management, Software Engineering"],
-    ["NCAA D1 Student Athlete:", "Managed full academic responsibilities alongside year-round training and competition."],
-  ],
-};
+export const summary =
+  "AI/Product Engineer shipping production LLM agents, agentic workflow automation and full-stack products, from prompt design and evaluation to deployment.";
 
 export const experience: Entry[] = [
   {
-    title: "Artificial Intelligence Intern", date: "October 2025 – Current", org: "BVR ST CO", place: "Corvallis, OR",
-    bullets: ["Developed core components of an agentic framework, utilizing Nemotron for low-latency, local reasoning & implementing Low-Rank Adaptation (LoRA) to enable efficient, reinforcement-based learning from verified real-time game outcomes"],
-  },
-  {
-    title: "Artificial Intelligence Advisor", date: "August 2025 – Current", org: "Oregon State University", place: "Corvallis, OR",
+    title: "AI/Product Engineer", date: "Jul 2026 – Present", org: "Magical", place: "San Francisco, CA",
     bullets: [
-      "Integrated Google’s A2A protocol to enhance interoperability and scalability of AI systems",
-      "Authored training materials and best practices on Agentic AI development, LLM integration, and cloud-based development for Agentic systems, increasing AI proficiency, literacy, and adoption allowing better alignment on University goals",
+      "Shipped a production review agent that checks every new workflow change for bugs and regressions and proposes patches, moving engineers from implementers to reviewers",
+      "Shipped an autonomous agent that catches real-world failures in live workflows and finds them before customers, increasing real-world accuracy to 95%",
+      "Proposed and carried out LLM model changes saving an estimated $450K a year",
+      "Rebuilt the evals and benchmarking engine from the ground up, turning each new model release into a regression-safe cost and speed upgrade the moment it lands, and laying the groundwork for fine-tuning",
     ],
   },
   {
-    title: "Co-Founder & Full-Stack Developer", date: "September 2023 – Current", org: "Envolvly", place: "Remote",
+    title: "AI Consultant", date: "May 2026 – Jul 2026", org: "Independent (Lumber Manufacturer Client)", place: "Portland, OR (Remote)",
     bullets: [
-      "Orchestrated end-to-end development of a full-stack MERN (MongoDB, Express.js, React, Node.js) user marketplace application, implementing secure user authentication with Auth0 & complete payment system",
-      "Integrated Stripe Connect to build a comprehensive payment & payout system, handling everything from user payments for services to creator payouts, ensuring secure & reliable financial transactions",
-      "Handled system implementation to scale to 100+ users, watching product grow from 0 → 1",
+      "Built and deployed a production AI quoting agent (Claude via OpenRouter, N8N, SQL Server) that automated quoting from RFQ emails, saving each trader 10 hours a month and moving $150K+ in revenue",
+      "Built an operations dashboard showing each quote's margin against floor, customer history, stock coverage and the AI's reasoning trail",
     ],
   },
   {
-    title: "Machine Learning Intern", date: "June 2025 – August 2025", org: "The Estée Lauder Companies", place: "New York City, NY",
+    title: "Software Engineer", date: "Oct 2025 – Jun 2026", org: "BVR ST CO", place: "Corvallis, OR",
     bullets: [
-      "Developed an Agentic AI workflow to create an AI chatbot for analysis on 12,000 Live SKUs",
-      "Generated documentation, tooling, and architecture diagrams to enable long-term support after project handoff",
-      "Created & deployed Microservice to pull from 30+ databases, normalizing data & creating a SQLite reverse search index",
-      "Contributed to customer-facing chatbot expected to gross $1,500,000 in revenue",
+      "Developed core components of COORDINATOR, an agentic AI framework for real-time football strategy, using NVIDIA Nemotron for low-latency local reasoning",
+      "Implemented LoRA fine-tuning for reinforcement-based learning from verified game outcomes",
     ],
   },
   {
-    title: "Programmer & Technical Analyst Intern", date: "June 2024 – August 2024", org: "NJ Transit", place: "Newark, NJ",
+    title: "Artificial Intelligence Advisor", date: "Aug 2025 – Jun 2026", org: "Oregon State University, College of Business", place: "Corvallis, OR",
     bullets: [
-      "Achieved 85% code coverage through 200+ tests across 18 suites using Jest and Gherkin",
-      "Deployed CI/CD Azure pipelines, integrating automated tests to ensure reliable software delivery",
-      "Analyzed 127 .NET projects, automating the screening and auditing with Python & Pandas to build detailed documentation on projects APIs, databases, libraries, plugins, errors, & security vulnerabilities",
+      "Advised university teams on enterprise AI (Amazon Bedrock, Google Gemini, Microsoft Copilot) at a 35,000-student university",
+      "Authored agentic-AI training materials and reference codebases adopted as onboarding for the College of Business team",
     ],
   },
   {
-    title: "Software Engineering Intern", date: "June 2022 – August 2022", org: "Hats & Ladders", place: "New York, NY",
+    title: "Machine Learning Intern, AI & Innovations", date: "Jun 2025 – Aug 2025", org: "The Estée Lauder Companies", place: "New York, NY",
     bullets: [
-      "Created management panel that was used by 200,000+ unique users across 200+ organizations",
-      "Drafted, developed, & documented a company-wide administration user control panel",
-      "Practiced SCRUM & Agile methodologies on a diverse team, across multiple time zones, working asynchronously",
+      "Worked on the agentic AI workflow behind a product-recommendation chatbot projected at $1.5M in revenue and a 2% global add-to-cart uplift",
+      "Unified 12,000 live SKUs across 30+ brand databases into a SQLite reverse-search index and microservice; built Google ADK and MCP agent tooling",
     ],
   },
 ];
 
 export const projects: Project[] = [
   {
-    name: "GENESIS AI Hub", tech: "React.js, FastAPI, A2A, GCP, Technical Writing", date: "September 2025 – Present",
+    name: "StuntCV", tech: "Python, YOLOv8, ByteTrack, FastAPI", date: "Aug 2025 – Jul 2026",
     bullets: [
-      "Engineered a scalable, full-stack AI Agent Hub utilizing React & an Express REST API to provide centralized registration & monitoring for decentralized AI services",
-      "Implemented the A2A protocol to enable dynamic, secure registration & seamless cross-agent communication",
+      "Solo-built a computer-vision app for cheerleading stunt analysis that tracks each performer through lifts and computes center-of-mass height, velocity and shakiness",
     ],
   },
   {
-    name: "StuntCV", tech: "Python, Computer Vision (CV), MediaPipe, NumPy", date: "March 2024 – June 2024",
+    name: "EcoDues", tech: "Next.js, TypeScript, Supabase, Vercel", date: "Jul 2026 – Present",
     bullets: [
-      "Tracks 30+ landmarks on each performer, allowing data to be exported to .csv for viewing in a 3D space",
-      "Calculates stunt shakiness, velocity, weak points & more providing detailed information via proprietary algorithms",
+      "Solo-built and launched an open-source SaaS that turns AI token usage into CO₂e and monthly charity donations, in about 10 days",
+    ],
+  },
+  {
+    name: "Envolvly (Co-Founder)", tech: "MERN, Auth0, Stripe Connect", date: "Feb 2023 – Jun 2026",
+    bullets: [
+      "Co-founded a creator-marketplace SaaS and led full-stack development; won Oregon State's school-wide pitch competition",
     ],
   },
 ];
 
+export const education = {
+  school: "Oregon State University",
+  date: "Sep 2022 – Jun 2026",
+  degree: "B.S. Computer Science (Machine Learning & AI), Minor in Cybersecurity, Cum Laude",
+  place: "Corvallis, OR",
+  bullets: [
+    ["NCAA Division I Student-Athlete:", "Trained 20+ hours per week year-round while completing multiple internships."],
+  ],
+};
+
 export const skills: [string, string][] = [
-  ["Languages", "TypeScript, Python, C++, C, SQL, SQLite, JavaScript, PowerShell, Bash"],
-  ["AI/ML", "Nemotron, LoRA, MediaPipe, Agentic Frameworks, A2A, Pandas, NumPy, Matplotlib"],
-  ["Frameworks/Tools", "React, FastAPI, Node.js, Next.js, .NET, Django, Spring Boot, MongoDB, PostgreSQL"],
-  ["Cloud/DevOps", "GCP, AWS, Azure, CI/CD (GitHub Actions/Jenkins), Git, Docker"],
+  ["Languages", "Python, TypeScript, JavaScript, SQL (PostgreSQL, SQL Server, SQLite), C, C++, C#, Bash"],
+  ["AI/ML", "LLM Agents, RAG, Prompt Engineering, Claude, OpenAI, Gemini, Google ADK, A2A, MCP, LangChain, Vector Databases, LoRA"],
+  ["Web", "Next.js, React, Node.js, Express, FastAPI, Supabase, MongoDB, Stripe Connect"],
+  ["Cloud/DevOps", "GCP, AWS, Azure, Vercel, Docker, GitHub Actions, N8N, Linux"],
 ];

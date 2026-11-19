@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import st from "./resume.module.css";
-import { contact, education, experience, projects, skills } from "./resume-data";
+import { contact, education, experience, projects, skills, summary } from "./resume-data";
 
 export default function ResumeBody() {
   return (
@@ -15,14 +15,8 @@ export default function ResumeBody() {
         ))}
       </p>
 
-      <h2 className={st.h2}>Education</h2>
-      <div className={st.entry}>
-        <div className={st.row}><span className={st.title}>{education.school}</span><span>{education.date}</span></div>
-        <div className={st.row}><span className={st.it}>{education.degree}</span><span className={st.it}>{education.place}</span></div>
-        <ul className={st.bullets}>
-          {education.bullets.map(([k, v]) => <li key={k}><b>{k}</b> {v}</li>)}
-        </ul>
-      </div>
+      <h2 className={st.h2}>Summary</h2>
+      <p className={st.summary}>{summary}</p>
 
       <h2 className={st.h2}>Experience</h2>
       {experience.map((e) => (
@@ -41,7 +35,16 @@ export default function ResumeBody() {
         </div>
       ))}
 
-      <h2 className={st.h2}>Technical Skills</h2>
+      <h2 className={st.h2}>Education</h2>
+      <div className={st.entry}>
+        <div className={st.row}><span className={st.title}>{education.school}</span><span>{education.date}</span></div>
+        <div className={st.row}><span className={st.it}>{education.degree}</span><span className={st.it}>{education.place}</span></div>
+        <ul className={st.bullets}>
+          {education.bullets.map(([k, v]) => <li key={k}><b>{k}</b> {v}</li>)}
+        </ul>
+      </div>
+
+      <h2 className={st.h2}>Skills</h2>
       <p className={st.skills}>
         {skills.map(([k, v]) => <Fragment key={k}><b>{k}</b>: {v}<br /></Fragment>)}
       </p>
